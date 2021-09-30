@@ -1,5 +1,5 @@
 //commandwatcher.hpp
-#ifndef COMANDWATCHER
+#ifndef COMMANDWATCHER
 #define COMMANDWATCHER
 
 #include <string>

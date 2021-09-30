@@ -1,3 +1,6 @@
+// pointer.hpp
+#ifndef POINTER
+#define POINTER
 template<typename T>
 class Pointer{
 public: 
@@ -11,3 +14,5 @@ public:
 private:
     T* ptr;
 };
+
+#endif // POINTER
