@@ -2,7 +2,6 @@
 #include <iostream>
 
 CommandWatcher::CommandWatcher()
-: m_callbackCount(0)
 {
 
 }
@@ -19,8 +18,7 @@ void CommandWatcher::disconnect()
 
 void CommandWatcher::registerCallback(std::string str, void (*func)(std::string))
 {
-    m_callbackMap.insert(std::pair<int, Callback>(m_callbackCount, Callback(str, func)));
-    ++m_callbackCount;
+    m_callbacks.push_back(Callback(str, func));
 }
 
 void CommandWatcher::deleteCallback(std::string, void (*func)(std::string))
@@ -28,16 +26,18 @@ void CommandWatcher::deleteCallback(std::string, void (*func)(std::string))
     
 }
 
-void CommandWatcher::deleteCallback(int)
+void CommandWatcher::deleteCallback(int index)
 {
-
+    if(index < m_callbacks.size()){
+        m_callbacks.erase(m_callbacks.begin() + index);
+    }
 }
 
 void CommandWatcher::showCallbacks()
 {
     for (int i = 0; i < m_callbacks.size(); i++)
     {
-        std::cout << "(" << i << ") - '" << m_callbackList;
+        std::cout << "(" << i << ") - '" << m_callbacks.at(i).command << "'\n";
     }
 }
 

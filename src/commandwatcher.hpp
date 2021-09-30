@@ -37,7 +37,6 @@ public:
     void stopWatching();
 
     std::vector<Callback> m_callbacks;
-    int m_callbackCount;
 };
 
 #endif // COMMANDWATCHER
