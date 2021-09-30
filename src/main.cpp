@@ -1,10 +1,19 @@
 #include "controller.hpp"
 #include <iostream>
+#include <unistd.h>
+
+
 
 int main (int argc, char* argv[])
 {
-    Pointer<Controller> c;
-    c->start();
+  int sleepTime(5);
 
-    return 0;
+  Pointer<Controller> c;
+  while (true)
+  {
+    c->start();
+    sleep(sleepTime);
+  }
+
+  return 0;
 }
