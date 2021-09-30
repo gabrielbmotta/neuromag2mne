@@ -9,3 +9,6 @@ neuromag2mne
 
 out/
 build/
+
+
+.DS_Store
