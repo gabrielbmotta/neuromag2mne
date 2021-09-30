@@ -14,7 +14,6 @@ int main (int argc, char* argv[])
   while (true)
   {
     c->start();
-    std::cout << "Hello again!!\n";
     sleep(sleepTime);
   }
 

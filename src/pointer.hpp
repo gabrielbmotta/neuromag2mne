@@ -9,7 +9,7 @@ public:
 
     T* operator -> () const
     {
-        return *ptr;
+        return ptr;
     }
 private:
     T* ptr;
