@@ -1,4 +1,15 @@
 #include <string>
+#include <map>
+
+struct Callback{
+    Callback(std::string str, void (*func)(std::string))
+    : command(str)
+    , function(func)
+    { };
+
+    std::string command;
+    void (*function)(std::string);
+};
 
 class CommandWatcher
 {
@@ -18,4 +29,8 @@ public:
     void startWatching();
 
     void stopWatching();
+
+
+    std::map<int, Callback> m_callbackMap;
+    int m_callbackCount;
 };
