@@ -1,7 +1,9 @@
-#include "controller.hpp"
+// neuromag2mne application
+
 #include <iostream>
 #include <unistd.h>
 
+#include "neuromag2mne.hpp"
 
 
 int main (int argc, char* argv[])
