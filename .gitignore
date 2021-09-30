@@ -1,6 +1,9 @@
 Makefile
-cmake_install.cmake
-CMakeFiles/
-CMakeCache.txt
 
 neuromag2mne
+
+
+*.obj
+*.a
+*.o
+
