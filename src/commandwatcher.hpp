@@ -3,7 +3,7 @@
 #define COMMANDWATCHER
 
 #include <string>
-#include <map>
+#include <vector>
 
 struct Callback{
     Callback(std::string str, void (*func)(std::string))
@@ -28,19 +28,16 @@ public:
 
     void deleteCallback(std::string, void (*func)(std::string));
 
+    void showCallbacks();
+
     void deleteCallback(int);
 
     void startWatching();
 
     void stopWatching();
-<<<<<<< HEAD
 
-
-    std::map<int, Callback> m_callbackMap;
+    std::vector<Callback> m_callbacks;
     int m_callbackCount;
-};
-=======
 };
 
 #endif // COMMANDWATCHER
->>>>>>> c83c6d1fcb8f4f4d4627bd4de4b993b834e15543
