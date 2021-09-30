@@ -1,3 +1,5 @@
+#pragma once
+
 //Block Tags
 #define FIFF_BLOCK_START    104
 #define FIFF_BLOCK_END      105
