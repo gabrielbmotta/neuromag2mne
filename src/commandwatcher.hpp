@@ -2,25 +2,21 @@
 #ifndef COMMANDWATCHER
 #define COMMANDWATCHER
 
+#include <collector_info.hpp>
+#include <callback.hpp>
 #include <string>
 #include <vector>
-
-struct Callback{
-    Callback(std::string str, void (*func)(std::string))
-    : command(str)
-    , function(func)
-    { };
-
-    std::string command;
-    void (*function)(std::string);
-};
 
 class CommandWatcher
 {
 public:
+    typedef Callback<std::string, void (*)(std::string)> CommandCallback;
+
     CommandWatcher();
 
     void connect();
+
+    void connect(int, std::string);
 
     void disconnect();
 
@@ -36,7 +32,9 @@ public:
 
     void stopWatching();
 
-    std::vector<Callback> m_callbacks;
+
+private:
+    std::vector<CommandCallback> m_callbacks;
 };
 
 #endif // COMMANDWATCHER
