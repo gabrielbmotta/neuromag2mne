@@ -1,4 +1,6 @@
-#pragma once
+// FIFF.HPP
+#ifndef FIFF
+#define FIFF
 
 //Tags
 #define FIFF_NCHAN          200
@@ -11,3 +13,4 @@
 //Block Types
 #define FIFFB_RAW_DATA      102
 
+#endif // FIFF

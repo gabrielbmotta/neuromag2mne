@@ -1,4 +1,6 @@
-#pragma once
+// DATAWATCHER
+#ifndef DATAWATCHER
+#define DATAWATCHER
 
 #include "types.hpp"
 
@@ -10,3 +12,5 @@ public:
 private:
 
 };
+
+#endif // DATAWATCHER

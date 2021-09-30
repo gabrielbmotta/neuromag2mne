@@ -1,3 +1,7 @@
+//commandwatcher.hpp
+#ifndef COMMANDWATCHER
+#define COMMANDWATCHER
+
 #include <string>
 #include <map>
 
@@ -29,8 +33,14 @@ public:
     void startWatching();
 
     void stopWatching();
+<<<<<<< HEAD
 
 
     std::map<int, Callback> m_callbackMap;
     int m_callbackCount;
 };
+=======
+};
+
+#endif // COMMANDWATCHER
+>>>>>>> c83c6d1fcb8f4f4d4627bd4de4b993b834e15543
