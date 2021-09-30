@@ -3,9 +3,11 @@
 
 int main (int argc, char* argv[])
 {
-    SharedMemoryWatcher watcher;
+    // SharedMemoryWatcher watcher;
     
-    watcher.watch();
+    // watcher.watch();
+
+    std::cout << "Hello!\n";
 
     return 0;
 }

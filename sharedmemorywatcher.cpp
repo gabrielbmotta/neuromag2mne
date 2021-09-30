@@ -30,15 +30,18 @@ void SharedMemoryWatcher::processTag(const Tag& tag)
             break;
 
         case FIFF_SFREQ:
-            m_currentMeasurement.sampleFrequency = *(float*)(tag.data));
+            m_currentMeasurement.sampleFrequency = *((float*)(tag.data));
             break;
 
-        
+        case FIFF_BLOCK_START:
+            break;
+
     }
 }
 
 Tag SharedMemoryWatcher::getTagFromShMem()
 {
-
+    Tag tag;
+    return tag;
 }
 
