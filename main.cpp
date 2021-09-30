@@ -1,6 +1,4 @@
-#include "fiff.h"
-#include "sharedmemorywatcher.h"s
-
+#include "sharedmemorywatcher.hpp"
 #include <iostream>
 
 int main (int argc, char* argv[])

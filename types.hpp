@@ -7,7 +7,7 @@ struct Tag
     char* data;
 };
 
-struct Measurement
+struct MeasurementInfo
 {
     float   sampleFrequency;
     int     numChannels;

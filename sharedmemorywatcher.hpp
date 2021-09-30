@@ -1,12 +1,12 @@
 #pragma once
 
-#include "types.h"
+#include "types.hpp"
+#include "shmem.hpp"
 
 class SharedMemoryWatcher
 {
 public:
     SharedMemoryWatcher();
-
     void watch();
 
 private:
@@ -17,5 +17,7 @@ private:
 
     Tag getTagFromShMem();
 
-    Measurement* currentMeasurement;
+    MeasurementInfo m_currentMeasurement;
+
+    bool m_isWatching;
 };
