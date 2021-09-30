@@ -2,8 +2,8 @@
 #ifndef COMMANDWATCHER
 #define COMMANDWATCHER
 
-#include <collector_info.hpp>
-#include <callback.hpp>
+#include "collector_info.hpp"
+#include "callback.hpp"
 #include <string>
 #include <vector>
 
