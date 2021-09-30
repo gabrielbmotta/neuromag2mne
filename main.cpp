@@ -1,13 +1,10 @@
-#include "sharedmemorywatcher.hpp"
+#include "controller.hpp"
 #include <iostream>
 
 int main (int argc, char* argv[])
 {
-    // SharedMemoryWatcher watcher;
-    
-    // watcher.watch();
-
-    std::cout << "Hello!\n";
+    Pointer<Controller> c;
+    c->start();
 
     return 0;
 }
