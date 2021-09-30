@@ -1,3 +1,7 @@
+//commandwatcher.hpp
+#ifndef COMANDWATCHER
+#define COMMANDWATCHER
+
 #include <string>
 
 class CommandWatcher
@@ -19,3 +23,5 @@ public:
 
     void stopWatching();
 };
+
+#endif // COMMANDWATCHER

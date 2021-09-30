@@ -1,3 +1,5 @@
+#ifndef TYPES
+#define TYPES
 struct Tag
 {
     int kind;
@@ -12,3 +14,5 @@ struct MeasurementInfo
     float   sampleFrequency;
     int     numChannels;
 };
+
+#endif // TYPES

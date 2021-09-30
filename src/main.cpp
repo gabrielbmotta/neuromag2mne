@@ -1,19 +1,20 @@
 // neuromag2mne application
 
-#include <iostream>
 #include <unistd.h>
+#include <iostream>
+#include <iostream>
 
 #include "neuromag2mne.hpp"
-
 
 int main (int argc, char* argv[])
 {
   int sleepTime(5);
 
-  Pointer<Controller> c;
+  // Pointer<Controller> c;
   while (true)
   {
-    c->start();
+    // c->start();
+    std::cout << "Hello again!!\n";
     sleep(sleepTime);
   }
 
