@@ -1,5 +1,6 @@
 #include "datawatcher.hpp"
 #include <iostream>
+#include "thread.hpp"
 
 DataWatcher::DataWatcher()
 {

@@ -1,5 +1,6 @@
 #include "commandwatcher.hpp"
 #include <iostream>
+#include"thread.hpp"
 
 CommandWatcher::CommandWatcher()
 {
