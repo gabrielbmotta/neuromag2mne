@@ -1,8 +1,13 @@
 #include "commandwatcher.hpp"
 #include <iostream>
-#include"thread.hpp"
+
+void* watchCommands(void* input)
+{
+    return NULL;
+}
 
 CommandWatcher::CommandWatcher()
+: m_isWatching(false)
 {
 
 }
@@ -24,7 +29,11 @@ void CommandWatcher::disconnect()
 
 void CommandWatcher::registerCallback(std::string str, void (*func)(std::string))
 {
-    m_callbacks.push_back(CommandCallback(str, func));
+    if(!m_isWatching)
+    {
+        m_callbacks.push_back(CommandCallback(str, func));
+        std::cout << "Unable to register callback while watching.\n";
+    }
 }
 
 void CommandWatcher::deleteCallback(std::string, void (*func)(std::string))
@@ -52,10 +61,25 @@ void CommandWatcher::showCallbacks()
 
 void CommandWatcher::startWatching()
 {
-
+    if(pthread_create(&m_thread, NULL, watchCommands, NULL))
+    {
+        std::cout << "Unable to start CommandWatcehr thread;\n";
+        return;
+    }
+    m_isWatching = true;
 }
 
 void CommandWatcher::stopWatching()
 {
+    if (pthread_join(m_thread, NULL))
+    {
+        std::cout << "Unable to stop CommandWatcehr thread;\n";
+        return;
+    }
+    m_isWatching = false;
+}
 
+bool CommandWatcher::isWatching()
+{
+    return m_isWatching;
 }

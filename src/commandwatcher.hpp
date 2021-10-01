@@ -4,8 +4,12 @@
 
 #include "collector_info.hpp"
 #include "callback.hpp"
+#include "thread.hpp"
+
 #include <string>
 #include <vector>
+
+void* watchCommands(void*);
 
 class CommandWatcher
 {
@@ -32,8 +36,15 @@ public:
 
     void stopWatching();
 
+    bool isWatching();
+
 private:
+
     std::vector<CommandCallback> m_callbacks;
+
+    bool m_isWatching;
+
+    pthread_t m_thread;
 };
 
 #endif // COMMANDWATCHER

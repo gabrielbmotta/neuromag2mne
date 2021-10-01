@@ -2,24 +2,24 @@
 #include <iostream>
 #include "thread.hpp"
 
+void* watchData(void* input)
+{
+    return NULL;
+}
+
 DataWatcher::DataWatcher()
-{
-
-}
-
-void DataWatcher::startWatching()
-{
-
-}
-
-void DataWatcher::stopWatching()
+: m_isWatching(false)
 {
 
 }
 
 void DataWatcher::registerCallback(std::string str, void (*func)(char*))
 {
-    m_callbacks.push_back(DataCallback(str, func));
+    if(!m_isWatching)
+    {
+        m_callbacks.push_back(DataCallback(str, func));
+        std::cout << "Unable to register callback while watching.\n";
+    }
 }
 
 void DataWatcher::deleteCallback(std::string, void (*func)(char*))
@@ -43,4 +43,29 @@ void DataWatcher::showCallbacks()
     {
         std::cout << "(" << i << ") - '" << m_callbacks.at(i).m_trigger << "'\n";
     }
+}
+
+void DataWatcher::startWatching()
+{
+    if(pthread_create(&m_thread, NULL, watchData, NULL))
+    {
+        std::cout << "Unable to start CommandWatcehr thread;\n";
+        return;
+    }
+    m_isWatching = true;
+}
+
+void DataWatcher::stopWatching()
+{
+    if(pthread_join(m_thread, NULL))
+    {
+        std::cout << "Unable to stop CommandWatcehr thread;\n";
+        return; 
+    }
+    m_isWatching = false;
+}
+
+bool DataWatcher::isWatching()
+{
+    return m_isWatching;
 }

@@ -4,8 +4,12 @@
 
 #include "types.hpp"
 #include "callback.hpp"
+#include "thread.hpp"
+
 #include <string>
 #include <vector>
+
+void* watchData(void*);
 
 class DataWatcher
 {
@@ -13,10 +17,6 @@ public:
     typedef Callback<std::string, void (*)(char*)> DataCallback;
 
     DataWatcher();
-
-    void startWatching();
-
-    void stopWatching();
 
     void registerCallback(std::string, void (*func)(char*));
 
@@ -26,8 +26,18 @@ public:
 
     void deleteCallback(int);
 
+    void startWatching();
+
+    void stopWatching();
+
+    bool isWatching();
+
 private:
     std::vector<DataCallback> m_callbacks;
+
+    bool m_isWatching;
+
+    pthread_t m_thread;
 };
 
 #endif // DATAWATCHER
