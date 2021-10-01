@@ -35,7 +35,10 @@ void DataWatcher::deleteCallback(int index)
 
 void DataWatcher::showCallbacks()
 {
-    for (int i = 0; i < m_callbacks.size(); i++)
+    int i = 0;
+    std::vector<DataCallback>::iterator it;
+
+    for(it = m_callbacks.begin(); it != m_callbacks.end(); it++, i++)
     {
         std::cout << "(" << i << ") - '" << m_callbacks.at(i).m_trigger << "'\n";
     }
