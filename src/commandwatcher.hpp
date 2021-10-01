@@ -32,7 +32,6 @@ public:
 
     void stopWatching();
 
-
 private:
     std::vector<CommandCallback> m_callbacks;
 };
