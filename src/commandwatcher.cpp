@@ -96,3 +96,4 @@ bool CommandWatcher::isWatching()
 {
     return m_isWatching;
 }
+

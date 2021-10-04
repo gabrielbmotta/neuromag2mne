@@ -16,3 +16,4 @@ struct MeasurementInfo
 };
 
 #endif // TYPES
+

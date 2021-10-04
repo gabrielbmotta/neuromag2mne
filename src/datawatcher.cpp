@@ -1,6 +1,5 @@
 #include "datawatcher.hpp"
 #include <iostream>
-#include "thread.hpp"
 
 void* watchData(void* input)
 {
@@ -72,3 +71,4 @@ bool DataWatcher::isWatching()
 {
     return m_isWatching;
 }
+

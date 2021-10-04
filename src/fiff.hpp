@@ -14,3 +14,4 @@
 #define FIFFB_RAW_DATA      102
 
 #endif // FIFF
+

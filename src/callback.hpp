@@ -12,4 +12,6 @@ struct Callback{
     B m_function;
 };
 
+
 #endif
+

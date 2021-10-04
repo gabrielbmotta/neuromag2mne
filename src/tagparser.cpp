@@ -14,3 +14,4 @@ void TagParser::processTag(const Tag& tag)
 
     }
 }
+
