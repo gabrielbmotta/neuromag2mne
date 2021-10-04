@@ -4,6 +4,7 @@
 
 void* watchCommands(void* input)
 {
+    CommandWatcher* ptr = static_cast<CommandWatcher*>(input);
     while (true)
     {
         std::cout << "HI! \n";
@@ -68,7 +69,7 @@ void CommandWatcher::showCallbacks()
 
 void CommandWatcher::startWatching()
 {
-    if(pthread_create(&m_thread, NULL, watchCommands, NULL))
+    if(pthread_create(&m_thread, NULL, watchCommands, this))
     {
         std::cout << "Unable to start CommandWatcehr thread;\n";
         return;
@@ -79,7 +80,7 @@ void CommandWatcher::startWatching()
 void CommandWatcher::stopWatching()
 {
     std::cout  <<  "StopWatching\n";
-    if (pthread_kill(this->m_thread, 1))
+    if (pthread_cancel(this->m_thread))
     {
         std::cout << "Unable to stop CommandWatcehr thread;\n";
         return;
