@@ -15,10 +15,13 @@ DataWatcher::DataWatcher()
 
 void DataWatcher::registerCallback(std::string str, void (*func)(char*))
 {
-    if(!m_isWatching)
+    if(m_isWatching)
+    {
+        std::cout << "Unable to register callback while watching.\n";
+    }
+    else
     {
         m_callbacks.push_back(DataCallback(str, func));
-        std::cout << "Unable to register callback while watching.\n";
     }
 }
 

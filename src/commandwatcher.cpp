@@ -8,6 +8,7 @@ void* watchCommands(void* input)
     while (true)
     {
         std::cout << "HI! \n";
+        ptr->showCallbacks();
         sleep(1);
     }
     
@@ -39,8 +40,11 @@ void CommandWatcher::registerCallback(std::string str, void (*func)(std::string)
 {
     if(m_isWatching)
     {
-        m_callbacks.push_back(CommandCallback(str, func));
         std::cout << "Unable to register callback while watching.\n";
+    }
+    else 
+    {
+        m_callbacks.push_back(CommandCallback(str, func));
     }
 }
 
