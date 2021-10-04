@@ -1,7 +1,7 @@
 # Makefile for compiling and linking 
 
 CC = g++
-FLAGS = -g -c -std=c++98 #-std=c++11 -std=c++14 -std=c++17
+FLAGS = -g -c -std=c++98#-std=c++11 -std=c++14 -std=c++17
 
 SOURCEDIR = src
 OUTDIR = out

@@ -1,11 +1,18 @@
 
 #include "controller.hpp"
+#include <unistd.h>
 
+
+void aaaaa(std::string aa){
+};
 
 Controller::Controller()
 : mIsActive(false)
 {
-
+    m_commandWatcher->registerCallback("test", aaaaa);
+    m_commandWatcher->startWatching();
+    sleep(5);
+    m_commandWatcher->stopWatching();
 }
 
 void Controller::start()

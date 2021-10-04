@@ -20,8 +20,8 @@ public:
 private:
     bool mIsActive;
 
-    Pointer<CommandWatcher> commandWatcher;
-    Pointer<DataWatcher> dataWatcher;
+    Pointer<CommandWatcher> m_commandWatcher;
+    Pointer<DataWatcher> m_dataWatcher;
 };
 
 #endif // CONTROLLER
