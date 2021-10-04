@@ -11,8 +11,6 @@ Controller::Controller()
 {
     m_commandWatcher->registerCallback("test", aaaaa);
     m_commandWatcher->startWatching();
-    sleep(5);
-    m_commandWatcher->stopWatching();
 }
 
 void Controller::start()
@@ -20,6 +18,12 @@ void Controller::start()
     if(mIsActive)
     {
         std::cout << "Everything is working fine. Move along!\n";
+        if(m_commandWatcher->isWatching()){
+            m_commandWatcher->stopWatching();
+        } else{
+            m_commandWatcher->startWatching();
+        }
+
     } else {
         std::cout << "I'm actually going to do some work here.\n";
         mIsActive = true;
