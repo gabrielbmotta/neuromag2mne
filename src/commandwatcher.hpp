@@ -5,6 +5,7 @@
 #include "collector_info.hpp"
 #include "callback.hpp"
 #include "thread.hpp"
+#include "socket.hpp"
 
 #include <string>
 #include <vector>
@@ -47,7 +48,7 @@ private:
 
     pthread_t m_thread;
 
-    int m_tcpSocket;
+    TCPSocket m_socket;
 };
 
 #endif // COMMANDWATCHER
