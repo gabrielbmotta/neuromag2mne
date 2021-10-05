@@ -43,8 +43,11 @@ private:
     std::vector<CommandCallback> m_callbacks;
 
     bool m_isWatching;
+    bool m_isConnected;
 
     pthread_t m_thread;
+
+    int m_tcpSocket;
 };
 
 #endif // COMMANDWATCHER

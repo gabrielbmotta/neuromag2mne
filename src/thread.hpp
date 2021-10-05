@@ -1,3 +1,6 @@
+#ifndef THREADING
+#define THREADING
+
 // #if __cplusplus < 201103L
 
 //#if defined(unix) || defined(__unix__) || defined(__unix)
@@ -10,3 +13,4 @@
 
 // #endif
 
+#endif

@@ -1,4 +1,5 @@
 #include "commandwatcher.hpp"
+#include "socket.hpp"
 #include <iostream>
 #include <unistd.h>
 
@@ -17,18 +18,34 @@ void* watchCommands(void* input)
 
 CommandWatcher::CommandWatcher()
 : m_isWatching(false)
+, m_isConnected(false)
 {
 
 }
 
 void CommandWatcher::connect()
 {
-    connect(COLLECTOR_PORT, COLLECTOR_PASS);
+    CommandWatcher::connect(COLLECTOR_PORT, COLLECTOR_PASS);
 }
 
 void CommandWatcher::connect(int port, std::string password)
 {
+    m_tcpSocket = socket(AF_INET, SOCK_STREAM, 0);
+    sockaddr_in server_address;
 
+    server_address.sin_addr.s_addr = inet_addr(COLLECTOR_ADDR);
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(COLLECTOR_PORT);
+
+    if (::connect(m_tcpSocket , (struct sockaddr *)&server_address , sizeof(server_address)) < 0)
+	{
+		std::cout << "Unable to connect to " << COLLECTOR_ADDR << ":" << COLLECTOR_PORT << "\n";
+	}
+    else
+    {
+        std::cout << "Connected to" << COLLECTOR_ADDR << ":" << COLLECTOR_PORT << "\n";
+        std::cout << "Socket ID: " << m_tcpSocket << "\n";
+    }
 }
 
 void CommandWatcher::disconnect()
