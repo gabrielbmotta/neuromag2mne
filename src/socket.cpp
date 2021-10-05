@@ -9,6 +9,9 @@ TCPSocket::TCPSocket()
 
 bool TCPSocket::connect(const char* addr, int port)
 {
+    while(m_isConnected){
+        disconnect();
+    }
     m_socketID = socket(AF_INET, SOCK_STREAM, 0);
     sockaddr_in server_address;
 
@@ -25,13 +28,27 @@ bool TCPSocket::connect(const char* addr, int port)
     {
         std::cout << "Connected to" << addr << ":" << port << "\n";
         std::cout << "Socket ID: " << m_socketID << "\n";
+        m_isConnected = true;
         return true;
     }
 }
 
 bool TCPSocket::disconnect()
 {
-    return true;
+    if(!m_isConnected)
+    {
+        return true;
+    }
+
+    if(close(m_socketID) != 0)
+    {
+        return false;
+    }
+    else
+    {
+        m_isConnected = false;
+        return true;
+    }
 }
 
 bool TCPSocket::isConnected()
@@ -41,6 +58,11 @@ bool TCPSocket::isConnected()
 
 void TCPSocket::send(const char* msg)
 {
+    if(!m_isConnected)
+    {
+        return;
+    }
+
     if(::send(m_socketID, msg, strlen(msg), 0) < 0)
 	{
 		std::cout << "Failed to send message: " << msg << "\n";

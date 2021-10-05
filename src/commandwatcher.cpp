@@ -17,8 +17,7 @@ void* watchCommands(void* input)
 }
 
 CommandWatcher::CommandWatcher()
-: m_isWatching(false)
-, m_isConnected(false)
+: m_state(DISCONNECTED_NOT_WATCHING)
 {
 
 }
@@ -30,18 +29,27 @@ void CommandWatcher::connect()
 
 void CommandWatcher::connect(int port, std::string password)
 {
+    if(m_state != DISCONNECTED_NOT_WATCHING){
+        disconnect();
+    }
+
     m_socket.connect(COLLECTOR_ADDR, COLLECTOR_PORT);
-    
+    m_socket.send(TELNET_CMD_PASS);
+    m_socket.send(TELNET_CMD_NAME);
 }
 
 void CommandWatcher::disconnect()
 {
-
+    if(m_state != DISCONNECTED_NOT_WATCHING){
+        stopWatching();
+        m_socket.disconnect();
+        m_state = DISCONNECTED_NOT_WATCHING;
+    }
 }
 
 void CommandWatcher::registerCallback(std::string str, void (*func)(std::string))
 {
-    if(m_isWatching)
+    if(m_state = CONNECTED_WATCHING)
     {
         std::cout << "Unable to register callback while watching.\n";
     }
@@ -76,27 +84,30 @@ void CommandWatcher::showCallbacks()
 
 void CommandWatcher::startWatching()
 {
-    if(pthread_create(&m_thread, NULL, watchCommands, this))
-    {
-        std::cout << "Unable to start CommandWatcehr thread;\n";
-        return;
+    if(m_state == CONNECTED_NOT_WATCHING){
+        if(pthread_create(&m_thread, NULL, watchCommands, this))
+        {
+            std::cout << "Unable to start CommandWatcehr thread;\n";
+            return;
+        }
+        m_state = CONNECTED_WATCHING;
     }
-    m_isWatching = true;
 }
 
 void CommandWatcher::stopWatching()
 {
-    std::cout  <<  "StopWatching\n";
-    if (pthread_cancel(this->m_thread))
-    {
-        std::cout << "Unable to stop CommandWatcehr thread;\n";
-        return;
+    if(m_state == CONNECTED_WATCHING){
+        std::cout  <<  "StopWatching\n";
+        if (pthread_cancel(this->m_thread))
+        {
+            std::cout << "Unable to stop CommandWatcehr thread;\n";
+            return;
+        }
+        m_state = CONNECTED_NOT_WATCHING;
     }
-    m_isWatching = false;
 }
 
-bool CommandWatcher::isWatching()
+CommandWatcher::state CommandWatcher::getState()
 {
-    return m_isWatching;
+    return m_state;
 }
-

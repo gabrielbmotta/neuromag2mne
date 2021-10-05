@@ -17,6 +17,12 @@ class CommandWatcher
 public:
     typedef Callback<std::string, void (*)(std::string)> CommandCallback;
 
+    enum state{
+        DISCONNECTED_NOT_WATCHING,
+        CONNECTED_NOT_WATCHING,
+        CONNECTED_WATCHING
+    };
+
     CommandWatcher();
 
     void connect();
@@ -37,13 +43,13 @@ public:
 
     void stopWatching();
 
-    bool isWatching();
+    state getState();
 
 private:
 
     std::vector<CommandCallback> m_callbacks;
 
-    bool m_isWatching;
+    state m_state;
 
     pthread_t m_thread;
 
