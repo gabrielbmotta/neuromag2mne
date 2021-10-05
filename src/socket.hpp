@@ -8,12 +8,15 @@
 
 class TCPSocket{
 public:
-    TCPSocket() = default;
+    TCPSocket();
     bool connect(const char* addr, int port);
     bool disconnect();
+    bool isConnected();
+    void send(const char* msg);
 
 private:
     int m_socketID;
+    bool m_isConnected;
 };
 
 #endif

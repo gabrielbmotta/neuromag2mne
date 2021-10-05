@@ -31,6 +31,7 @@ void CommandWatcher::connect()
 void CommandWatcher::connect(int port, std::string password)
 {
     m_socket.connect(COLLECTOR_ADDR, COLLECTOR_PORT);
+    
 }
 
 void CommandWatcher::disconnect()
