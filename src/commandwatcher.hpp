@@ -45,6 +45,9 @@ public:
 
     state getState();
 
+    void checkForCallbacks(std::string);
+
+    TCPSocket m_socket;
 private:
 
     std::vector<CommandCallback> m_callbacks;
@@ -52,8 +55,6 @@ private:
     state m_state;
 
     pthread_t m_thread;
-
-    TCPSocket m_socket;
 };
 
 #endif // COMMANDWATCHER

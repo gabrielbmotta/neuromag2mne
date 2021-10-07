@@ -6,6 +6,7 @@
 #include <netinet/tcp.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <string>
 
 class TCPSocket{
 public:
@@ -14,6 +15,7 @@ public:
     bool disconnect();
     bool isConnected();
     void send(const char* msg);
+    std::string receive_blocking();
 
 private:
     int m_socketID;
