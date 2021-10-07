@@ -6,9 +6,16 @@
 void* watchCommands(void* input)
 {
     CommandWatcher* ptr = static_cast<CommandWatcher*>(input);
+    ptr->m_socket.send(TELNET_CMD_MONI);
+
     while (true)
     {
-        std::cout << "HI! \n";
+        std::string reply = ptr->m_socket.receive_blocking();
+        if (reply.size())
+        {
+            std::cout << "We've recieved a message!\n";
+        }
+        
         ptr->showCallbacks();
         sleep(1);
     }
