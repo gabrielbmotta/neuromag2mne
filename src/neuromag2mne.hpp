@@ -4,7 +4,7 @@
 
 
 #include "controller.hpp"
-#include "pointer.hpp"
+#include "scopedpointer.hpp"
 
 
 

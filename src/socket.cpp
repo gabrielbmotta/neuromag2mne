@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstring>
+
 #include "socket.hpp"
 
 TCPSocket::TCPSocket()
@@ -17,7 +19,7 @@ bool TCPSocket::connect(const char* addr, int port)
 
     server_address.sin_addr.s_addr = inet_addr(addr);
     server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(port);
+    server_address.sin_port = htons(static_cast<uint>(port));
 
     if (::connect(m_socketID, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
 	{

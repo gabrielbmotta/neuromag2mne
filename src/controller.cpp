@@ -3,13 +3,15 @@
 #include <unistd.h>
 
 
-void aaaaa(std::string aa){
-};
+void testCallback(std::string aa){
+    // friend Controller;
+
+}
 
 Controller::Controller()
 : mIsActive(false)
 {
-    m_commandWatcher->registerCallback("test", aaaaa);
+    m_commandWatcher->registerCallback("test", testCallback);
     m_commandWatcher->startWatching();
 }
 
@@ -26,7 +28,7 @@ void Controller::start()
     }
 }
 
-void printCommand(const std::string& s)
+void Controller::printCommand(const std::string& s) const
 {
     std::cout << s << "\n";
 }

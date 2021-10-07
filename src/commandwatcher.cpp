@@ -29,7 +29,8 @@ void CommandWatcher::connect()
 
 void CommandWatcher::connect(int port, std::string password)
 {
-    if(m_state != DISCONNECTED_NOT_WATCHING){
+    if(m_state != DISCONNECTED_NOT_WATCHING)
+    {
         disconnect();
     }
 
@@ -40,7 +41,8 @@ void CommandWatcher::connect(int port, std::string password)
 
 void CommandWatcher::disconnect()
 {
-    if(m_state != DISCONNECTED_NOT_WATCHING){
+    if(m_state != DISCONNECTED_NOT_WATCHING)
+    {
         stopWatching();
         m_socket.disconnect();
         m_state = DISCONNECTED_NOT_WATCHING;
@@ -49,7 +51,7 @@ void CommandWatcher::disconnect()
 
 void CommandWatcher::registerCallback(std::string str, void (*func)(std::string))
 {
-    if(m_state = CONNECTED_WATCHING)
+    if( m_state == CONNECTED_WATCHING )
     {
         std::cout << "Unable to register callback while watching.\n";
     }
@@ -66,7 +68,8 @@ void CommandWatcher::deleteCallback(std::string, void (*func)(std::string))
 
 void CommandWatcher::deleteCallback(int index)
 {
-    if(index < m_callbacks.size()){
+    if(index < m_callbacks.size())
+    {
         m_callbacks.erase(m_callbacks.begin() + index);
     }
 }
