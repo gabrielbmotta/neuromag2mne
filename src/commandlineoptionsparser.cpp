@@ -2,7 +2,9 @@
 
 CommandlineOptionsParser::CommandlineOptionsParser()
 : m_bOptionsParsedCorrectly(false),
-  m_bStopOnErrors(defaultSetStopOnErrors)
+  m_bStopOnErrors(true),
+  m_helpDescriptionPrintMargin1(6),
+  m_helpDescriptionPrintMargin2(5)
 {
 }
 
@@ -26,7 +28,7 @@ void CommandlineOptionsParser::addOption(std::string& name,
                                          std::vector<std::string>& flags,
                                          std::vector<std::string>& helpLine)
 {
-    m_options.push_back(CommandlineOption(name, flags, helpLine, defaultOptionType));
+    m_options.push_back(CommandlineOption(name, flags, helpLine));
 }
 
 void CommandlineOptionsParser::addOption(std::string& name,
@@ -34,7 +36,7 @@ void CommandlineOptionsParser::addOption(std::string& name,
                                          std::vector<std::string>& helpLine,
                                          CommandlineOptionType type)
 {
-    m_options.push_back(CommandlineOption(name, flags, helpLine, defaultOptionType));
+    m_options.push_back(CommandlineOption(name, flags, helpLine, type));
 }
 
 void CommandlineOptionsParser::addOption(const CommandlineOption& opt)
@@ -132,7 +134,7 @@ size_t CommandlineOptionsParser::getMaxSizeOfFlagString(int minSize) const
 std::string CommandlineOptionsParser::getHelpDescription() const
 {
 
-    size_t colWidth(getMaxSizeOfFlagString(helpDescriptionPrintMargin1 + helpDescriptionPrintMargin2));
+    size_t colWidth(getMaxSizeOfFlagString(m_helpDescriptionPrintMargin1 + m_helpDescriptionPrintMargin2));
 
     std::string helpStr("Options:\n");
     for ( int i = 0; i < m_options.size(); ++i )

@@ -11,13 +11,6 @@ enum CommandlineOptionType
     withoutValue
 };
 
-CommandlineOptionType defaultOptionType = withoutValue;
-
-bool defaultSetStopOnErrors = true;
-const std::string emptyString;
-const int helpDescriptionPrintMargin1(6);
-const int helpDescriptionPrintMargin2(5);
-
 class CommandlineOption
 {
 public:

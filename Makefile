@@ -2,7 +2,7 @@
 
 CC = g++
 FLAGS = -std=c++98 -lpthread -static#-std=c++11 -std=c++14 -std=c++17
-FLAGS := -g -O -Wall -Weffc++ -pedantic  \
+# FLAGS := -g -O -Wall -Weffc++ -pedantic  \
 	-pedantic-errors -Wextra -Waggregate-return -Wcast-align \
 	-Wcast-qual -Wconversion \
 	-Wdisabled-optimization \

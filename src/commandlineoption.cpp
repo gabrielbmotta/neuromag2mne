@@ -6,7 +6,7 @@ CommandlineOption::CommandlineOption()
 : name(""),
   flagsList(std::vector<std::string>()),
   helpString(std::vector<std::string>()),
-  type(defaultOptionType),
+  type(withoutValue),
   isSet(false),
   value("")
 {
@@ -17,7 +17,7 @@ CommandlineOption::CommandlineOption(const std::string& name,
 : name(name),
   flagsList(flags),
   helpString(std::vector<std::string>()),
-  type(defaultOptionType),
+  type(withoutValue),
   isSet(false),
   value("")
 {
@@ -29,7 +29,7 @@ CommandlineOption::CommandlineOption(const std::string& name,
 : name(name),
   flagsList(flags),
   helpString(helpLine),
-  type(defaultOptionType),
+  type(withoutValue),
   isSet(false),
   value("")
 {

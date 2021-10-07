@@ -7,15 +7,14 @@ public:
     ScopedPointer():ptr(new T()){};
     ~ScopedPointer(){delete ptr;};
  
-    ScopedPointer(const ScopedPointer&) = delete;
-    ScopedPointer& operator=(ScopedPointer&) = delete;
-    ScopedPointer& operator=(const ScopedPointer&) = delete;
 
     T* operator -> () const
     {
         return ptr;
     }
 private:
+    ScopedPointer(const ScopedPointer& other) {ptr = other.ptr;};
+    ScopedPointer& operator=(ScopedPointer& other){ptr = other.ptr; return *this;}
     T* ptr;
 };
 

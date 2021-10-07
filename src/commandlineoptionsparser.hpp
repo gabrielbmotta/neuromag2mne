@@ -6,7 +6,10 @@
 
 #include "commandlineoption.hpp"
 
+
 // This clas parses input options for the main application. 
+// To test it you can use the following code. 
+
 
 // void testOption(const CommandlineOptionsParser& parser, const std::string& name)
 // {
@@ -92,6 +95,8 @@ private:
 
     bool m_bOptionsParsedCorrectly;
     bool m_bStopOnErrors;
+    int m_helpDescriptionPrintMargin1;
+    int m_helpDescriptionPrintMargin2;
     std::vector<CommandlineOption> m_options;
 
 public:
