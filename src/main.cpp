@@ -11,11 +11,12 @@
 
 int main (int argc, char* argv[])
 {
+  
   int sleepTime(5);
 
   std::cout << AAA << "\n";
 
-  Pointer<Controller> c;
+  ScopedPointer<Controller> c;
   while (true)
   {
     c->start();

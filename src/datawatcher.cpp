@@ -31,7 +31,7 @@ void DataWatcher::deleteCallback(std::string, void (*func)(char*))
 
 void DataWatcher::deleteCallback(int index)
 {
-    if(index < m_callbacks.size()){
+    if(static_cast<unsigned int>(index) < m_callbacks.size()){
         m_callbacks.erase(m_callbacks.begin() + index);
     }
 }

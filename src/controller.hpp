@@ -6,7 +6,7 @@
 
 #include "commandwatcher.hpp"
 #include "datawatcher.hpp"
-#include "pointer.hpp"
+#include "scopedpointer.hpp"
 
 class Controller
 {
@@ -20,8 +20,8 @@ public:
 private:
     bool mIsActive;
 
-    Pointer<CommandWatcher> m_commandWatcher;
-    Pointer<DataWatcher> m_dataWatcher;
+    ScopedPointer<CommandWatcher> m_commandWatcher;
+    ScopedPointer<DataWatcher> m_dataWatcher;
 };
 
 #endif // CONTROLLER
