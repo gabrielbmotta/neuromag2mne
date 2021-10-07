@@ -57,7 +57,7 @@ void CommandWatcher::disconnect()
     }
 }
 
-void CommandWatcher::registerCallback(std::string str, void (*func)(std::string))
+void CommandWatcher::registerCallback(std::string str, void (*func)(void*))
 {
     if( m_state == CONNECTED_WATCHING )
     {
@@ -65,31 +65,30 @@ void CommandWatcher::registerCallback(std::string str, void (*func)(std::string)
     }
     else 
     {
-        m_callbacks.push_back(CommandCallback(str, func));
+        m_callbacks.push_back(stringCallbackPair(str, func));
     }
 }
 
-void CommandWatcher::deleteCallback(std::string, void (*func)(std::string))
+void CommandWatcher::deleteCallback(std::string str, void (*func)(void*))
 {
-    
-}
-
-void CommandWatcher::deleteCallback(int index)
-{
-    if(index < m_callbacks.size())
-    {
-        m_callbacks.erase(m_callbacks.begin() + index);
-    }
+    for ( std::vector<stringCallbackPair>::iterator it = m_callbacks.begin(); 
+          it != m_callbacks.end(); ++it)
+        {
+            if( *it == stringCallbackPair(str,func))
+            {
+                m_callbacks.erase(it);
+            }
+        }
 }
 
 void CommandWatcher::showCallbacks()
 {
     int i = 0;
-    std::vector<CommandCallback>::iterator it;
+    std::vector<stringCallbackPair>::iterator it;
 
     for(it = m_callbacks.begin(); it != m_callbacks.end(); it++, i++)
     {
-        std::cout << "(" << i << ") - '" << m_callbacks.at(i).m_trigger << "'\n";
+        std::cout << "(" << i << ") - '" << it->trigger_string << " " << it->callback << "'\n";
     }
 }
 
@@ -125,12 +124,12 @@ CommandWatcher::state CommandWatcher::getState()
 
 void CommandWatcher::checkForCallbacks(std::string msgString)
 {
-    std::vector<CommandCallback>::iterator it;
+    std::vector<stringCallbackPair>::iterator it;
 
     for(it = m_callbacks.begin(); it != m_callbacks.end(); it++)
     {
-        if(msgString.find(it->m_trigger)){
-            std::cout << "We've received a message containing " << it->m_trigger << ".\n";
+        if(msgString.find(it->trigger_string)){
+            std::cout << "We've received a message containing " << it->trigger_string << ".\n";
         }
     }
 }

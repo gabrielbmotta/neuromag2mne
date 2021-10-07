@@ -16,7 +16,7 @@ class CommandWatcher
 {
 public:
     friend void* watchCommands(void*);
-    typedef Callback<std::string, void (*)(std::string)> CommandCallback;
+    // typedef Callback<std::string, void (*)(std::string)> CommandCallback;
 
     enum state{
         DISCONNECTED_NOT_WATCHING,
@@ -32,13 +32,11 @@ public:
 
     void disconnect();
 
-    void registerCallback(std::string, void (*func)(std::string));
+    void registerCallback(std::string, void (*func)(void*));
 
-    void deleteCallback(std::string, void (*func)(std::string));
+    void deleteCallback(std::string, void (*func)(void*));
 
     void showCallbacks();
-
-    void deleteCallback(int);
 
     void startWatching();
 
@@ -49,8 +47,16 @@ public:
     void checkForCallbacks(std::string);
 
 private:
+    struct stringCallbackPair
+    {
+        stringCallbackPair(std::string s, void(*fcn)(void*)){trigger_string = s;callback = fcn;};
+        std::string trigger_string;
+        void(* callback)(void*);
+        bool operator==(const stringCallbackPair& other)
+        {return (trigger_string == other.trigger_string) && (callback == other.callback);}
+    };
 
-    std::vector<CommandCallback> m_callbacks;
+    std::vector<stringCallbackPair> m_callbacks;
 
     state m_state;
 

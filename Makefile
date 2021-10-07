@@ -1,7 +1,7 @@
 # Makefile for compiling and linking 
 
 CC = g++
-FLAGS = -std=c++98 -lpthread #-std=c++11 -std=c++14 -std=c++17
+FLAGS = -std=c++98 #-lpthread #-std=c++11 -std=c++14 -std=c++17
 # FLAGS := -static
 # FLAGS := -g -O -Wall -Weffc++ -pedantic  \
 	-pedantic-errors -Wextra -Waggregate-return -Wcast-align \

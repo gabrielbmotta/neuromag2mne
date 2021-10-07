@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 
-void testCallback(std::string aa){
+void testCallback(void*){
     // friend Controller;
 
 }
