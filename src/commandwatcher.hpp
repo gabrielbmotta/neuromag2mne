@@ -15,6 +15,7 @@ void* watchCommands(void*);
 class CommandWatcher
 {
 public:
+    friend void* watchCommands(void*);
     typedef Callback<std::string, void (*)(std::string)> CommandCallback;
 
     enum state{
@@ -47,7 +48,6 @@ public:
 
     void checkForCallbacks(std::string);
 
-    TCPSocket m_socket;
 private:
 
     std::vector<CommandCallback> m_callbacks;
@@ -55,6 +55,8 @@ private:
     state m_state;
 
     pthread_t m_thread;
+
+    TCPSocket m_socket;
 };
 
 #endif // COMMANDWATCHER

@@ -14,6 +14,7 @@ public:
     bool connect(const char* addr, int port);
     bool disconnect();
     bool isConnected();
+    void send(const std::string& msg);
     void send(const char* msg);
     std::string receive_blocking();
 

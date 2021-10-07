@@ -58,6 +58,11 @@ bool TCPSocket::isConnected()
     return m_isConnected;
 }
 
+void TCPSocket::send(const std::string& msg)
+{
+    send(msg.c_str());
+}
+
 void TCPSocket::send(const char* msg)
 {
     if(!m_isConnected)
