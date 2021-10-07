@@ -45,6 +45,8 @@ public:
 
     state getState();
 
+    void checkForCallbacks(std::string);
+
     TCPSocket m_socket;
 private:
 
