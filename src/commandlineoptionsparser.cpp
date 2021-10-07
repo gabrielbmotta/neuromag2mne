@@ -34,7 +34,7 @@ void CommandlineOptionsParser::addOption(std::string& name,
 void CommandlineOptionsParser::addOption(std::string& name,
                                          std::vector<std::string>& flags,
                                          std::vector<std::string>& helpLine,
-                                         CommandlineOptionType type)
+                                         CommandlineOption::CommandlineOptionType type)
 {
     m_options.push_back(CommandlineOption(name, flags, helpLine, type));
 }
@@ -166,7 +166,7 @@ int CommandlineOptionsParser::parse(int argc, char** argv)
         {
             CommandlineOption& opt = m_options[optionSearch.position];
             opt.isSet = true;
-            if (opt.type == withValue)
+            if (opt.type == CommandlineOption::WITH_VALUE)
             {
                 bool notLastInputArg(i < (argc -1));
                 if( notLastInputArg )

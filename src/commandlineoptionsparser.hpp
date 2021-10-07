@@ -17,7 +17,7 @@
 //         if(parser.isSet(name))
 //         {
 //             std::cout << "option " << name << " is set!!!\n";
-//             if(parser.getOption(name).type == withValue)
+//             if(parser.getOption(name).type == CommandlineOption::WITH_VALUE)
 //             {
 //                 std::cout << "and its value is : " << parser.value("option1");
 //             }
@@ -33,7 +33,7 @@
 //     opt1Flags.push_back("-dsfs");
 //     std::vector<std::string> opt1Help;
 //     opt1Help.push_back("This is my second help");
-//     CommandlineOption opt1("option1", opt1Flags, opt1Help, withoutValue);
+//     CommandlineOption opt1("option1", opt1Flags, opt1Help, WITHOUT_VALUE);
     
 //     std::vector<std::string> opt2Flags;
 //     opt2Flags.push_back("-f");
@@ -41,7 +41,7 @@
 //     std::vector<std::string> opt2Help;
 //     opt2Help.push_back("this is my help");
 //     opt2Help.push_back("Because this is my second example.");
-//     CommandlineOption opt2("option2", opt2Flags, opt2Help, withValue);
+//     CommandlineOption opt2("option2", opt2Flags, opt2Help, CommandlineOption::WITH_VALUE);
 
 //     CommandlineOption opt3(opt1);
 //     opt3.name = std::string("option3");
@@ -56,7 +56,7 @@
 //     std::vector<std::string> opt4Help;
 //     opt4Help.push_back("this is the HELP!!");
 //     opt4Help.push_back("Because this is my second example.");
-//     CommandlineOption opt4("help", opt4Flags, opt4Help, withoutValue);
+//     CommandlineOption opt4("help", opt4Flags, opt4Help, WITHOUT_VALUE);
 
 //     // if( opt2.hasFlag("-f") )
 //     // {
@@ -113,7 +113,7 @@ public:
     void addOption( std::string& name, 
                     std::vector<std::string>& flags, 
                     std::vector<std::string>& helpLIne, 
-                    CommandlineOptionType type );
+                    CommandlineOption::CommandlineOptionType type );
 
     void addOption(const CommandlineOption& opt);
 

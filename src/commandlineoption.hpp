@@ -5,15 +5,15 @@
 #include <string>
 #include <vector>
 
-enum CommandlineOptionType
-{
-    withValue,
-    withoutValue
-};
 
 class CommandlineOption
 {
 public:
+    enum CommandlineOptionType
+    {
+        WITH_VALUE,
+        WITHOUT_VALUE
+    };
     std::string name;
     std::vector<std::string> flagsList;
     std::vector<std::string> helpString;
