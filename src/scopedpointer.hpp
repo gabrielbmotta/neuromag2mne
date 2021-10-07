@@ -1,6 +1,6 @@
 // scopedpointer.hpp
-#ifndef POINTER
-#define POINTER
+#ifndef SCOPEDPOINTER
+#define SCOPEDPOINTER
 template<typename T>
 class ScopedPointer{
 public: 
@@ -14,8 +14,8 @@ public:
     }
 private:
     ScopedPointer(const ScopedPointer& other) {ptr = other.ptr;};
-    ScopedPointer& operator=(ScopedPointer& other){ptr = other.ptr; return *this;}
+    ScopedPointer& operator = (ScopedPointer& other){ptr = other.ptr; return *this;}
     T* ptr;
 };
 
-#endif // POINTER
+#endif // SCOPEDPOINTER
