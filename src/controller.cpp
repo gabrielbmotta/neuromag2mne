@@ -16,8 +16,8 @@ Controller::Controller()
 : mIsActive(false)
 {
     std::cout << "Registering callbacks.\n";
-    m_commandWatcher->registerCallback("e", testCallback1);
-    m_commandWatcher->registerCallback("k", testCallback2);
+    m_commandWatcher->registerCallback("test", testCallback1);
+    m_commandWatcher->registerCallback("meas", testCallback2);
     m_commandWatcher->showCallbacks();
 
     //m_commandWatcher->connect();
@@ -28,13 +28,13 @@ void Controller::start()
 {
     if(mIsActive)
     {
-        std::cout << "Everything is working fine. Move along!\n";
+        //std::cout << "Everything is working fine. Move along!\n";
     } 
     else 
     {
+        std::cout << "=== Controller Startup ===\n";
         m_commandWatcher->connect();
         m_commandWatcher->startWatching();
-        std::cout << "I'm actually going to do some work here.\n";
         mIsActive = true;
     }
 }

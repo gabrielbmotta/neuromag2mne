@@ -75,8 +75,6 @@ void TCPSocket::send(const char* msg)
 	{
 		std::cout << "Failed to send message: " << msg << "\n";
 	}
-
-    std::cout << "Message sent!\n";
 }
 
 std::string TCPSocket::receive_blocking()
@@ -90,6 +88,7 @@ std::string TCPSocket::receive_blocking()
     }
     else
     {
+//        std::cout <<"[REPLY] " << reply; 
         return std::string(reply);
     }
 }
