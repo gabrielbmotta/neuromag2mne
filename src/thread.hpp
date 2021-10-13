@@ -1,16 +1,30 @@
 #ifndef THREADING
 #define THREADING
 
-// #if __cplusplus < 201103L
+#if defined __linux__ || defined __APPLE__
+    #include <pthread.h>
+#elif defined _WIN32
 
-//#if defined(unix) || defined(__unix__) || defined(__unix)
-#include <pthread.h>
-//#endif
+#endif
 
-// #else
+class Thread
+{
+public:
+    Thread();
+    bool startThread(void*(fcn)(void*));
+    bool stopThread();
 
-// #include <thread>
+    static bool runAsThread(void*(fcn)(void*));
 
-// #endif
+private:
+    bool m_isRunning;
+
+#if defined __linux__ || defined __APPLE__
+    pthread_t m_thread;
+#elif defined _WIN32
+
+#endif
+    
+};
 
 #endif
