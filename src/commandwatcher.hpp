@@ -5,7 +5,7 @@
 #include "collector_info.hpp"
 #include "callback.hpp"
 #include "thread.hpp"
-#include "socket.hpp"
+#include "tcpsocket.hpp"
 
 #include <string>
 #include <vector>

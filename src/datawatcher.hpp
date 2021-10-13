@@ -14,6 +14,8 @@ void* watchData(void*);
 class DataWatcher
 {
 public:
+    friend void* watchData(void*);
+
     typedef Callback<std::string, void (*)(char*)> DataCallback;
 
     DataWatcher();

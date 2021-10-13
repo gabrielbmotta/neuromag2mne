@@ -1,5 +1,5 @@
 #include "commandwatcher.hpp"
-#include "socket.hpp"
+#include "tcpsocket.hpp"
 #include <iostream>
 #include <unistd.h>
 
@@ -144,6 +144,7 @@ void CommandWatcher::checkForCallbacks(std::string msgString)
     {
         if(msgString.find(it->trigger_string) != -1){
             std::cout << "We've received a message containing " << it->trigger_string << ".\n";
+            it->callback(NULL);
         }
     }
 }

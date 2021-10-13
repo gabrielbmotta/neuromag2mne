@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 
-#include "socket.hpp"
+#include "tcpsocket.hpp"
 
 TCPSocket::TCPSocket()
 :m_socketID(0)

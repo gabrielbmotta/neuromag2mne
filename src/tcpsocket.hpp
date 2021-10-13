@@ -1,5 +1,5 @@
-#ifndef NETWORK_SOCKET
-#define NETWORK_SOCKET
+#ifndef TCP_SOCKET
+#define TCP_SOCKET
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -8,7 +8,8 @@
 #include <unistd.h>
 #include <string>
 
-class TCPSocket{
+class TCPSocket
+{
 public:
     TCPSocket();
     bool connect(const char* addr, int port);
