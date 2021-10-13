@@ -28,7 +28,7 @@ bool TCPSocket::connect(const char* addr, int port)
     }
     else
     {
-        std::cout << "Connected to" << addr << ":" << port << "\n";
+        std::cout << "Connected to " << addr << ":" << port << "\n";
         std::cout << "Socket ID: " << m_socketID << "\n";
         m_isConnected = true;
         return true;
@@ -67,6 +67,7 @@ void TCPSocket::send(const char* msg)
 {
     if(!m_isConnected)
     {
+        std::cout << "Message not sent, not connected.\n";
         return;
     }
 
@@ -74,13 +75,15 @@ void TCPSocket::send(const char* msg)
 	{
 		std::cout << "Failed to send message: " << msg << "\n";
 	}
+
+    std::cout << "Message sent!\n";
 }
 
 std::string TCPSocket::receive_blocking()
 {
     int reply_size = 1000;
     char reply[reply_size];
-    if(recv(m_socketID, reply, reply_size, 0) != 0)
+    if(recv(m_socketID, reply, reply_size, 0) < 0)
     {
         std::cout << "Unable to receive reply from server.\n";
         return std::string();
@@ -90,3 +93,4 @@ std::string TCPSocket::receive_blocking()
         return std::string(reply);
     }
 }
+

@@ -8,18 +8,23 @@ void* watchCommands(void* input)
     CommandWatcher* ptr = static_cast<CommandWatcher*>(input);
     ptr->m_socket.send(TELNET_CMD_MONI);
 
+    std::cout << "Entering watch loop.\n";
+
     while (true)
     {
+        std::cout << "___ Loop start! ___\n";
         std::string reply = ptr->m_socket.receive_blocking();
         if (reply.size())
         {
-            std::cout << "We've recieved a message!\n";
+            std::cout << "We've recieved a message! -- " << reply << "\n";
             ptr->checkForCallbacks(reply);
         }
         
         ptr->showCallbacks();
-        sleep(1);
+        //sleep(1);
     }
+
+    std::cout << "Exiting watch loop.\n";
     
     return NULL;
 }
@@ -43,8 +48,18 @@ void CommandWatcher::connect(int port, std::string password)
     }
 
     m_socket.connect(COLLECTOR_ADDR, COLLECTOR_PORT);
+    std::cout << m_socket.receive_blocking() << "\n";
+
+
+    std::cout << "Sending password...\n";
     m_socket.send(TELNET_CMD_PASS);
+    std::cout << m_socket.receive_blocking() << "\n";
+
+    std::cout << "Sending name...\n";
     m_socket.send(TELNET_CMD_NAME);
+    std::cout << m_socket.receive_blocking() << "\n";
+
+    m_state = CONNECTED_NOT_WATCHING;
 }
 
 void CommandWatcher::disconnect()
@@ -101,6 +116,7 @@ void CommandWatcher::startWatching()
             return;
         }
         m_state = CONNECTED_WATCHING;
+        std::cout << "Watching for commands.\n";
     }
 }
 
@@ -128,7 +144,7 @@ void CommandWatcher::checkForCallbacks(std::string msgString)
 
     for(it = m_callbacks.begin(); it != m_callbacks.end(); it++)
     {
-        if(msgString.find(it->trigger_string)){
+        if(msgString.find(it->trigger_string) != -1){
             std::cout << "We've received a message containing " << it->trigger_string << ".\n";
         }
     }
