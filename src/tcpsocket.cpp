@@ -3,6 +3,17 @@
 
 #include "tcpsocket.hpp"
 
+#if defined __linux__ || defined __APPLE__
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <netinet/tcp.h>
+    #include <arpa/inet.h>
+    #include <unistd.h>
+#elif defined _WIN32
+
+#endif
+
+
 TCPSocket::TCPSocket()
 :m_socketID(0)
 ,m_isConnected(false)
@@ -14,6 +25,8 @@ bool TCPSocket::connect(const char* addr, int port)
     while(m_isConnected){
         disconnect();
     }
+
+#if defined __linux__ || defined __APPLE__
     m_socketID = socket(AF_INET, SOCK_STREAM, 0);
     sockaddr_in server_address;
 
@@ -33,6 +46,9 @@ bool TCPSocket::connect(const char* addr, int port)
         m_isConnected = true;
         return true;
     }
+#elif defined _WIN32
+    return false;
+#endif
 }
 
 bool TCPSocket::disconnect()
@@ -42,6 +58,7 @@ bool TCPSocket::disconnect()
         return true;
     }
 
+#if defined __linux__ || defined __APPLE__
     if(close(m_socketID) != 0)
     {
         return false;
@@ -51,6 +68,9 @@ bool TCPSocket::disconnect()
         m_isConnected = false;
         return true;
     }
+#elif defined _WIN32
+    return false;
+#endif
 }
 
 bool TCPSocket::isConnected()
@@ -70,15 +90,21 @@ void TCPSocket::send(const char* msg)
         std::cout << "Message not sent, not connected.\n";
         return;
     }
+#if defined __linux__ || defined __APPLE__
 
     if(::send(m_socketID, msg, strlen(msg), 0) < 0)
 	{
 		std::cout << "Failed to send message: " << msg << "\n";
 	}
+#elif defined _WIN32
+
+#endif
 }
 
 std::string TCPSocket::receive_blocking()
 {
+#if defined __linux__ || defined __APPLE__
+
     int reply_size = 1000;
     char reply[reply_size];
     if(recv(m_socketID, reply, reply_size, 0) < 0)
@@ -91,5 +117,8 @@ std::string TCPSocket::receive_blocking()
 //        std::cout <<"[REPLY] " << reply; 
         return std::string(reply);
     }
+#elif defined _WIN32
+    return std::string();
+#endif
 }
 
