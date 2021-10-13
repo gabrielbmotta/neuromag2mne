@@ -3,7 +3,7 @@
 #define COMMANDWATCHER
 
 #include "collector_info.hpp"
-#include "callback.hpp"
+// #include "callback.hpp"
 #include "thread.hpp"
 #include "tcpsocket.hpp"
 
