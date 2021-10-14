@@ -11,10 +11,10 @@ class Thread
 {
 public:
     Thread();
-    bool startThread(void*(fcn)(void*));
+    bool startThread(void*(fcn)(void*), void* param);
     bool stopThread();
 
-    static bool runAsThread(void*(fcn)(void*));
+    static bool runAsThread(void*(fcn)(void*), void* param);
 
 private:
     bool m_isRunning;

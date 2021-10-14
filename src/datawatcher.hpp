@@ -20,6 +20,10 @@ public:
 
     DataWatcher();
 
+    void connect();
+
+    void disconnet();
+
     void registerCallback(std::string, void (*func)(char*));
 
     void deleteCallback(std::string, void (*func)(char*));
@@ -39,7 +43,7 @@ private:
 
     bool m_isWatching;
 
-    pthread_t m_thread;
+    Thread m_thread;
 };
 
 #endif // DATAWATCHER

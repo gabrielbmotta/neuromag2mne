@@ -12,6 +12,16 @@ DataWatcher::DataWatcher()
 
 }
 
+void DataWatcher::connect()
+{
+
+}
+
+void DataWatcher::disconnet()
+{
+    
+}
+
 void DataWatcher::registerCallback(std::string str, void (*func)(char*))
 {
     if(m_isWatching)
@@ -49,22 +59,18 @@ void DataWatcher::showCallbacks()
 
 void DataWatcher::startWatching()
 {
-    if(pthread_create(&m_thread, NULL, watchData, NULL))
+    if(m_thread.startThread(watchData, this))
     {
-        std::cout << "Unable to start CommandWatcehr thread;\n";
-        return;
+        m_isWatching = true;
     }
-    m_isWatching = true;
 }
 
 void DataWatcher::stopWatching()
 {
-    if(pthread_join(m_thread, NULL))
+    if(m_thread.stopThread())
     {
-        std::cout << "Unable to stop CommandWatcehr thread;\n";
-        return; 
+        m_isWatching = false;
     }
-    m_isWatching = false;
 }
 
 bool DataWatcher::isWatching()

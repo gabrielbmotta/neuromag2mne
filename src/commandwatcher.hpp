@@ -60,7 +60,7 @@ private:
 
     state m_state;
 
-    pthread_t m_thread;
+    Thread m_thread;
 
     TCPSocket m_socket;
 };

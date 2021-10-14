@@ -109,25 +109,20 @@ void CommandWatcher::showCallbacks()
 void CommandWatcher::startWatching()
 {
     if(m_state == CONNECTED_NOT_WATCHING){
-        if(pthread_create(&m_thread, NULL, watchCommands, this))
+        if(m_thread.startThread(watchCommands, this))
         {
-            std::cout << "Unable to start CommandWatcehr thread;\n";
-            return;
+            m_state = CONNECTED_WATCHING;
         }
-        m_state = CONNECTED_WATCHING;
     }
 }
 
 void CommandWatcher::stopWatching()
 {
     if(m_state == CONNECTED_WATCHING){
-        std::cout  <<  "StopWatching\n";
-        if (pthread_cancel(this->m_thread))
+        if (m_thread.stopThread())
         {
-            std::cout << "Unable to stop CommandWatcehr thread;\n";
-            return;
+            m_state = CONNECTED_NOT_WATCHING;
         }
-        m_state = CONNECTED_NOT_WATCHING;
     }
 }
 
