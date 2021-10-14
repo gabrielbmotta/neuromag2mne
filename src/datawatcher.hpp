@@ -3,8 +3,8 @@
 #define DATAWATCHER
 
 #include "types.hpp"
-#include "callback.hpp"
 #include "thread.hpp"
+#include "memsocket.hpp"
 
 #include <string>
 #include <vector>
@@ -16,7 +16,7 @@ class DataWatcher
 public:
     friend void* watchData(void*);
 
-    typedef Callback<std::string, void (*)(char*)> DataCallback;
+    // typedef Callback<std::string, void (*)(char*)> DataCallback;
 
     DataWatcher();
 
@@ -39,11 +39,13 @@ public:
     bool isWatching();
 
 private:
-    std::vector<DataCallback> m_callbacks;
+    // std::vector<DataCallback> m_callbacks;
 
     bool m_isWatching;
 
     Thread m_thread;
+
+    SharedMemorySocket m_socket;
 };
 
 #endif // DATAWATCHER
