@@ -17,7 +17,8 @@ DataWatcher::DataWatcher()
 
 void DataWatcher::connect()
 {
-    m_shMemManager.connect();
+    m_memManager.setParameters(SharedMemory::Parameters::neuromagDefault());
+    m_memManager.connect();
 }
 
 void DataWatcher::disconnet()

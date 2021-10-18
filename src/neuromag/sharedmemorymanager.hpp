@@ -1,23 +1,36 @@
-#ifndef SHAREDMEMORYMANAGER
-#define SHAREDMEMORYMANAGER
+#ifndef SHARED_MEMORY_MANAGER
+#define SHARED_MEMORY_MANAGER
 
 #include <string>
 #include "neuromagshmeminfo.hpp"
 #include "sharedmemorysocket.hpp"
 
-class SharedMemoryManager
+namespace SharedMemory{
+
+struct Parameters{
+    Parameters();
+    
+    int m_ID;
+    int m_max_data;
+    int m_num_blocks;
+    std::string m_client_path;
+    std::string m_server_path;
+
+    static Parameters neuromagDefault();
+
+private:
+    static const int default_neuromag_client_ID;
+    static const char* default_neuromag_client_path;
+    static const char* default_neuromag_server_path;
+    static const int default_neuromag_max_data;
+    static const int default_neuromag_num_blocks;
+};
+
+class Manager
 {
 public:
-    struct Parameters{
-        Parameters(int id, std::string client_path, std::string server_path);
-        int m_ID;
-        std::string m_client_path;
-        std::string m_server_path;
-        static Parameters neuromagDefault() {return Parameters(CLIENT_ID, CLIENT_PATH, SERVER_PATH);};
-    };
-
-    SharedMemoryManager();
-    SharedMemoryManager(Parameters param);
+    Manager();
+    Manager(Parameters param);
 
     void connect();
     void disconnect();
@@ -27,8 +40,10 @@ public:
     void* getData(); /*will return sharedptr of data once added*/
 
 private:
-    SharedMemorySocket m_socket;
-
+    SharedMemory::Socket m_socket;
+    Parameters m_param;
 };
+
+}//namespace
 
 #endif

@@ -1,6 +1,6 @@
 //commandwatcher.hpp
-#ifndef COMMANDWATCHER
-#define COMMANDWATCHER
+#ifndef COMMAND_WATCHER
+#define COMMAND_WATCHER
 
 #include "collector_info.hpp"
 // #include "callback.hpp"

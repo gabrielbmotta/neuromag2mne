@@ -11,11 +11,12 @@
 
 #endif
 
-SharedMemorySocket::SharedMemorySocket()
+
+SharedMemory::Socket::Socket()
 {
 }
 
-bool SharedMemorySocket::connect(int sharedMemId, std::string clientPath, std::string serverPath)
+bool SharedMemory::Socket::connect(int sharedMemId, std::string clientPath, std::string serverPath)
 {
     m_memId = sharedMemId;
     m_clientPath = clientPath;
@@ -45,7 +46,7 @@ bool SharedMemorySocket::connect(int sharedMemId, std::string clientPath, std::s
     return true;
 }
 
-bool SharedMemorySocket::disconnect()
+bool SharedMemory::Socket::disconnect()
 {
     return false;
 }

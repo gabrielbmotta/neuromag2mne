@@ -9,7 +9,8 @@
 #define SHMEM_NUM_BLOCKS    100
 #define SHMEM_NO_BUF        -1
 
-namespace SHAREDMEM{
+namespace SharedMemory{
+
 struct Client{
     int client_id;
     int done;
