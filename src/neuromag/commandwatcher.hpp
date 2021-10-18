@@ -4,8 +4,8 @@
 
 #include "collector_info.hpp"
 // #include "callback.hpp"
-#include "thread.hpp"
-#include "tcpsocket.hpp"
+#include "../utils/thread.hpp"
+#include "../utils/tcpsocket.hpp"
 
 #include <string>
 #include <vector>

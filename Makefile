@@ -4,10 +4,17 @@ SOURCEDIR = src
 OUTDIR = out
 BUILDDIR = build
 EXECUTABLE = neuromag2mne
+
 SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/utils/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/fiff/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/neuromag/*.cpp)
+
 OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
 
-UNAME := $(shell uname)
+INC= -I$(SOURCEDIR)/utils \
+     -I$(SOURCEDIR)/fiff \
+     -I$(SOURCEDIR)/neuromag \
 
 CXXFLAGS += -std=c++98 #-std=c++11 -std=c++14 -std=c++17
 CXXFLAGSDEBUG := -g -O \
@@ -32,12 +39,15 @@ CXXFLAGSDEBUG := -g -O \
 	-Wvariadic-macros \
 	-Wwrite-strings \
 
-ifeq ( $(UNAME), Dawrin)
+UNAME := $(shell uname)
+ifeq ($(UNAME),Dawrin)
+	$(info ************  Dawrin version ************)
 	CXX = clang++
-	CXXFLAGS += -lpthread
-else ifeq ( $(UNAME), Linux)
-	CXX = g++
 	CXXFLAGS +=
+else ifeq ($(UNAME),Linux)
+	$(info ************  Linux VERSION ************)
+	CXX = g++
+	CXXFLAGS += -lpthread
 else
 # we still need to do this.
 endif
@@ -52,14 +62,16 @@ debug: executable
 executable: $(OUTDIR)/$(EXECUTABLE)
 
 dir_prepare:
-	mkdir -p $(BUILDDIR); mkdir -p $(OUTDIR)
+	mkdir -p $(BUILDDIR)/utils
+	mkdir -p $(BUILDDIR)/neuromag
+	mkdir -p $(BUILDDIR)/fiff
+	mkdir -p $(OUTDIR)
 
 $(OUTDIR)/$(EXECUTABLE): $(OBJECTS)
-	$(CXX) $^ -I $(SOURCEDIR) $(CXXFLAGS) -o $@
+	$(CXX) $^ $(INC) $(CXXFLAGS) -o $@
 
 $(OBJECTS): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.cpp
-	$(CXX) -c $(CXXFLAGS) $< -I $(SOURCEDIR) -o $@
+	$(CXX) -c $(CXXFLAGS) $(INC) $< -o $@
 
 clean:
 	rm -f $(BUILDDIR)/*o $(OUTDIR)/$(EXECUTABLE)
-

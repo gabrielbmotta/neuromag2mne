@@ -3,7 +3,7 @@
 #define DATAWATCHER
 
 #include "types.hpp"
-#include "thread.hpp"
+#include "../utils/thread.hpp"
 #include "sharedmemorymanager.hpp"
 
 #include <string>

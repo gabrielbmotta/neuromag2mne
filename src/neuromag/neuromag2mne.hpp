@@ -2,7 +2,7 @@
 #ifndef NEUROMAG2MNE
 #define NEUROMAG2MNE
 
-#include "controller.hpp"
-#include "scopedpointer.hpp"
+#include "../utils/controller.hpp"
+#include "../utils/scopedpointer.hpp"
 
 #endif // NEUROMAG2MNE

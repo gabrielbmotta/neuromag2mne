@@ -4,8 +4,8 @@
 
 #include <iostream>
 
-#include "commandwatcher.hpp"
-#include "datawatcher.hpp"
+#include "../neuromag/commandwatcher.hpp"
+#include "../neuromag/datawatcher.hpp"
 #include "scopedpointer.hpp"
 
 class Controller

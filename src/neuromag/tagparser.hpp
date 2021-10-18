@@ -1,7 +1,7 @@
 #ifndef TAGPARSER
 #define TAGPARSER
 
-#include "fiff.hpp"
+#include "../fiff/fiff.hpp"
 #include "types.hpp"
 
 class TagParser

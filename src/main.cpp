@@ -1,10 +1,8 @@
 // neuromag2mne application
-
 #include <unistd.h>
 #include <iostream>
-#include <iostream>
 
-#include "neuromag2mne.hpp"
+#include "neuromag/neuromag2mne.hpp"
 
 int main (int argc, char* argv[])
 {
