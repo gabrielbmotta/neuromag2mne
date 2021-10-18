@@ -1,11 +1,19 @@
 # Makefile for compiling and linking 
 
-CC = g++
-FLAGS = -std=c++98 #-lpthread #-std=c++11 -std=c++14 -std=c++17
-# FLAGS := -static
-# FLAGS := -g -O -Wall -Weffc++ -pedantic  \
+SOURCEDIR = src
+OUTDIR = out
+BUILDDIR = build
+EXECUTABLE = neuromag2mne
+SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
+OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
+
+UNAME := $(shell uname)
+
+CXXFLAGS += -std=c++98 #-std=c++11 -std=c++14 -std=c++17
+CXXFLAGSDEBUG := -g -0  \
+	-Wall  \
+	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
 	-pedantic-errors -Wextra -Waggregate-return -Wcast-align \
-	-Wcast-qual -Wconversion \
 	-Wdisabled-optimization \
 	-Wfloat-equal -Wformat=2 \
 	-Wformat-nonliteral -Wformat-security  \
@@ -13,7 +21,6 @@ FLAGS = -std=c++98 #-lpthread #-std=c++11 -std=c++14 -std=c++17
 	-Wimport  -Winit-self  -Winline \
 	-Winvalid-pch   \
 	-Wlong-long \
-	-Wmissing-field-initializers -Wmissing-format-attribute   \
 	-Wmissing-include-dirs -Wmissing-noreturn \
 	-Wpacked -Wpointer-arith \
 	-Wredundant-decls \
@@ -24,32 +31,35 @@ FLAGS = -std=c++98 #-lpthread #-std=c++11 -std=c++14 -std=c++17
 	-Wunused-parameter \
 	-Wvariadic-macros \
 	-Wwrite-strings \
-	# -Wpadded	\
-	# -Werror
 
-SOURCEDIR = src
-OUTDIR = out
-BUILDDIR = build
-EXECUTABLE = neuromag2mne
-SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
-OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
-
-# SOURCES := $(filter-out $(SOURCEDIR)/datawatcher.cpp, $(SOURCES))
-# SOURCES := $(filter-out $(SOURCEDIR)/commandwatcher.cpp, $(SOURCES))
+ifeq ( $(UNAME), Dawrin)
+	CXX = clang++
+	CXXFLAGS += -lpthread
+else ifeq ( $(UNAME), Linux)
+	CXX = g++
+	CXXFLAGS +=
+else
+# we still need to do this.
+endif
 
 ##############################################################################
-all: dir $(OUTDIR)/$(EXECUTABLE)
 
-dir: 
+all: dir_prepare executable
+
+debug: CXXFLAGS += -DDEBUG $(CXXFLAGSDEBUG)
+debug: executable
+
+executable: $(OUTDIR)/$(EXECUTABLE)
+
+dir_prepare:
 	mkdir -p $(BUILDDIR); mkdir -p $(OUTDIR)
 
 $(OUTDIR)/$(EXECUTABLE): $(OBJECTS)
-	$(CC) $^ -I $(SOURCEDIR) $(FLAGS) -o $@
+	$(CXX) $^ -I $(SOURCEDIR) $(CXXFLAGS) -o $@
 
 $(OBJECTS): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.cpp
-	$(CC) -c $(FLAGS) $< -I $(SOURCEDIR) -o $@
+	$(CXX) -c $(CXXFLAGS) $< -I $(SOURCEDIR) -o $@
 
 clean:
 	rm -f $(BUILDDIR)/*o $(OUTDIR)/$(EXECUTABLE)
-
 
