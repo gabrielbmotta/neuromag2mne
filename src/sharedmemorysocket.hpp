@@ -1,5 +1,5 @@
-#ifndef SHMEM_SOCKET
-#define SHMEM_SOCKET
+#ifndef SHAREDMEM_SOCKET
+#define SHAREDMEM_SOCKET
 
 #include <string>
 

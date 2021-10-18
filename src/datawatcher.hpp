@@ -4,7 +4,7 @@
 
 #include "types.hpp"
 #include "thread.hpp"
-#include "memsocket.hpp"
+#include "sharedmemorymanager.hpp"
 
 #include <string>
 #include <vector>
@@ -45,6 +45,8 @@ private:
     bool m_isWatching;
 
     Thread m_thread;
+
+    SharedMemoryManager m_shMemManager;
 };
 
 #endif // DATAWATCHER

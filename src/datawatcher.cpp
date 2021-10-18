@@ -13,12 +13,11 @@ void* watchData(void* input)
 DataWatcher::DataWatcher()
 : m_isWatching(false)
 {
-
 }
 
 void DataWatcher::connect()
 {
-    //m_socket.connect(CLIENT_ID, CLIENT_PATH, SERVER_PATH);
+    m_shMemManager.connect();
 }
 
 void DataWatcher::disconnet()
