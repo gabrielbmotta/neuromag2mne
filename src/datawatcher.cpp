@@ -1,22 +1,23 @@
 #include "datawatcher.hpp"
-#include "sharedmemoryinfo.hpp"
+#include "neuromagshmeminfo.hpp"
 
 #include <iostream>
 
 void* watchData(void* input)
 {
+    DataWatcher* ptr = static_cast<DataWatcher*>(input);
+    //ptr.
     return NULL;
 }
 
 DataWatcher::DataWatcher()
 : m_isWatching(false)
 {
-
 }
 
 void DataWatcher::connect()
 {
-
+    m_shMemManager.connect();
 }
 
 void DataWatcher::disconnet()
@@ -24,7 +25,7 @@ void DataWatcher::disconnet()
     
 }
 
-void DataWatcher::registerCallback(std::string str, void (*func)(char*))
+void DataWatcher::registerCallback(void (*func)(void*))
 {
     // if(m_isWatching)
     // {
@@ -36,7 +37,7 @@ void DataWatcher::registerCallback(std::string str, void (*func)(char*))
     // }
 }
 
-void DataWatcher::deleteCallback(std::string, void (*func)(char*))
+void DataWatcher::deleteCallback(void (*func)(void*))
 {
     
 }
