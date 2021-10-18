@@ -1,8 +1,8 @@
 #ifndef TAGPARSER
 #define TAGPARSER
 
-#include "../fiff/fiff.hpp"
-#include "types.hpp"
+#include "fiff/fiff.hpp"
+#include "neuromag/types.hpp"
 
 class TagParser
 {

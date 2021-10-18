@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <iostream>
 
-#include "neuromag/neuromag2mne.hpp"
+#include "neuromag2mne.hpp"
 
 int main (int argc, char* argv[])
 {
