@@ -105,8 +105,9 @@ std::string TCPSocket::receive_blocking()
 {
 #if defined __linux__ || defined __APPLE__
 
-    const int reply_size = 1000;
+    const int reply_size = 10000;
     char reply[reply_size];
+    memset(reply, '\0', sizeof(char) * reply_size);
     if(recv(m_socketID, reply, reply_size, 0) < 0)
     {
         std::cout << "Unable to receive reply from server.\n";
@@ -114,7 +115,9 @@ std::string TCPSocket::receive_blocking()
     }
     else
     {
-//        std::cout <<"[REPLY] " << reply; 
+//  	  std::cout <<"\n==========START \n";
+//        std::cout << reply;
+//	  std::cout <<"==========END \n"; 
         return std::string(reply);
     }
 #elif defined _WIN32
