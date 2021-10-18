@@ -105,7 +105,7 @@ std::string TCPSocket::receive_blocking()
 {
 #if defined __linux__ || defined __APPLE__
 
-    int reply_size = 1000;
+    const int reply_size = 1000;
     char reply[reply_size];
     if(recv(m_socketID, reply, reply_size, 0) < 0)
     {
