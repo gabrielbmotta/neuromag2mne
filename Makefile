@@ -10,7 +10,7 @@ OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
 UNAME := $(shell uname)
 
 CXXFLAGS += -std=c++98 #-std=c++11 -std=c++14 -std=c++17
-CXXFLAGSDEBUG := -g -0  \
+CXXFLAGSDEBUG := -g -O \
 	-Wall  \
 	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
 	-pedantic-errors -Wextra -Waggregate-return -Wcast-align \
