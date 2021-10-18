@@ -24,7 +24,7 @@ void DataWatcher::disconnet()
     
 }
 
-void DataWatcher::registerCallback(std::string str, void (*func)(char*))
+void DataWatcher::registerCallback(void (*func)(void*))
 {
     // if(m_isWatching)
     // {
@@ -36,7 +36,7 @@ void DataWatcher::registerCallback(std::string str, void (*func)(char*))
     // }
 }
 
-void DataWatcher::deleteCallback(std::string, void (*func)(char*))
+void DataWatcher::deleteCallback(void (*func)(void*))
 {
     
 }

@@ -24,9 +24,9 @@ public:
 
     void disconnet();
 
-    void registerCallback(std::string, void (*func)(char*));
+    void registerCallback(void (*func)(void*));
 
-    void deleteCallback(std::string, void (*func)(char*));
+    void deleteCallback(void (*func)(void*));
 
     void showCallbacks();
 
@@ -40,6 +40,7 @@ public:
 
 private:
     // std::vector<DataCallback> m_callbacks;
+    std::vector<void(*)(void*)> m_callbacks;
 
     bool m_isWatching;
 

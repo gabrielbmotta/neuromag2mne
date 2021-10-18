@@ -9,13 +9,13 @@
 
 namespace SHAREDMEM{
 struct Client{
-  int client_id;
-  int done;
+    int client_id;
+    int done;
 };
 
 struct Block{
-  Client clients[SHMEM_NUM_BLOCKS];
-  unsigned char data[SHMEM_MAX_DATA];
+    Client clients[SHMEM_NUM_BLOCKS];
+    unsigned char data[SHMEM_MAX_DATA];
 };
 }
 
@@ -25,6 +25,8 @@ public:
     SharedMemorySocket();
     bool connect(int sharedMemId, std::string clientPath, std::string serverPath);
     bool disconnect();
+
+    
 private:
 
     int                 m_memId;
