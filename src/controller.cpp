@@ -5,19 +5,19 @@
 
 void testCallback1(void*){
     // friend Controller;
-    std::cout << "Callback 1.\n";
+    std::cout << "Aquisition software has been started.\n";
 }
 
 void testCallback2(void*){
-    std::cout << "Callback 2.\n";
+    std::cout << "Measurement started.\n";
 }
 
 Controller::Controller()
 : mIsActive(false)
 {
     std::cout << "Registering callbacks.\n";
-    m_commandWatcher->registerCallback("test", testCallback1);
-    m_commandWatcher->registerCallback("meas", testCallback2);
+    m_commandWatcher->registerCallback("wkup", testCallback1);
+    m_commandWatcher->registerCallback("Acquisition starting", testCallback2);
     m_commandWatcher->showCallbacks();
 
     //m_commandWatcher->connect();
@@ -27,7 +27,7 @@ Controller::Controller()
 void Controller::start()
 {
     if(mIsActive)
-    {
+     {
         //std::cout << "Everything is working fine. Move along!\n";
     } 
     else 

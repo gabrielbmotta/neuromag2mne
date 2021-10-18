@@ -9,7 +9,7 @@ OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
 
 UNAME := $(shell uname)
 
-CXXFLAGS += -std=c++98 #-std=c++11 -std=c++14 -std=c++17
+CXXFLAGS += -std=c++98 -pthread #-std=c++11 -std=c++14 -std=c++17
 CXXFLAGSDEBUG := -g -O \
 	-Wall  \
 	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
@@ -34,7 +34,7 @@ CXXFLAGSDEBUG := -g -O \
 
 ifeq ( $(UNAME), Dawrin)
 	CXX = clang++
-	CXXFLAGS += -lpthread
+	CXXFLAGS +=
 else ifeq ( $(UNAME), Linux)
 	CXX = g++
 	CXXFLAGS +=
@@ -55,7 +55,7 @@ dir_prepare:
 	mkdir -p $(BUILDDIR); mkdir -p $(OUTDIR)
 
 $(OUTDIR)/$(EXECUTABLE): $(OBJECTS)
-	$(CXX) $^ -I $(SOURCEDIR) $(CXXFLAGS) -o $@
+	$(CXX) $(CXXFLAGS) $^ -I $(SOURCEDIR) -o $@
 
 $(OBJECTS): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.cpp
 	$(CXX) -c $(CXXFLAGS) $< -I $(SOURCEDIR) -o $@
