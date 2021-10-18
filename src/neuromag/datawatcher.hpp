@@ -1,6 +1,6 @@
 // DATAWATCHER
-#ifndef DATAWATCHER
-#define DATAWATCHER
+#ifndef DATA_WATCHER
+#define DATA_WATCHER
 
 #include "types.hpp"
 #include "../utils/thread.hpp"
@@ -46,7 +46,7 @@ private:
 
     Thread m_thread;
 
-    SharedMemoryManager m_shMemManager;
+    SharedMemory::Manager m_memManager;
 };
 
 #endif // DATAWATCHER

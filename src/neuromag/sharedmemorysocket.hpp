@@ -1,12 +1,15 @@
-#ifndef SHAREDMEM_SOCKET
-#define SHAREDMEM_SOCKET
+#ifndef SHARED_MEMORY_SOCKET
+#define SHARED_MEMORY_SOCKET
 
 #include <string>
 
-class SharedMemorySocket
+namespace SharedMemory
+{
+
+class Socket
 {
 public:
-    SharedMemorySocket();
+    Socket();
     bool connect(int sharedMemId, std::string clientPath, std::string serverPath);
     bool disconnect();
     
@@ -19,4 +22,5 @@ private:
     std::string         m_serverPath;
 };
 
+}//namespace
 #endif
