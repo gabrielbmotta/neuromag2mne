@@ -45,8 +45,6 @@ private:
     bool m_isWatching;
 
     Thread m_thread;
-
-    SharedMemorySocket m_socket;
 };
 
 #endif // DATAWATCHER

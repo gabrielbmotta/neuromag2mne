@@ -1,10 +1,12 @@
 #include "datawatcher.hpp"
-#include "sharedmemoryinfo.hpp"
+#include "neuromagshmeminfo.hpp"
 
 #include <iostream>
 
 void* watchData(void* input)
 {
+    DataWatcher* ptr = static_cast<DataWatcher*>(input);
+    //ptr.
     return NULL;
 }
 
@@ -16,7 +18,7 @@ DataWatcher::DataWatcher()
 
 void DataWatcher::connect()
 {
-
+    //m_socket.connect(CLIENT_ID, CLIENT_PATH, SERVER_PATH);
 }
 
 void DataWatcher::disconnet()
