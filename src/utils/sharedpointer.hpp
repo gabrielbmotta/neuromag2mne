@@ -29,17 +29,6 @@ public:
       }
     }
 
-//    SharedPointer(SharedPointer&& other)
-//    {
-//        if (other._ptr != nullptr)
-//        {
-//            _ptr = other._ptr;
-//            _count = other._count;
-//            other._ptr = nullptr;
-//            other._count = nullptr;
-//        }
-//    }
-
     SharedPointer& operator=(const SharedPointer& other)
     {
       if( this != &other )
@@ -55,31 +44,6 @@ public:
       }
       return *this;
     }
-
-//    SharedPointer& operator=(SharedPointer&& other)
-//    {
-//        if( this != &other )
-//        {
-//            if ( _ptr != nullptr )
-//            {
-//                (*_count)--;
-//                if ( *_count == 0 )
-//                {
-//                    delete _count;
-//                    _count = nullptr;
-//                    delete _ptr;
-//                    _ptr = nullptr;
-//                }
-//            }
-//            _ptr = other._ptr;
-//            _count = other._count;
-//            if ( _count != nullptr)
-//            {
-//                (*_count)++;
-//            }
-//        }
-//        return *this;
-//    }
 
     ~SharedPointer()
     {

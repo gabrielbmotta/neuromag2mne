@@ -4,13 +4,15 @@
 
 #include "utils/commandlineoptionsparser.hpp"
 
-void testCallback1(void*){
-    // friend Controller;
-    std::cout << "Acquisition software has been started.\n";
+void testCallback1(void * who) {
+  // friend Controller;
+  std::cout << "Acquisition software has been started.\n";
+  Controller* p = static_cast<Controller*>(who);
+  p->setMMeasurementStarted(true);
 }
 
-void testCallback2(void*){
-    std::cout << "Measurement started.\n";
+void testCallback2(void *) {
+  std::cout << "Measurement started.\n";
 }
 
 // =========================================================================
@@ -20,66 +22,69 @@ Controller::Controller()
   mContinueRunning(false),
   mOptionsParsed(false),
   mCallbacksConfigured(false),
-  uSecondsSleepTime(100)
+  mUSecondsSleepTime(100),
+  mMeasurementStarted(false)
 {
 
 }
 
-void Controller::configureCallbacks()
-{
+void Controller::configureCallbacks() {
   std::cout << "Registering callbacks.\n";
-  m_commandWatcher->registerCallback("wkup", testCallback1);
-  m_commandWatcher->registerCallback("Acquisition starting", testCallback2);
-  m_commandWatcher->showCallbacks();
+  mCommandWatcher->registerCallback("wkup", testCallback1);
+  mCommandWatcher->registerCallback("Acquisition starting", testCallback2);
+  mCommandWatcher->showCallbacks();
   mCallbacksConfigured = true;
 }
 
-void Controller::start()
-{
+void Controller::start() {
   std::cout << "=== Controller Startup ===\n";
-  configureCallbacks();
   configureCommandWatcher();
 //  configureDatawatcher();
 
-  if ( configurationIsReady() )
-  {
+  if (configurationIsReady()) {
     mContinueRunning = true;
     run();
   }
 }
 
 void Controller::configureCommandWatcher() {
-  m_commandWatcher->connect();
-  m_commandWatcher->startWatching();
+  mCommandWatcher->setParent(this);
+  configureCallbacks();
+  mCommandWatcher->connect();
+  mCommandWatcher->startWatching();
 }
 
-void Controller::run()
-{
-  while (mContinueRunning)
-  {
+void Controller::run() {
+  while (mContinueRunning) {
     std::cout << "Running!!! \n";
+
+    if(mMeasurementStarted)
+      startDataWatcher();
+
+      while (mMeasurementStarted){
+        if newDAta
+          sendData to XX
+      }
 
     //todo this is where the magic has to happen.
     // prepare callback for receiving data from watcher.
     // prepare callback to send data to datawatcher.
     // start sending data.
-    usleep(uSecondsSleepTime);
+    usleep(mUSecondsSleepTime);
   }
   //todo wrap up and prepare for exit.
 }
 
-void Controller::stop()
-{
+void Controller::stop() {
   mContinueRunning = false;
+//  todo make sure this is threadsafe.
 }
 
-void Controller::printCommand(const std::string& s) const
-{
-    std::cout << s << "\n";
+void Controller::printCommand(const std::string &s) const {
+  std::cout << s << "\n";
 }
 
-void Controller::parseInputArguments(const int argc, char* argv[])
-{
+void Controller::parseInputArguments(int argc, char *const *argv) {
   std::cout << "Parsing options!!\n";
   //     std::vector<std::string> opt1Flags;
 //     opt1Flags.push_back("-dsfs");
@@ -139,16 +144,12 @@ void Controller::parseInputArguments(const int argc, char* argv[])
   mOptionsParsed = true;
 }
 
-bool Controller::configurationIsReady() const
-{
+bool Controller::configurationIsReady() const {
   bool allGood(true);
 
-  if ( mOptionsParsed )
-  {
+  if (mOptionsParsed) {
     std::cout << "Options parsed ok. \n";
-  }
-  else
-  {
+  } else {
     std::cout << "Something went wrong while parsing the options.\n";
     allGood = false;
   }
@@ -156,4 +157,25 @@ bool Controller::configurationIsReady() const
   //todo continue... with other options...
 
   return allGood;
+}
+
+int Controller::getUSecondsSleepTime() const {
+  return mUSecondsSleepTime;
+}
+
+void Controller::setUSecondsSleepTime(int newSleepTime) {
+  mUSecondsSleepTime = newSleepTime;
+}
+
+bool Controller::isMMeasurementStarted() const {
+  return mMeasurementStarted;
+}
+
+void Controller::setMMeasurementStarted(bool mMeasurementStarted) {
+  Controller::mMeasurementStarted = mMeasurementStarted;
+}
+
+void Controller::measurementHasStarted(void* blah)
+{
+  mMeasurementStarted = true;
 }

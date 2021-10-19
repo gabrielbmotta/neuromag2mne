@@ -46,6 +46,8 @@ public:
 
     void checkForCallbacks(std::string);
 
+    void setParent(void* parent);
+
 private:
     struct stringCallbackPair
     {
@@ -63,6 +65,7 @@ private:
     Thread m_thread;
 
     TCPSocket m_socket;
+    void* parent;
 };
 
 #endif // COMMANDWATCHER

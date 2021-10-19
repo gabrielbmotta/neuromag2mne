@@ -3,10 +3,13 @@
 #define CONTROLLER
 
 #include <iostream>
+#include <queue>
 
 #include "neuromag/commandwatcher.hpp"
 #include "neuromag/datawatcher.hpp"
 #include "utils/scopedpointer.hpp"
+#include "utils/sharedpointer.hpp"
+
 
 class Controller
 {
@@ -19,7 +22,11 @@ public:
 
     void printCommand(const std::string& s) const;
 
-    void parseInputArguments(const int argc, char* argv[]);
+    void parseInputArguments( int argc, char* const * argv);
+
+    int getUSecondsSleepTime() const;
+
+    void setUSecondsSleepTime(int uSecondsSleepTime);
 
 private:
     bool configurationIsReady() const;
@@ -31,10 +38,25 @@ private:
     bool mContinueRunning;
     bool mOptionsParsed;
     bool mCallbacksConfigured;
-    int uSecondsSleepTime;
-    ScopedPointer<CommandWatcher> m_commandWatcher;
-    ScopedPointer<DataWatcher> m_dataWatcher;
+    int mUSecondsSleepTime;
 
+    bool mMeasurementStarted;
+public:
+    bool isMMeasurementStarted() const;
+
+    void setMMeasurementStarted(bool mMeasurementStarted);
+
+    void measurementHasStarted(void*); // 0xaffff04 void func();
+
+    void pushNewData(SharedPointer<DataChunk> data);
+
+    void incrementCount();
+
+private:
+
+    std:queue<SharedPointer<DataChunk> > mData;
+    ScopedPointer<CommandWatcher> mCommandWatcher;
+    ScopedPointer<DataWatcher> mDataWatcher;
 };
 
 #endif // CONTROLLER
