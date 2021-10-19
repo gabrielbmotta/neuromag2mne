@@ -52,8 +52,8 @@ private:
     bool mOptionsParsed;
     bool mCallbacksConfigured;
     int uSecondsSleepTime;
-    ScopedPointer<CommandWatcher> mCommandWatcher;
-    ScopedPointer<DataWatcher> mDataWatcher;
+    ScopedPointer<Neuromag::CommandWatcher> mCommandWatcher;
+    ScopedPointer<Neuromag::DataWatcher> mDataWatcher;
 
     std::queue<SharedPointer<Data> > mDataQueue;
 };

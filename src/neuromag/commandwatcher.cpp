@@ -3,7 +3,7 @@
 #include <iostream>
 #include <unistd.h>
 
-void* watchCommands(void* input)
+void* Neuromag::watchCommands(void* input)
 {
     CommandWatcher* ptr = static_cast<CommandWatcher*>(input);
     ptr->m_socket.send(TELNET_CMD_MONI);
@@ -26,18 +26,18 @@ void* watchCommands(void* input)
     return NULL;
 }
 
-CommandWatcher::CommandWatcher()
+Neuromag::CommandWatcher::CommandWatcher()
 : m_state(DISCONNECTED_NOT_WATCHING)
 {
 
 }
 
-void CommandWatcher::connect()
+void Neuromag::CommandWatcher::connect()
 {
     CommandWatcher::connect(COLLECTOR_PORT, COLLECTOR_PASS);
 }
 
-void CommandWatcher::connect(int port, std::string password)
+void Neuromag::CommandWatcher::connect(int port, std::string password)
 {
     if(m_state != DISCONNECTED_NOT_WATCHING)
     {
@@ -61,7 +61,7 @@ void CommandWatcher::connect(int port, std::string password)
     m_state = CONNECTED_NOT_WATCHING;
 }
 
-void CommandWatcher::disconnect()
+void Neuromag::CommandWatcher::disconnect()
 {
     if(m_state != DISCONNECTED_NOT_WATCHING)
     {
@@ -71,7 +71,7 @@ void CommandWatcher::disconnect()
     }
 }
 
-void CommandWatcher::registerCallback(std::string str, void (*func)(void*), void* call)
+void Neuromag::CommandWatcher::registerCallback(std::string str, void (*func)(void*), void* call)
 {
     if( m_state == CONNECTED_WATCHING )
     {
@@ -83,7 +83,7 @@ void CommandWatcher::registerCallback(std::string str, void (*func)(void*), void
     }
 }
 
-void CommandWatcher::deleteCallback(std::string str, void (*func)(void*), void* call)
+void Neuromag::CommandWatcher::deleteCallback(std::string str, void (*func)(void*), void* call)
 {
     for ( std::vector<stringCallbackPair>::iterator it = m_callbacks.begin(); 
           it != m_callbacks.end(); ++it)
@@ -95,7 +95,7 @@ void CommandWatcher::deleteCallback(std::string str, void (*func)(void*), void* 
         }
 }
 
-void CommandWatcher::showCallbacks()
+void Neuromag::CommandWatcher::showCallbacks()
 {
     int i = 0;
     std::vector<stringCallbackPair>::iterator it;
@@ -106,7 +106,7 @@ void CommandWatcher::showCallbacks()
     }
 }
 
-void CommandWatcher::startWatching()
+void Neuromag::CommandWatcher::startWatching()
 {
     if(m_state == CONNECTED_NOT_WATCHING){
         if(m_thread.startThread(watchCommands, this))
@@ -116,7 +116,7 @@ void CommandWatcher::startWatching()
     }
 }
 
-void CommandWatcher::stopWatching()
+void Neuromag::CommandWatcher::stopWatching()
 {
     if(m_state == CONNECTED_WATCHING){
         if (m_thread.stopThread())
@@ -126,12 +126,12 @@ void CommandWatcher::stopWatching()
     }
 }
 
-CommandWatcher::state CommandWatcher::getState()
+Neuromag::CommandWatcher::state Neuromag::CommandWatcher::getState()
 {
     return m_state;
 }
 
-void CommandWatcher::checkForCallbacks(std::string msgString)
+void Neuromag::CommandWatcher::checkForCallbacks(std::string msgString)
 {
     std::vector<stringCallbackPair>::iterator it;
 
