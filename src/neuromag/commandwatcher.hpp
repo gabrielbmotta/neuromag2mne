@@ -32,9 +32,9 @@ public:
 
     void disconnect();
 
-    void registerCallback(std::string, void (*func)(void*));
+    void registerCallback(std::string, void (*func)(void*), void* call);
 
-    void deleteCallback(std::string, void (*func)(void*));
+    void deleteCallback(std::string, void (*func)(void*), void* call);
 
     void showCallbacks();
 
@@ -49,9 +49,10 @@ public:
 private:
     struct stringCallbackPair
     {
-        stringCallbackPair(std::string s, void(*fcn)(void*)){trigger_string = s;callback = fcn;};
+        stringCallbackPair(std::string s, void(*fcn)(void*), void* call){trigger_string = s;callback = fcn;objPtr = call;};
         std::string trigger_string;
         void(* callback)(void*);
+        void* objPtr;
         bool operator==(const stringCallbackPair& other)
         {return (trigger_string == other.trigger_string) && (callback == other.callback);}
     };

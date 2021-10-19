@@ -71,7 +71,7 @@ void CommandWatcher::disconnect()
     }
 }
 
-void CommandWatcher::registerCallback(std::string str, void (*func)(void*))
+void CommandWatcher::registerCallback(std::string str, void (*func)(void*), void* call)
 {
     if( m_state == CONNECTED_WATCHING )
     {
@@ -79,16 +79,16 @@ void CommandWatcher::registerCallback(std::string str, void (*func)(void*))
     }
     else 
     {
-        m_callbacks.push_back(stringCallbackPair(str, func));
+        m_callbacks.push_back(stringCallbackPair(str, func, call));
     }
 }
 
-void CommandWatcher::deleteCallback(std::string str, void (*func)(void*))
+void CommandWatcher::deleteCallback(std::string str, void (*func)(void*), void* call)
 {
     for ( std::vector<stringCallbackPair>::iterator it = m_callbacks.begin(); 
           it != m_callbacks.end(); ++it)
         {
-            if( *it == stringCallbackPair(str,func))
+            if( *it == stringCallbackPair(str,func,call))
             {
                 m_callbacks.erase(it);
             }
@@ -139,7 +139,7 @@ void CommandWatcher::checkForCallbacks(std::string msgString)
     {
         if(msgString.find(it->trigger_string) != -1){
             std::cout << "We've received a message containing " << it->trigger_string << ".\n";
-            it->callback(NULL);
+            it->callback(it->objPtr);
         }
     }
 }

@@ -3,10 +3,18 @@
 #define CONTROLLER
 
 #include <iostream>
+#include <queue>
 
 #include "neuromag/commandwatcher.hpp"
 #include "neuromag/datawatcher.hpp"
 #include "utils/scopedpointer.hpp"
+#include "utils/sharedpointer.hpp"
+
+
+//SUPER TEMP DO NOT SHIP
+struct Data{
+    int temp;
+};
 
 class Controller
 {
@@ -35,7 +43,10 @@ private:
     void configureDataWatcher();
     void run();
 
+    void sendDataToDataManager();
+
     bool mIsActive;
+    bool mAcquisitionSoftwareRunning;
     bool mContinueRunning;
     bool mOptionsParsed;
     bool mCallbacksConfigured;

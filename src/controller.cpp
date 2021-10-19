@@ -17,6 +17,7 @@ void testCallback2(void*){
 
 Controller::Controller()
 : mIsActive(false),
+  mAcquisitionSoftwareRunning(false),
   mContinueRunning(false),
   mOptionsParsed(false),
   mCallbacksConfigured(false),
@@ -25,21 +26,26 @@ Controller::Controller()
 
 }
 
-void Controller::configureCallbacks()
+void Controller::configureCommandWatcherCallbacks()
 {
   std::cout << "Registering callbacks.\n";
-  m_commandWatcher->registerCallback("wkup", testCallback1);
-  m_commandWatcher->registerCallback("Acquisition starting", testCallback2);
-  m_commandWatcher->showCallbacks();
+
+  mCommandWatcher->registerCallback("wkup", testCallback1, this);
+  mCommandWatcher->registerCallback("Acquisition starting", testCallback2, this);
+  mCommandWatcher->showCallbacks();
   mCallbacksConfigured = true;
+}
+
+void configureDataWatcherCallbacks()
+{
+
 }
 
 void Controller::start()
 {
   std::cout << "=== Controller Startup ===\n";
-  configureCallbacks();
   configureCommandWatcher();
-//  configureDatawatcher();
+  configureDataWatcher();
 
   if ( configurationIsReady() )
   {
@@ -48,9 +54,18 @@ void Controller::start()
   }
 }
 
-void Controller::configureCommandWatcher() {
-  m_commandWatcher->connect();
-  m_commandWatcher->startWatching();
+void Controller::configureCommandWatcher()
+{
+  configureCommandWatcherCallbacks();
+  mCommandWatcher->connect();
+  mCommandWatcher->startWatching();
+}
+
+void Controller::configureDataWatcher()
+{
+    configureCommandWatcherCallbacks();
+    mDataWatcher->connect();
+    mDataWatcher->startWatching();
 }
 
 void Controller::run()
@@ -58,6 +73,14 @@ void Controller::run()
   while (mContinueRunning)
   {
     std::cout << "Running!!! \n";
+    if(mAcquisitionSoftwareRunning)
+    {
+        configureDataWatcher();
+        while(mAcquisitionSoftwareRunning)
+        {
+            sendDataToDataManager();
+        }
+    }
 
     //todo this is where the magic has to happen.
     // prepare callback for receiving data from watcher.
@@ -66,6 +89,15 @@ void Controller::run()
     usleep(uSecondsSleepTime);
   }
   //todo wrap up and prepare for exit.
+}
+
+void Controller::sendDataToDataManager()
+{
+    if(mDataQueue.size() > 0){
+        SharedPointer<Data> data = mDataQueue.front();
+        mDataQueue.pop();
+        //todo - put 'data' somewhere.
+    }
 }
 
 void Controller::stop()
