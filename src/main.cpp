@@ -1,20 +1,13 @@
 // neuromag2mne application
-#include <unistd.h>
-#include <iostream>
 
 #include "neuromag2mne.hpp"
 
 int main (int argc, char* argv[])
 {
-  
-  int sleepTime(5);
+  ScopedPointer<Controller> controller;
+  controller->parseInputArguments(argc, argv);
 
-  ScopedPointer<Controller> c;
-  while (true)
-  {
-    c->start();
-    sleep(sleepTime);
-  }
+  controller->start();
 
   return 0;
 }
