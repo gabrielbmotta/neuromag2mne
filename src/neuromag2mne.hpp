@@ -4,5 +4,6 @@
 
 #include "controller.hpp"
 #include "utils/scopedpointer.hpp"
+#include "utils/application.hpp"
 
 #endif // NEUROMAG2MNE

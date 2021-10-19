@@ -1,12 +1,12 @@
 // scopedpointer.hpp
 #ifndef SCOPEDPOINTER
 #define SCOPEDPOINTER
+
 template<typename T>
 class ScopedPointer{
 public: 
     ScopedPointer():ptr(new T()){};
     ~ScopedPointer(){delete ptr;};
- 
 
     T* operator -> () const
     {

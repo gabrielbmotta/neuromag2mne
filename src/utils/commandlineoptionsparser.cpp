@@ -110,7 +110,7 @@ std::string CommandlineOptionsParser::value(const std::string& optionName) const
 std::string CommandlineOptionsParser::getFlagsAsString(const CommandlineOption& opt) const
 {
     std::string concatFlags(opt.flagsList[0]);
-    for(int i = 1; i < opt.flagsList.size(); ++i)
+    for( unsigned long int i = 1; i < opt.flagsList.size(); ++i )
     {
         concatFlags += ", " + opt.flagsList[i];
     }
@@ -119,8 +119,8 @@ std::string CommandlineOptionsParser::getFlagsAsString(const CommandlineOption& 
 
 size_t CommandlineOptionsParser::getMaxSizeOfFlagString(int minSize) const
 {
-    size_t maxFlagStringSize(minSize);
-    for(int i = 0; i < m_options.size(); ++i)
+    size_t maxFlagStringSize(static_cast<size_t>(minSize));
+    for( unsigned long int i = 0; i < m_options.size(); ++i )
     {
         size_t fSize(getFlagsAsString(m_options[i]).size());
         if( maxFlagStringSize < fSize )
@@ -137,14 +137,14 @@ std::string CommandlineOptionsParser::getHelpDescription() const
     size_t colWidth(getMaxSizeOfFlagString(m_helpDescriptionPrintMargin1 + m_helpDescriptionPrintMargin2));
 
     std::string helpStr("Options:\n");
-    for ( int i = 0; i < m_options.size(); ++i )
+    for ( unsigned long int i = 0; i < m_options.size(); ++i )
     {
         std::string flags(getFlagsAsString(m_options[i]));
         helpStr += flags + std::string(colWidth - flags.size(),' ');
         if ( m_options[i].helpString.size() > 0 ) 
         {
             helpStr += m_options[i].helpString[0] + "\n";
-            for ( int j = 1; j < m_options[i].helpString.size(); ++j)
+            for ( unsigned long int j = 1; j < m_options[i].helpString.size(); ++j)
             {
                 helpStr += std::string(colWidth, ' ') + m_options[i].helpString[j] + "\n";
             }

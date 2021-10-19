@@ -50,7 +50,7 @@ CommandlineOption::CommandlineOption(const std::string& name,
 
 bool CommandlineOption::hasFlag(const std::string& flag) const
 {
-    for ( int i = 0; i < flagsList.size(); ++i )
+    for ( unsigned long int i = 0; i < flagsList.size(); ++i )
     {
         if ( flagsList[i] == flag)
         {
