@@ -13,11 +13,11 @@ SOURCES += $(wildcard $(SOURCEDIR)/neuromag/*.cpp)
 OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
 
 INC= -I$(SOURCEDIR)/utils \
-     -I$(SOURCEDIR)/fiff \
      -I$(SOURCEDIR)/neuromag \
+     -I$(SOURCEDIR)/fiff
 
 CXXFLAGS += -std=c++98 #-std=c++11 -std=c++14 -std=c++17
-CXXFLAGSDEBUG := -g -O \
+CXXFLAGSDEBUG := -g \
 	-Wall  \
 	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
 	-pedantic-errors -Wextra -Waggregate-return -Wcast-align \
@@ -55,8 +55,9 @@ endif
 all: dir_prepare executable
 
 debug: CXXFLAGS += -DDEBUG $(CXXFLAGSDEBUG)
-debug: executable
+debug: dir_prepare executable
 
+executable: CXXFLAGS += -O3
 executable: $(OUTDIR)/$(EXECUTABLE)
 
 dir_prepare:
