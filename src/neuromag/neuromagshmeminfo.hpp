@@ -3,7 +3,7 @@
 
 #define SERVER_PATH         "/neuro/dacq/sockets/dacq_server"
 #define CLIENT_PATH         "/neuro/dacq/sockets/dacq_client_"
-#define CLIENT_ID           13014
+#define CLIENT_ID           13579   /*Unique id for this app*/
 
 #define SHMEM_MAX_DATA      500*1500*4
 #define SHMEM_NUM_BLOCKS    100

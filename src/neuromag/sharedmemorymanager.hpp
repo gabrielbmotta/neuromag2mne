@@ -40,7 +40,11 @@ public:
     void* getData(); /*will return sharedptr of data once added*/
 
 private:
+
+    bool initSharedMemoryPointer();
+
     SharedMemory::Socket m_socket;
+    SharedMemory::Block* mpSharedMemoryBlock;
     Parameters m_param;
 };
 

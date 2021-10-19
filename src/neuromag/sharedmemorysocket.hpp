@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "neuromagshmeminfo.hpp"
+
 namespace SharedMemory
 {
 
@@ -12,8 +14,11 @@ public:
     Socket();
     bool connect(int sharedMemId, std::string clientPath, std::string serverPath);
     bool disconnect();
+
+    SharedMemory::Message getSharedMemoryMessage();
     
 private:
+
 
     int                 m_memId;
     int                 m_memSocket;

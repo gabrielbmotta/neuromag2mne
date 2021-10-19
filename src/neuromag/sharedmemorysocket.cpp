@@ -50,3 +50,15 @@ bool SharedMemory::Socket::disconnect()
 {
     return false;
 }
+
+SharedMemory::Message SharedMemory::Socket::getSharedMemoryMessage()
+{
+    SharedMemory::Message msg;
+
+    if(recv(m_memSocket, (void*)(&msg), sizeof(msg), 0) == -1)
+    {
+        std::cout << "Unable to retrieve message.\n";
+    }
+
+    return msg;
+}

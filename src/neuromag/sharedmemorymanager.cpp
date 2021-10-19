@@ -1,4 +1,6 @@
 #include "sharedmemorymanager.hpp"
+#include <iostream>
+#include <sys/shm.h>
 
 //--------------------------------------------------------------------
 // Neuromag Shared Memory Defaults.
@@ -45,13 +47,14 @@ SharedMemory::Manager::Manager()
 }
 
 SharedMemory::Manager::Manager(SharedMemory::Parameters param)
+: m_param(param)
 {
-
 }
 
 void SharedMemory::Manager::connect()
 {
     m_socket.connect(m_param.m_ID, m_param.m_client_path, m_param.m_server_path);
+
 }
 
 void SharedMemory::Manager::disconnect()
@@ -66,5 +69,26 @@ void SharedMemory::Manager::setParameters(const Parameters& param)
 
 void* SharedMemory::Manager::getData() /*will return sharedptr of data once added*/
 {
+//    m_socket.getSharedMemoryMessage();
+
     return NULL;
+}
+
+bool SharedMemory::Manager::initSharedMemoryPointer()
+{
+    pthread_key_t key = ftok(m_param.m_server_path.c_str(), 'A');
+
+    int id;
+    if((id = shmget(key, sizeof(SharedMemory::Block), IPC_CREAT | 0666)) == -1)
+    {
+        std::cout << "Unable to get shared memory id.\n";
+        return false;
+    }
+    if(!(mpSharedMemoryBlock = static_cast<SharedMemory::Block*>(shmat(id,0,0))))
+    {
+        std::cout << "Unable to get shared memory pointer.\n";
+        return false;
+    }
+
+    return true;
 }
