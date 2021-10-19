@@ -3,30 +3,30 @@
 
 #include <iostream>
 
-void* watchData(void* input)
+void* Neuromag::watchData(void* input)
 {
     DataWatcher* ptr = static_cast<DataWatcher*>(input);
     //ptr.
     return NULL;
 }
 
-DataWatcher::DataWatcher()
+Neuromag::DataWatcher::DataWatcher()
 : m_isWatching(false)
 {
 }
 
-void DataWatcher::connect()
+void Neuromag::DataWatcher::connect()
 {
     m_memManager.setParameters(SharedMemory::Parameters::neuromagDefault());
     m_memManager.connect();
 }
 
-void DataWatcher::disconnet()
+void Neuromag::DataWatcher::disconnet()
 {
     
 }
 
-void DataWatcher::registerCallback(void (*func)(void*))
+void Neuromag::DataWatcher::registerCallback(void (*func)(void*))
 {
     // if(m_isWatching)
     // {
@@ -38,19 +38,19 @@ void DataWatcher::registerCallback(void (*func)(void*))
     // }
 }
 
-void DataWatcher::deleteCallback(void (*func)(void*))
+void Neuromag::DataWatcher::deleteCallback(void (*func)(void*))
 {
     
 }
 
-void DataWatcher::deleteCallback(int index)
+void Neuromag::DataWatcher::deleteCallback(int index)
 {
     // if(static_cast<unsigned int>(index) < m_callbacks.size()){
     //     m_callbacks.erase(m_callbacks.begin() + index);
     // }
 }
 
-void DataWatcher::showCallbacks()
+void Neuromag::DataWatcher::showCallbacks()
 {
     // int i = 0;
     // std::vector<DataCallback>::iterator it;
@@ -61,7 +61,7 @@ void DataWatcher::showCallbacks()
     // }
 }
 
-void DataWatcher::startWatching()
+void Neuromag::DataWatcher::startWatching()
 {
     if(m_thread.startThread(watchData, this))
     {
@@ -69,7 +69,7 @@ void DataWatcher::startWatching()
     }
 }
 
-void DataWatcher::stopWatching()
+void Neuromag::DataWatcher::stopWatching()
 {
     if(m_thread.stopThread())
     {
@@ -77,7 +77,7 @@ void DataWatcher::stopWatching()
     }
 }
 
-bool DataWatcher::isWatching()
+bool Neuromag::DataWatcher::isWatching()
 {
     return m_isWatching;
 }

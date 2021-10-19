@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+namespace Neuromag{
+
 void* watchCommands(void*);
 
 class CommandWatcher
@@ -66,5 +68,6 @@ private:
     TCPSocket m_socket;
 };
 
+}//namespace
 #endif // COMMANDWATCHER
 

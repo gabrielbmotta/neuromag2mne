@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+namespace Neuromag{
+
 void* watchData(void*);
 
 class DataWatcher
@@ -48,6 +50,6 @@ private:
 
     SharedMemory::Manager m_memManager;
 };
-
+}
 #endif // DATAWATCHER
 
