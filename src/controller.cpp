@@ -72,32 +72,26 @@ void Controller::run()
 {
   while (mContinueRunning)
   {
-    std::cout << "Running!!! \n";
     if(mAcquisitionSoftwareRunning)
     {
-        configureDataWatcher();
-        while(mAcquisitionSoftwareRunning)
-        {
-            sendDataToDataManager();
-        }
+      configureDataWatcher();
+      sendDataToDataManager();
     }
-
-    //todo this is where the magic has to happen.
-    // prepare callback for receiving data from watcher.
-    // prepare callback to send data to datawatcher.
-    // start sending data.
     usleep(uSecondsSleepTime);
   }
-  //todo wrap up and prepare for exit.
 }
 
 void Controller::sendDataToDataManager()
 {
+  while(mAcquisitionSoftwareRunning)
+  {
     if( dataAvailable() ){
-        SharedPointer<Data> data = mDataQueue.front();
-        mDataQueue.pop();
-        //todo - put 'data' somewhere.
+      SharedPointer<Data> data = mDataQueue.front();
+      mDataQueue.pop();
+      //todo - put 'data' somewhere.
     }
+  }
+
 }
 
 void Controller::stop()
