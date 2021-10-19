@@ -43,6 +43,7 @@ private:
     void configureDataWatcher();
     void run();
 
+    inline bool dataAvailable();
     void sendDataToDataManager();
 
     bool mIsActive;

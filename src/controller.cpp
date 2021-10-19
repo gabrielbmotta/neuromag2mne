@@ -93,7 +93,7 @@ void Controller::run()
 
 void Controller::sendDataToDataManager()
 {
-    if(mDataQueue.size() > 0){
+    if( dataAvailable() ){
         SharedPointer<Data> data = mDataQueue.front();
         mDataQueue.pop();
         //todo - put 'data' somewhere.
@@ -188,4 +188,9 @@ bool Controller::configurationIsReady() const
   //todo continue... with other options...
 
   return allGood;
+}
+
+bool Controller::dataAvailable()
+{
+  return !mDataQueue.empty();
 }
