@@ -21,10 +21,18 @@ public:
 
     void parseInputArguments(const int argc, char* argv[]);
 
+    static void measurementAboutToStart(void* ptr)
+    {
+        Controller* proxy_this = static_cast<Controller*>(ptr);
+        proxy_this->mIsActive = true;
+    };
+
 private:
     bool configurationIsReady() const;
-    void configureCallbacks();
+    void configureCommandWatcherCallbacks();
+    void configureDataWatcherCallbacks();
     void configureCommandWatcher();
+    void configureDataWatcher();
     void run();
 
     bool mIsActive;
@@ -32,9 +40,10 @@ private:
     bool mOptionsParsed;
     bool mCallbacksConfigured;
     int uSecondsSleepTime;
-    ScopedPointer<CommandWatcher> m_commandWatcher;
-    ScopedPointer<DataWatcher> m_dataWatcher;
+    ScopedPointer<CommandWatcher> mCommandWatcher;
+    ScopedPointer<DataWatcher> mDataWatcher;
 
+    std::queue<SharedPointer<Data> > mDataQueue;
 };
 
 #endif // CONTROLLER
