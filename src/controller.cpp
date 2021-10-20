@@ -116,3 +116,14 @@ bool Controller::dataAvailable() const
 {
   return !mDataQueue.empty();
 }
+
+void Controller::displayHelp(const std::string& helpString)
+{
+  //todo preamble name date etc...
+  std::cout << "====\n";
+  std::cout << " Neuromag2MNE\n";
+  std::cout << " Version. " << versionMayor << "." << versionMinor << "\n";
+  std::cout << helpString;
+  std::cout << "\n";
+  //todo postambleß
+}

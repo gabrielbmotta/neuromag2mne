@@ -31,16 +31,14 @@ private:
     void configureDataWatcherCallbacks();
     void configureCommandWatcher();
     void configureDataWatcher();
+    static void displayHelp(const std::string& helpStr);
     void run();
 
     inline bool dataAvailable() const;
     void sendDataToDataManager();
 
-    bool mIsActive;
     bool mAcquisitionSoftwareRunning;
     bool mContinueRunning;
-    bool mOptionsParsed;
-    bool mCallbacksConfigured;
     int uSecondsSleepTime;
 
     bool mVerboseMode;
