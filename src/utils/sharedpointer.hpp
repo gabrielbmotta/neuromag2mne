@@ -6,14 +6,14 @@ class SharedPointer
 {
 public:
     SharedPointer()
-            :_ptr(NULL),_count(NULL)
+            :_ptr(nullptr),_count(nullptr)
     {
     }
 
     SharedPointer(T* ptr)
-            :_ptr(NULL),_count(NULL)
+            :_ptr(nullptr),_count(nullptr)
     {
-      if ( ptr != NULL )
+      if ( ptr != nullptr )
       {
         _ptr = ptr;
         initCounter();
@@ -23,7 +23,7 @@ public:
     SharedPointer(const SharedPointer& other)
             : _ptr(other._ptr), _count(other._count)
     {
-      if( other._ptr != NULL )
+      if( other._ptr != nullptr )
       {
         incrementCount();
       }
@@ -31,12 +31,12 @@ public:
 
 //    SharedPointer(SharedPointer&& other)
 //    {
-//        if (other._ptr != NULL)
+//        if (other._ptr != nullptr)
 //        {
 //            _ptr = other._ptr;
 //            _count = other._count;
-//            other._ptr = NULL;
-//            other._count = NULL;
+//            other._ptr = nullptr;
+//            other._count = nullptr;
 //        }
 //    }
 
@@ -44,7 +44,7 @@ public:
     {
       if( this != &other )
       {
-        if ( _ptr != NULL )
+        if ( _ptr != nullptr )
         {
           decrementCount();
           deleteIfZero();
@@ -60,20 +60,20 @@ public:
 //    {
 //        if( this != &other )
 //        {
-//            if ( _ptr != NULL )
+//            if ( _ptr != nullptr )
 //            {
 //                (*_count)--;
 //                if ( *_count == 0 )
 //                {
 //                    delete _count;
-//                    _count = NULL;
+//                    _count = nullptr;
 //                    delete _ptr;
-//                    _ptr = NULL;
+//                    _ptr = nullptr;
 //                }
 //            }
 //            _ptr = other._ptr;
 //            _count = other._count;
-//            if ( _count != NULL)
+//            if ( _count != nullptr)
 //            {
 //                (*_count)++;
 //            }
@@ -83,7 +83,7 @@ public:
 
     ~SharedPointer()
     {
-      if ( _ptr != NULL )
+      if ( _ptr != nullptr )
       {
         decrementCount();
         deleteIfZero();
@@ -103,7 +103,7 @@ public:
 private:
 
     bool isConfigured() const {
-      return (_ptr != NULL);
+      return (_ptr != nullptr);
     }
 
     inline void initCounter()
@@ -114,7 +114,7 @@ private:
 
     inline void incrementCount()
     {
-      if (_count != NULL)
+      if (_count != nullptr)
       {
         *_count += 1;
       }
@@ -122,7 +122,7 @@ private:
 
     inline void decrementCount()
     {
-      if (_count != NULL)
+      if (_count != nullptr)
       {
         *_count -= 1;
       }
@@ -133,9 +133,9 @@ private:
       if ( *_count == 0 )
       {
         delete _count;
-        _count = NULL;
+        _count = nullptr;
         delete _ptr;
-        _ptr = NULL;
+        _ptr = nullptr;
       }
     }
 

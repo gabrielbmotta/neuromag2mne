@@ -7,7 +7,7 @@ void* Neuromag::watchData(void* input)
 {
     DataWatcher* ptr = static_cast<DataWatcher*>(input);
     //ptr.
-    return NULL;
+    return nullptr;
 }
 
 Neuromag::DataWatcher::DataWatcher()
