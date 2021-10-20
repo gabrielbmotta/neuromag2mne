@@ -9,3 +9,10 @@ int main (int argc, char* argv[])
   controller->start();
   return 0;
 }
+
+//todo logging mechanism
+//todo licensing. candidate mozilla public license.
+//todo testing must include coverage
+//todo profiling
+//todo documentation
+//todo standardize use of namespace in the project
