@@ -20,56 +20,50 @@ TCPSocket::TCPSocket()
 {
 }
 
-bool TCPSocket::connect(const char* addr, int port)
+void TCPSocket::connect(const char* addr, int port)
 {
-    while(m_isConnected){
-        disconnect();
+    if (isConnected())
+    {
+        return;
     }
+
+    setAddressAndPort(addr, port);
 
 #if defined __linux__ || defined __APPLE__
     m_socketID = socket(AF_INET, SOCK_STREAM, 0);
-    sockaddr_in server_address;
 
-    server_address.sin_addr.s_addr = inet_addr(addr);
-    server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(static_cast<uint>(port));
+    sockaddr_in server_address = getPOSIXSocketAddress();
 
     if (::connect(m_socketID, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
 	{
 		std::cout << "Unable to connect to " << addr << ":" << port << "\n";
-        return false;
     }
     else
     {
         std::cout << "Connected to " << addr << ":" << port << "\n";
-        std::cout << "Socket ID: " << m_socketID << "\n";
         m_isConnected = true;
-        return true;
     }
 #elif defined _WIN32
-    return false;
 #endif
 }
 
-bool TCPSocket::disconnect()
+void TCPSocket::disconnect()
 {
-    if(!m_isConnected)
+    if(!isConnected())
     {
-        return true;
+        return;
     }
 
 #if defined __linux__ || defined __APPLE__
     if(close(m_socketID) != 0)
     {
-        return false;
+        std::cout << "Unable to disconnect socket.\n";
     }
     else
     {
         m_isConnected = false;
-        return true;
     }
 #elif defined _WIN32
-    return false;
 #endif
 }
 
@@ -85,7 +79,7 @@ void TCPSocket::send(const std::string& msg)
 
 void TCPSocket::send(const char* msg)
 {
-    if(!m_isConnected)
+    if(!isConnected())
     {
         std::cout << "Message not sent, not connected.\n";
         return;
@@ -125,3 +119,22 @@ std::string TCPSocket::receive_blocking()
 #endif
 }
 
+void TCPSocket::setAddressAndPort(const char* addr, int port)
+{
+    mAddress = addr;
+    mPort = port;
+}
+
+#if defined __linux__ || defined __APPLE__
+sockaddr_in TCPSocket::getPOSIXSocketAddress()
+{
+    sockaddr_in server_address;
+
+    server_address.sin_addr.s_addr = inet_addr(mAddress.c_str());
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(static_cast<uint>(mPort));
+
+    return server_address;
+}
+#elif defined _WIN32
+#endif

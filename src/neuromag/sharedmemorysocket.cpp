@@ -1,6 +1,7 @@
 #include "sharedmemorysocket.hpp"
 
 #include <iostream>
+#include <cstdio>
 
 #if defined __linux__ || defined __APPLE__
     #include <sys/stat.h>
@@ -16,38 +17,26 @@ SharedMemory::Socket::Socket()
 {
 }
 
-bool SharedMemory::Socket::connect(int sharedMemId, std::string clientPath, std::string serverPath)
+void SharedMemory::Socket::connect(int sharedMemId, std::string clientPath, std::string serverPath)
 {
-    m_memId = sharedMemId;
-    m_clientPath = clientPath;
-    m_serverPath = serverPath;
+    setClientIDAndPath(sharedMemId, clientPath);
     
     if ((m_memSocket = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
     {
         std::cout << "Unable to create socket.\n";
-        return false;
+        return;
     }
 
-    sockaddr_un address;
-    memset(&address, 0, sizeof(address));
-    address.sun_family = AF_UNIX;
-
-    char path[108];    
-    sprintf (path,"%s%d",m_clientPath.c_str(),m_memId);
-    strcpy(address.sun_path, path);
+     sockaddr_un address = getPOSIXSocketAddress();
     
     if (bind(m_memSocket, (sockaddr *)(&address), sizeof(address)) < 0) 
     {
         std::cout << "Unable to bind socket.\n";
-        return false;
     }
-
-    return true;
 }
 
-bool SharedMemory::Socket::disconnect()
+void SharedMemory::Socket::disconnect()
 {
-    return false;
 }
 
 SharedMemory::Message SharedMemory::Socket::getSharedMemoryMessage()
@@ -60,4 +49,23 @@ SharedMemory::Message SharedMemory::Socket::getSharedMemoryMessage()
     }
 
     return msg;
+}
+
+void SharedMemory::Socket::setClientIDAndPath(int id, std::string path)
+{
+    m_memId = id;
+    m_clientPath = path;
+}
+
+sockaddr_un SharedMemory::Socket::getPOSIXSocketAddress()
+{
+    sockaddr_un address;
+    memset(&address, 0, sizeof(address));
+    address.sun_family = AF_UNIX;
+
+    char path[108];    
+    sprintf (path,"%s%d",m_clientPath.c_str(),m_memId);
+    strcpy(address.sun_path, path);
+
+    return address;
 }
