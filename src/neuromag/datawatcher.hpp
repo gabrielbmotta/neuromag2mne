@@ -1,10 +1,11 @@
 // DATAWATCHER
-#ifndef DATA_WATCHER
-#define DATA_WATCHER
+#ifndef DATAWATCHER
+#define DATAWATCHER
 
 #include "types.hpp"
 #include "../utils/thread.hpp"
 #include "sharedmemorymanager.hpp"
+#include "stringcallbackpair.h"
 
 #include <string>
 #include <vector>
@@ -17,8 +18,6 @@ class DataWatcher
 {
 public:
     friend void* watchData(void*);
-
-    // typedef Callback<std::string, void (*)(char*)> DataCallback;
 
     DataWatcher();
 
@@ -41,15 +40,12 @@ public:
     bool isWatching();
 
 private:
-    // std::vector<DataCallback> m_callbacks;
-    std::vector<void(*)(void*)> m_callbacks;
-
-    bool m_isWatching;
-
-    Thread m_thread;
-
-    SharedMemory::Manager m_memManager;
+    std::vector<StringCallbackPair> mCallbacks;
+    bool mIsWatching;
+    Thread mThread;
+    SharedMemory::Manager mMemManager;
 };
+
 }
 #endif // DATAWATCHER
 
