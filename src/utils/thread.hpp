@@ -17,10 +17,10 @@ public:
     static bool runAsThread(void*(fcn)(void*), void* param);
 
 private:
-    bool m_isRunning;
+    bool mIsRunning;
 
 #if defined __linux__ || defined __APPLE__
-    pthread_t m_thread;
+    pthread_t mThread;
 #elif defined _WIN32
 
 #endif
