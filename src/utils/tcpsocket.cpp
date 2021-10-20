@@ -4,11 +4,11 @@
 #include "tcpsocket.hpp"
 
 #if defined __linux__ || defined __APPLE__
-    #include <sys/socket.h>
-    #include <netinet/in.h>
-    #include <netinet/tcp.h>
-    #include <arpa/inet.h>
-    #include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 #elif defined _WIN32
 
 #endif
@@ -17,8 +17,9 @@
 Creates a TCP Socket
 */
 TCPSocket::TCPSocket()
-:m_socketID(0)
-,m_isConnected(false)
+  : mSocketId(0)
+  , mIsConnected(false)
+  , mReceivingBufferSize(16348)
 {
 }
 
@@ -84,7 +85,7 @@ Returns whether the socket is connected.
 */
 bool TCPSocket::isConnected()
 {
-    return m_isConnected;
+  return mIsConnected;
 }
 
 /*
@@ -94,7 +95,7 @@ Does nothing if socket is not connected.
 */
 void TCPSocket::send(const std::string& msg)
 {
-    send(msg.c_str());
+  send(msg.c_str());
 }
 
 void TCPSocket::send(const char* msg)
@@ -106,10 +107,10 @@ void TCPSocket::send(const char* msg)
     }
 #if defined __linux__ || defined __APPLE__
 
-    if(::send(m_socketID, msg, strlen(msg), 0) < 0)
-	{
-		std::cout << "Failed to send message: " << msg << "\n";
-	}
+  if(::send(mSocketId, msg, strlen(msg), 0) < 0)
+  {
+    std::cout << "Failed to send message: " << msg << "\n";
+  }
 #elif defined _WIN32
 
 #endif
@@ -122,30 +123,30 @@ Does nothing if socket is not connected.
 */
 std::string TCPSocket::receive_blocking()
 {
-#if defined __linux__ || defined __APPLE__
-
+  
     if(!isConnected())
     {
         std::cout << "Not connected, nothing to receive.\n";
         return std::string();
     }
-    const int reply_size = 10000;
-    char reply[reply_size];
-    memset(reply, '\0', sizeof(char) * reply_size);
-    if(recv(m_socketID, reply, reply_size, 0) < 0)
+#if defined __linux__ || defined __APPLE__
+    //todo create member buffer and initialize fcns.
+    char reply[mReceivingBufferSize];
+    memset(reply, '\0', sizeof(char) * mReceivingBufferSize);
+    if(recv(mSocketId, reply, mReceivingBufferSize, 0) < 0)
     {
-        std::cout << "Unable to receive reply from server.\n";
-        return std::string();
+      std::cout << "Unable to receive reply from server.\n";
+      return std::string();
     }
     else
     {
 //  	  std::cout <<"\n==========START \n";
 //        std::cout << reply;
 //	  std::cout <<"==========END \n"; 
-        return std::string(reply);
+    return std::string(reply);
     }
 #elif defined _WIN32
-    return std::string();
+  return std::string();
 #endif
 }
 

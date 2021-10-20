@@ -33,8 +33,9 @@ private:
     std::string mAddress;
     int mPort;
 
-    int m_socketID;
-    bool m_isConnected;
+    int mSocketId;
+    bool mIsConnected;
+    const int mReceivingBufferSize;
 };
 
 #endif

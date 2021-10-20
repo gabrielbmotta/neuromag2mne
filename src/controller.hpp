@@ -11,29 +11,20 @@
 #include "utils/sharedpointer.hpp"
 
 
-//SUPER TEMP DO NOT SHIP
+//todo super temp do not ship
 struct Data{
     int temp;
 };
 
 class Controller
 {
+    friend void acquisitionSoftwareRunning(void*);
 public:
     Controller();
-
     void start();
-
     void stop();
-
     void printCommand(const std::string& s) const;
-
-    void parseInputArguments(const int argc, char* argv[]);
-
-    static void measurementAboutToStart(void* ptr)
-    {
-        Controller* proxy_this = static_cast<Controller*>(ptr);
-        proxy_this->mIsActive = true;
-    };
+    void parseInputArguments(int argc, char* argv[]);
 
 private:
     bool configurationIsReady() const;
