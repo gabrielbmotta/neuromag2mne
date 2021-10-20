@@ -26,21 +26,6 @@ Controller::Controller()
 
 }
 
-void Controller::configureCommandWatcherCallbacks()
-{
-  std::cout << "Registering callbacks.\n";
-
-  mCommandWatcher->registerCallback("wkup", testCallback1, this);
-  mCommandWatcher->registerCallback("Acquisition starting", testCallback2, this);
-  mCommandWatcher->showCallbacks();
-  mCallbacksConfigured = true;
-}
-
-void configureDataWatcherCallbacks()
-{
-
-}
-
 void Controller::start()
 {
   std::cout << "=== Controller Startup ===\n";
@@ -61,11 +46,26 @@ void Controller::configureCommandWatcher()
   mCommandWatcher->startWatching();
 }
 
+void Controller::configureCommandWatcherCallbacks()
+{
+  std::cout << "Registering CommandWatcher callbacks.\n";
+
+  mCommandWatcher->registerCallback("wkup", testCallback1, this);
+  mCommandWatcher->registerCallback("Acquisition starting", testCallback2, this);
+  mCommandWatcher->showCallbacks();
+  mCallbacksConfigured = true;
+}
+
 void Controller::configureDataWatcher()
 {
     configureCommandWatcherCallbacks();
     mDataWatcher->connect();
     mDataWatcher->startWatching();
+}
+
+void Controller::configureDataWatcherCallbacks() {
+//  std::cout << "Registering DataWatcher callbacks.\n";
+//  mDataWatcher->registerCallback("xxx", testCallback1, this);
 }
 
 void Controller::run()
