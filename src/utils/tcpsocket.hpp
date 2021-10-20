@@ -15,8 +15,9 @@ public:
     std::string receive_blocking();
 
 private:
-    int m_socketID;
-    bool m_isConnected;
+    int mSocketId;
+    bool mIsConnected;
+    const int mReceivingBufferSize;
 };
 
 #endif
