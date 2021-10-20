@@ -12,51 +12,96 @@
 
 #endif
 
-
+/*
+Constructs a Socket.
+*/
 SharedMemory::Socket::Socket()
+: mIsConnected(false)
 {
 }
 
-void SharedMemory::Socket::connect(int sharedMemId, std::string clientPath, std::string serverPath)
+/*
+Connects socket to given client path with using given client id.
+
+Does nothing if socket is already connected.
+*/
+void SharedMemory::Socket::connect(int sharedMemId, std::string clientPath)
 {
+    if(isConnected())
+    {
+        return;
+    }
     setClientIDAndPath(sharedMemId, clientPath);
     
-    if ((m_memSocket = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
+    if ((mSocketId = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
     {
         std::cout << "Unable to create socket.\n";
         return;
     }
 
-     sockaddr_un address = getPOSIXSocketAddress();
+    sockaddr_un address = getPOSIXSocketAddress();
     
-    if (bind(m_memSocket, (sockaddr *)(&address), sizeof(address)) < 0) 
+    if (bind(mSocketId, (sockaddr *)(&address), sizeof(address)) < 0)
     {
         std::cout << "Unable to bind socket.\n";
     }
+    mIsConnected = true;
 }
 
+/*
+Disconnects socket.
+
+Does nothing if already disconnected.
+*/
 void SharedMemory::Socket::disconnect()
 {
+    if(!isConnected())
+    {
+        return;
+    }
 }
 
+/*
+Returns whether socket is connected.
+*/
+bool SharedMemory::Socket::isConnected()
+{
+    return mIsConnected;
+}
+
+/*
+Gets message from neuromag shared memory server.
+
+This message gives us where in the shared memory block we can find data.
+*/
 SharedMemory::Message SharedMemory::Socket::getSharedMemoryMessage()
 {
     SharedMemory::Message msg;
 
-    if(recv(m_memSocket, (void*)(&msg), sizeof(msg), 0) == -1)
+    if(isConnected())
     {
-        std::cout << "Unable to retrieve message.\n";
+        if(recv(mSocketId, (void*)(&msg), sizeof(msg), 0) == -1)
+        {
+            std::cout << "Unable to retrieve message.\n";
+        }
     }
 
     return msg;
 }
 
+/*
+Stores client ID and path.
+*/
 void SharedMemory::Socket::setClientIDAndPath(int id, std::string path)
 {
-    m_memId = id;
-    m_clientPath = path;
+    mMemoryClientId = id;
+    mClientPath = path;
 }
 
+#if defined __linux__ || defined __APPLE__
+/*
+Generates POSIX struct for socket address.
+*/
 sockaddr_un SharedMemory::Socket::getPOSIXSocketAddress()
 {
     sockaddr_un address;
@@ -64,8 +109,9 @@ sockaddr_un SharedMemory::Socket::getPOSIXSocketAddress()
     address.sun_family = AF_UNIX;
 
     char path[108];    
-    sprintf (path,"%s%d",m_clientPath.c_str(),m_memId);
+    sprintf (path, "%s%d", mClientPath.c_str(), mMemoryClientId);
     strcpy(address.sun_path, path);
 
     return address;
 }
+#endif
