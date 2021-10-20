@@ -1,6 +1,6 @@
 #include "stringcallbackpair.h"
 
-StringCallbackPair::StringCallbackPair(const int &s, void (*fcn)(void *), void *call)
+StringCallbackPair::StringCallbackPair(const std::string& s, void (*fcn)(void *), void *call)
         : trigger_string(s),
           callback(fcn),
           objPtr(call)

@@ -38,18 +38,18 @@ void TCPSocket::connect(const char* addr, int port)
     setAddressAndPort(addr, port);
 
 #if defined __linux__ || defined __APPLE__
-    m_socketID = socket(AF_INET, SOCK_STREAM, 0);
+    mSocketId = socket(AF_INET, SOCK_STREAM, 0);
 
     sockaddr_in server_address = getPOSIXSocketAddress();
 
-    if (::connect(m_socketID, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
+    if (::connect(mSocketId, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
 	{
 		std::cout << "Unable to connect to " << addr << ":" << port << "\n";
     }
     else
     {
         std::cout << "Connected to " << addr << ":" << port << "\n";
-        m_isConnected = true;
+        mIsConnected = true;
     }
 #elif defined _WIN32
 #endif
@@ -68,13 +68,13 @@ void TCPSocket::disconnect()
     }
 
 #if defined __linux__ || defined __APPLE__
-    if(close(m_socketID) != 0)
+    if(close(mSocketId) != 0)
     {
         std::cout << "Unable to disconnect socket.\n";
     }
     else
     {
-        m_isConnected = false;
+        mIsConnected = false;
     }
 #elif defined _WIN32
 #endif
