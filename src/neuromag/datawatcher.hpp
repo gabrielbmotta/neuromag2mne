@@ -5,7 +5,7 @@
 #include "types.hpp"
 #include "../utils/thread.hpp"
 #include "sharedmemorymanager.hpp"
-#include "stringcallbackpair.h"
+#include "stringcallbackpair.hpp"
 
 #include <string>
 #include <vector>
