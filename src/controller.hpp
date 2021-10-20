@@ -18,15 +18,12 @@ struct Data{
 
 class Controller
 {
+    friend void acquisitionSoftwareRunning(void*);
 public:
     Controller();
-
     void start();
-
     void stop();
-
     void printCommand(const std::string& s) const;
-
     void parseInputArguments(int argc, char* argv[]);
 
 private:
