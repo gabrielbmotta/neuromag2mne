@@ -5,11 +5,12 @@
 #include <iostream>
 #include <queue>
 
-#include "neuromag/commandwatcher.hpp"
-#include "neuromag/datawatcher.hpp"
 #include "utils/scopedpointer.hpp"
 #include "utils/sharedpointer.hpp"
-
+#include "neuromag/commandwatcher.hpp"
+#include "neuromag/datawatcher.hpp"
+#include "inputargumentsparser.hpp"
+#include "neuromag2mne.hpp"
 
 //todo super temp do not ship
 struct Data{
@@ -23,18 +24,16 @@ public:
     Controller();
     void start();
     void stop();
-    void printCommand(const std::string& s) const;
     void parseInputArguments(int argc, char* argv[]);
 
 private:
-    bool configurationIsReady() const;
     void configureCommandWatcherCallbacks();
     void configureDataWatcherCallbacks();
     void configureCommandWatcher();
     void configureDataWatcher();
     void run();
 
-    inline bool dataAvailable();
+    inline bool dataAvailable() const;
     void sendDataToDataManager();
 
     bool mIsActive;
@@ -43,9 +42,15 @@ private:
     bool mOptionsParsed;
     bool mCallbacksConfigured;
     int uSecondsSleepTime;
+
+    bool mVerboseMode;
+    bool mRandomDataMode;
+    bool mReadFromFileMode;
+    std::string mFileNameToRead;
+
     ScopedPointer<Neuromag::CommandWatcher> mCommandWatcher;
     ScopedPointer<Neuromag::DataWatcher> mDataWatcher;
-
+    ScopedPointer<InputArgumentsParser> mInputArgumentsController;
     std::queue<SharedPointer<Data> > mDataQueue;
 };
 
