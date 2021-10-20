@@ -69,7 +69,7 @@ void SharedMemory::Manager::setParameters(const Parameters& param)
 
 void* SharedMemory::Manager::getData() /*will return sharedptr of data once added*/
 {
-//    m_socket.getSharedMemoryMessage();
+//    mSocket.getSharedMemoryMessage();
 
     return NULL;
 }
