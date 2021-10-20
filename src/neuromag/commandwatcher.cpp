@@ -3,9 +3,9 @@
 #include <iostream>
 #include <unistd.h>
 
-void* Neuromag::watchCommands(void* input)
+void* Neuromag::watchCommands(void* receiver)
 {
-    CommandWatcher* ptr = static_cast<CommandWatcher*>(input);
+    CommandWatcher* ptr = static_cast<CommandWatcher*>(receiver);
     ptr->mSocket.send(TELNET_CMD_MONI);
 
     while (true)
@@ -13,14 +13,14 @@ void* Neuromag::watchCommands(void* input)
         std::string reply = ptr->mSocket.receive_blocking();
         if (reply.size())
         {
-            //std::cout << "We've recieved a message! -- " << reply << "\n";
+            //std::cout << "We've received a message! -- " << reply << "\n";
             ptr->checkForCallbacks(reply);
         }
         
         //ptr->showCallbacks();
         //sleep(1);
-    }
 
+    }
     std::cout << "Exiting watch loop.\n";
     
     return NULL;
@@ -71,7 +71,7 @@ void Neuromag::CommandWatcher::disconnect()
     }
 }
 
-void Neuromag::CommandWatcher::registerCallback(std::string str, void (*func)(void*), void* call)
+void Neuromag::CommandWatcher::registerCallback(const std::string& str, void (*func)(void*), void* call)
 {
     if(mState == CONNECTED_WATCHING )
     {
@@ -83,7 +83,7 @@ void Neuromag::CommandWatcher::registerCallback(std::string str, void (*func)(vo
     }
 }
 
-void Neuromag::CommandWatcher::deleteCallback(std::string str, void (*func)(void*), void* call)
+void Neuromag::CommandWatcher::deleteCallback(const std::string& str, void (*func)(void*), void* call)
 {
     for (std::vector<StringCallbackPair>::iterator it = mCallbacks.begin();
          it != mCallbacks.end(); ++it)
