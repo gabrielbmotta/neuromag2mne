@@ -125,5 +125,5 @@ void Controller::displayHelp(const std::string& helpString)
   std::cout << " Version. " << versionMayor << "." << versionMinor << "\n";
   std::cout << helpString;
   std::cout << "\n";
-  //todo postambleß
+  //todo postamble
 }
