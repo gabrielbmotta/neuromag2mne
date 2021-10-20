@@ -69,7 +69,16 @@ void SharedMemory::Manager::setParameters(const Parameters& param)
 
 void* SharedMemory::Manager::getData() /*will return sharedptr of data once added*/
 {
-//    m_socket.getSharedMemoryMessage();
+    SharedMemory::Block* pMemBlock = NULL;
+    SharedMemory::Client* pMemClient = NULL;
+    SharedMemory::Message msg = m_socket.getSharedMemoryMessage();
+
+    if(msg.size > 0 && msg.shmem_buf >= 0)
+    {
+        pMemBlock = mpSharedMemoryBlock + msg.shmem_buf;
+        pMemClient = pMemBlock->clients;
+
+    }
 
     return NULL;
 }

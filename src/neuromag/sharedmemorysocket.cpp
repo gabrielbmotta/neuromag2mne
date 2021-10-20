@@ -21,8 +21,6 @@ bool SharedMemory::Socket::connect(int sharedMemId, std::string clientPath, std:
     m_memId = sharedMemId;
     m_clientPath = clientPath;
     m_serverPath = serverPath;
-
-    sockaddr_un address;
     
     if ((m_memSocket = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
     {
@@ -30,16 +28,17 @@ bool SharedMemory::Socket::connect(int sharedMemId, std::string clientPath, std:
         return false;
     }
 
+    sockaddr_un address;
     memset(&address, 0, sizeof(address));
+    address.sun_family = AF_UNIX;
 
     char path[108];    
     sprintf (path,"%s%d",m_clientPath.c_str(),m_memId);
     strcpy(address.sun_path, path);
-
-    address.sun_family = AF_UNIX;
     
     if (bind(m_memSocket, (sockaddr *)(&address), sizeof(address)) < 0) 
     {
+        std::cout << "Unable to bind socket.\n";
         return false;
     }
 
