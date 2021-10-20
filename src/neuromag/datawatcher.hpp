@@ -1,6 +1,6 @@
 // DATAWATCHER
-#ifndef DATAWATCHER
-#define DATAWATCHER
+#ifndef DATA_WATCHER
+#define DATA_WATCHER
 
 #include "types.hpp"
 #include "../utils/thread.hpp"
@@ -22,30 +22,21 @@ public:
     DataWatcher();
 
     void connect();
-
     void disconnet();
 
     void registerCallback(void (*func)(void*));
-
     void deleteCallback(void (*func)(void*));
-
     void showCallbacks();
 
-    void deleteCallback(int);
-
     void startWatching();
-
     void stopWatching();
-
     bool isWatching();
 
 private:
-    std::vector<StringCallbackPair> mCallbacks;
-    bool mIsWatching;
-    Thread mThread;
-    SharedMemory::Manager mMemManager;
+    std::vector<StringCallbackPair>     mCallbacks;
+    bool                                mIsWatching;
+    Thread                              mThread;
+    SharedMemory::Manager               mMemManager;
 };
-
-}
+}//namespace
 #endif // DATAWATCHER
-
