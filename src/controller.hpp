@@ -10,6 +10,7 @@
 #include "inputargumentsparser.hpp"
 
 //todo super temp do not ship
+//todo this probably needs to be something of more entity... :)
 struct Data{
     int temp;
 };
