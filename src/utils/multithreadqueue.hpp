@@ -18,6 +18,18 @@ is needed if multiple 'users' are going to be popping data.
 class MultiThreadQueue {
 public:
 
+  class Item{
+  public:
+    bool valid() {return mValid;};
+    T& data() {return mData;};
+  private:
+    Item(bool valid, T& data):mValid(valid),mData(data){};
+    Item();
+
+    bool mValid;
+    T& mData;
+  };
+
   /*
   Constructs a MultiThreadQueue
   */
@@ -31,6 +43,30 @@ public:
     MutexLocker locker(mMutex);
     return mQueue.front();
   };
+
+//todo -  decide if we want this class to be multi-reader (popper) safe
+//        as well as thread safe. I(Gabriel) don't think it's necessary
+//        for what we are going to use this class for.
+//  Item front()
+//  {
+//    MutexLocker locker(mMutex);
+//    if(mQueue.size() > 0)
+//    {
+//      return Item(true, mQueue.front());
+//    }
+//    else
+//    {
+//      return Item(true, mQueue.front());
+//    }
+//  };
+//  void pop()
+//  {
+//    MutexLocker locker(mMutex);
+//    if(mQueue.size() > 0)
+//    {
+//      mQueue.pop();
+//    }
+//  };
 
   /*
   Removes the element at the front of the queue.
