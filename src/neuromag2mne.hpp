@@ -10,8 +10,9 @@
 const int versionMayor = 0;
 const int versionMinor = 1;
 
-//#ifndef __cpp_2011
-//#define nullptr NULL
-//#endif
+
+#if __cplusplus <= 201103L
+#define nullptr NULL
+#endif
 
 #endif // NEUROMAG2MNE
