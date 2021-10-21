@@ -18,7 +18,7 @@ Controller::Controller()
       mRandomDataMode(false),
       mReadFromFileMode(false),
       mSendDataMode(false),
-      mSaveToFileMode(false),
+      mSaveToFileMode(false)
 {
 
 }
@@ -42,6 +42,7 @@ void Controller::start()
   {
     configureDataSenderController();
   }
+
   run();
 }
 
@@ -108,6 +109,7 @@ void Controller::parseInputArguments(const int argc, char* argv[])
     mVerboseMode = parsingResult.verboseMode;
     mRandomDataMode = parsingResult.randomDataMode;
     mReadFromFileMode = parsingResult.readFromFileMode;
+    //todo add an enum to store the Source Mode instead of independent bools.
     if( mReadFromFileMode )
     {
       mFileNameToRead = parsingResult.fileNameToRead;
@@ -155,24 +157,28 @@ void Controller::configureNeuromagController()
 void Controller::configureRandomDataController()
 {
   //todo figure out how to report configuration options...
+//  specify random generation algorithm.
   mRandomDataController->start();
 }
 
 void Controller::configureFileReaderController()
 {
   //todo figure out how to report configuration options...
+  //set the name of the file to read from
   mFileReaderController->start();
 }
 
 void Controller::configureFileWriterController()
 {
   //todo figure out a way to pass configurations...
+  //specify the filename ot write to.
   mFileWriterController->start();
 }
 
 void Controller::configureDataSenderController()
 {
   //todo figure out how to report configuration options...
+  //specify the ip and port to connect to.
   mDataSenderController->start();
 }
 
