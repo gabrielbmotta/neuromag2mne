@@ -79,7 +79,7 @@ bool InputArgumentsParser::errorWhileParsingOptions() const
   return !mParser.allOptionsParsedCorrectly();
 }
 
-std::string InputArgumentsParser::getHelp()
+std::string InputArgumentsParser::getHelpStr()
 {
   return mParser.getHelpDescription();
 }

@@ -8,11 +8,27 @@
 
 struct OptionsPack
 {
-    bool displayHelp;
-    bool verboseMode;
-    bool randomDataMode;
-    bool readFromFileMode;
-    std::string fileNameToRead;
+  OptionsPack()
+  :displayHelp(false),
+   verboseMode(false),
+   randomDataMode(false),
+   readFromFileMode(false){ }
+
+  bool displayHelp;
+  bool verboseMode;
+  bool randomDataMode;
+  bool readFromFileMode;
+  std::string fileNameToRead;
+
+  void print() const
+  {
+    std::cout << "Options:\n";
+    std::cout << "displayHelp: " << displayHelp << "\n";
+    std::cout << "verboseMode: " << verboseMode << "\n";
+    std::cout << "randomDataMode: " << randomDataMode << "\n";
+    std::cout << "readFromFileMode: " << readFromFileMode << "\n";
+    std::cout << "fileNameToRead: " << fileNameToRead << "\n";
+  }
 };
 
 class InputArgumentsParser
@@ -20,7 +36,7 @@ class InputArgumentsParser
 public:
   InputArgumentsParser();
   OptionsPack parse(int argc, char* argv[]);
-  std::string getHelp();
+  std::string getHelpStr();
   bool errorWhileParsingOptions() const;
 
 private:
