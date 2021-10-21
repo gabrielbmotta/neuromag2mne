@@ -43,7 +43,7 @@ void Controller::configureCommandWatcherCallbacks()
 
 void Controller::configureDataWatcher()
 {
-    configureCommandWatcherCallbacks();
+    configureDataWatcherCallbacks();
     mDataWatcher->connect();
     mDataWatcher->startWatching();
 }
@@ -62,13 +62,13 @@ void Controller::run()
     if(mAcquisitionSoftwareRunning)
     {
       configureDataWatcher();
-      sendDataToDataManager();
+      checkForNewData();
     }
     usleep(uSecondsSleepTime);
   }
 }
 
-void Controller::sendDataToDataManager()
+void Controller::checkForNewData()
 {
   while(mAcquisitionSoftwareRunning)
   {
@@ -91,20 +91,24 @@ void Controller::parseInputArguments(const int argc, char* argv[])
   OptionsPack parsingResult = mInputArgumentsController->parse(argc, argv);
   if ( mInputArgumentsController->errorWhileParsingOptions() )
   {
-    std::cout << "\nSomething went wrong parsing commandline input options.\n";
-    displayHelp(mInputArgumentsController->getHelp());
+    std::cout << "Something went wrong parsing commandline input options.\n";
+//    std::cout << "Your current options are...\n";
+//    parsingResult.print();
+
+    displayHelp(mInputArgumentsController->getHelpStr());
+
     exit(1);
   }
 
   if ( parsingResult.displayHelp )
   {
-    displayHelp(mInputArgumentsController->getHelp());
+    displayHelp(mInputArgumentsController->getHelpStr());
     exit(0);
   } else {
     mVerboseMode = parsingResult.verboseMode;
     mRandomDataMode = parsingResult.randomDataMode;
     mReadFromFileMode = parsingResult.readFromFileMode;
-    if(mReadFromFileMode )
+    if( mReadFromFileMode )
     {
       mFileNameToRead = parsingResult.fileNameToRead;
     }
@@ -119,9 +123,9 @@ bool Controller::dataAvailable() const
 void Controller::displayHelp(const std::string& helpString)
 {
   //todo preamble name date etc...
-  std::cout << "====\n";
-  std::cout << " Neuromag2MNE\n";
-  std::cout << " Version. " << versionMayor << "." << versionMinor << "\n";
+  std::cout << "\n";
+  std::cout << "Neuromag2MNE\n";
+  std::cout << "Version. " << versionMayor << "." << versionMinor << "\n";
   std::cout << helpString;
   std::cout << "\n";
   //todo postamble

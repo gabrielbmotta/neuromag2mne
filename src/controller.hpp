@@ -35,7 +35,7 @@ private:
     void run();
 
     inline bool dataAvailable() const;
-    void sendDataToDataManager();
+    void checkForNewData();
 
     bool mAcquisitionSoftwareRunning;
     bool mContinueRunning;
