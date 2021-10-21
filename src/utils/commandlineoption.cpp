@@ -29,7 +29,7 @@ CommandlineOption::CommandlineOption(const std::string& name,
 : name(name),
   flagsList(flags),
   helpString(helpLine),
-  type(WITHOUT_VALUE),
+  type(CommandlineOption::WITHOUT_VALUE),
   isSet(false),
   value("")
 {
