@@ -10,20 +10,20 @@ namespace SharedMemory{
 struct Parameters{
     Parameters();
     
-    int m_ID;
-    int m_max_data;
-    int m_num_blocks;
-    std::string m_client_path;
-    std::string m_server_path;
+    int         mId;
+    int         mMaxData;
+    int         mNumBlocks;
+    std::string mClientPath;
+    std::string mServerPath;
 
     static Parameters neuromagDefault();
 
 private:
-    static const int default_neuromag_client_ID;
-    static const char* default_neuromag_client_path;
-    static const char* default_neuromag_server_path;
-    static const int default_neuromag_max_data;
-    static const int default_neuromag_num_blocks;
+    static const int    default_NeuromagClientId;
+    static const char*  default_NeuromagClientPath;
+    static const char*  default_NeuromagServerPath;
+    static const int    default_NeuromagMaxData;
+    static const int    default_NeuromagNumBlocks;
 };
 
 class Manager
@@ -43,9 +43,9 @@ private:
 
     bool initSharedMemoryPointer();
 
-    SharedMemory::Socket m_socket;
-    SharedMemory::Block* mpSharedMemoryBlock;
-    Parameters m_param;
+    SharedMemory::Socket    mSocket;
+    SharedMemory::Block*    mpSharedMemoryBlock;
+    Parameters              mParam;
 };
 
 }//namespace

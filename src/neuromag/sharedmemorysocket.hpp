@@ -14,32 +14,38 @@
 namespace SharedMemory
 {
 
+/*
+A socket for communicating with the server part of the neuromag shared memory service.
+
+Access incoming neuromag data, we need to ask the neuromag server where
+this new data is being stored. We can request a struct that tells us where
+in the shared memory block we can find data. This struct is what is returned
+by 'getSharedMemoryMessage()', and can be used, once the location of the
+shared memory block is also obtained (functionality that is not provided
+by this class), to get the ptr to the memory location of new data.
+*/
 class Socket
 {
 public:
     Socket();
 
-    void connect(int sharedMemId, std::string clientPath, std::string serverPath);
-    
+    void connect(int sharedMemId, std::string clientPath);
     void disconnect();
+    bool isConnected();
 
     SharedMemory::Message getSharedMemoryMessage();
     
 private:
-
     void setClientIDAndPath(int id, std::string path);
 
 #if defined __linux__ || defined __APPLE__
     sockaddr_un getPOSIXSocketAddress();
-#elif defined _WIN32
-
 #endif
 
-    int                 m_memId;
-    int                 m_memSocket;
-
-    std::string         m_clientPath;
+    int         mMemoryClientId;
+    int         mSocketId;
+    std::string mClientPath;
+    bool        mIsConnected;
 };
-
 }//namespace
 #endif

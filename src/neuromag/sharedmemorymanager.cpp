@@ -2,90 +2,117 @@
 #include <iostream>
 #include <sys/shm.h>
 
+
+namespace SharedMemory{
+
 //--------------------------------------------------------------------
 // Neuromag Shared Memory Defaults.
-// 
 // Edit these values to change the default hardcoded implementation.
 //--------------------------------------------------------------------
 
-namespace SharedMemory{
-const int   Parameters::default_neuromag_client_ID =      1304;
-const char* Parameters::default_neuromag_client_path =    "/neuro/dacq/sockets/dacq_client_";
-const char* Parameters::default_neuromag_server_path =    "/neuro/dacq/sockets/dacq_server";
-const int   Parameters::default_neuromag_max_data =       500*1500*4;
-const int   Parameters::default_neuromag_num_blocks =     100;
+const int   Parameters::default_NeuromagClientId    = 1304;
+const char* Parameters::default_NeuromagClientPath  = "/neuro/dacq/sockets/dacq_client_";
+const char* Parameters::default_NeuromagServerPath  = "/neuro/dacq/sockets/dacq_server";
+const int   Parameters::default_NeuromagMaxData     = 500 * 1500 * 4;
+const int   Parameters::default_NeuromagNumBlocks   = 100;
 }
-//--------------------------------------------------------------------
-// Implementation
-//--------------------------------------------------------------------
 
+/*
+Constructs a Parameters object with default values.
+
+Values should be set to something valid before use.
+*/
 SharedMemory::Parameters::Parameters()
-: m_ID(0)
-, m_client_path("")
-, m_server_path("")
-, m_num_blocks(0)
-, m_max_data(0)
+: mId(0)
+, mClientPath("")
+, mServerPath("")
+, mNumBlocks(0)
+, mMaxData(0)
 {
 }
 
+/*
+Returns a Parameters object initialized to default Neuromag values;
+*/
 SharedMemory::Parameters SharedMemory::Parameters::neuromagDefault()
 {
     SharedMemory::Parameters param;
 
-    param.m_ID = SharedMemory::Parameters::default_neuromag_client_ID;
-    param.m_client_path = SharedMemory::Parameters::default_neuromag_client_path;
-    param.m_server_path = SharedMemory::Parameters::default_neuromag_server_path;
-    param.m_num_blocks = SharedMemory::Parameters::default_neuromag_num_blocks;
-    param.m_max_data = SharedMemory::Parameters::default_neuromag_max_data;
+    param.mId           = SharedMemory::Parameters::default_NeuromagClientId;
+    param.mClientPath   = SharedMemory::Parameters::default_NeuromagClientPath;
+    param.mServerPath   = SharedMemory::Parameters::default_NeuromagServerPath;
+    param.mNumBlocks    = SharedMemory::Parameters::default_NeuromagNumBlocks;
+    param.mMaxData      = SharedMemory::Parameters::default_NeuromagMaxData;
 
     return param;
 }
 
+/*
+Constructs a parameterless Manager
+*/
 SharedMemory::Manager::Manager()
 {
-
 }
 
+/*
+Constructs a Manager with the given parameters.
+*/
 SharedMemory::Manager::Manager(SharedMemory::Parameters param)
-: m_param(param)
+: mParam(param)
 {
 }
 
+/*
+Connects Manager to shared memory.
+*/
 void SharedMemory::Manager::connect()
 {
-    m_socket.connect(m_param.m_ID, m_param.m_client_path, m_param.m_server_path);
+    mSocket.connect(mParam.mId, mParam.mClientPath);
 
 }
 
+/*
+Disconnects Manager from shared memory.
+*/
 void SharedMemory::Manager::disconnect()
 {
 
 }
 
+/*
+Sets the parameters of this Manager instance.
+*/
 void SharedMemory::Manager::setParameters(const Parameters& param)
 {
-    m_param = param;
+    mParam = param;
 }
 
-void* SharedMemory::Manager::getData() /*will return sharedptr of data once added*/
+/*
+Gets data from shared memory.
+*/
+void* SharedMemory::Manager::getData()
 {
     SharedMemory::Block* pMemBlock = nullptr;
     SharedMemory::Client* pMemClient = nullptr;
-    SharedMemory::Message msg = m_socket.getSharedMemoryMessage();
+    SharedMemory::Message msg = mSocket.getSharedMemoryMessage();
 
     if(msg.size > 0 && msg.shmem_buf >= 0)
     {
         pMemBlock = mpSharedMemoryBlock + msg.shmem_buf;
         pMemClient = pMemBlock->clients;
 
+        //todo - get data and update client tally to say we read the data
     }
 
     return nullptr;
 }
 
+/*
+Gets pointer to where in the system the block of shared memory is.
+*/
 bool SharedMemory::Manager::initSharedMemoryPointer()
 {
-    pthread_key_t key = ftok(m_param.m_server_path.c_str(), 'A');
+    pthread_key_t key = ftok(mParam.mServerPath.c_str(), 'A');
 
     int id;
     if((id = shmget(key, sizeof(SharedMemory::Block), IPC_CREAT | 0666)) == -1)

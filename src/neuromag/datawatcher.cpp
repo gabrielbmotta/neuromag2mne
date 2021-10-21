@@ -3,6 +3,11 @@
 
 #include <iostream>
 
+/*
+Enters loop to watch shared memory and call callbacks as data becomes available.
+
+Function to be executed in separate thread by the thread class.
+*/
 void* Neuromag::watchData(void* input)
 {
     DataWatcher* ptr = static_cast<DataWatcher*>(input);
@@ -10,22 +15,34 @@ void* Neuromag::watchData(void* input)
     return nullptr;
 }
 
+/*
+Constructs a DataWatcher
+*/
 Neuromag::DataWatcher::DataWatcher()
 : mIsWatching(false)
 {
 }
 
+/*
+Connects DataWatcher to shared memory.
+*/
 void Neuromag::DataWatcher::connect()
 {
     mMemManager.setParameters(SharedMemory::Parameters::neuromagDefault());
     mMemManager.connect();
 }
 
+/*
+Disconnects DataWatcher.
+*/
 void Neuromag::DataWatcher::disconnet()
 {
     
 }
 
+/*
+Adds callback to be called when new data is available.
+*/
 void Neuromag::DataWatcher::registerCallback(void (*func)(void*))
 {
     // if(mIsWatching)
@@ -37,19 +54,17 @@ void Neuromag::DataWatcher::registerCallback(void (*func)(void*))
     //     mCallbacks.push_back(DataCallback(str, func));
     // }
 }
-
+/*
+Removes a callback.
+*/
 void Neuromag::DataWatcher::deleteCallback(void (*func)(void*))
 {
     
 }
 
-void Neuromag::DataWatcher::deleteCallback(int index)
-{
-    // if(static_cast<unsigned int>(index) < mCallbacks.size()){
-    //     mCallbacks.erase(mCallbacks.begin() + index);
-    // }
-}
-
+/*
+Prints all callbacks to screen.
+*/
 void Neuromag::DataWatcher::showCallbacks()
 {
     // int i = 0;
@@ -61,6 +76,9 @@ void Neuromag::DataWatcher::showCallbacks()
     // }
 }
 
+/*
+Starts new thread to watch shared memory.
+*/
 void Neuromag::DataWatcher::startWatching()
 {
     if(mThread.startThread(watchData, this))
@@ -69,6 +87,9 @@ void Neuromag::DataWatcher::startWatching()
     }
 }
 
+/*
+Stops watching data.
+*/
 void Neuromag::DataWatcher::stopWatching()
 {
     if(mThread.stopThread())
@@ -77,6 +98,9 @@ void Neuromag::DataWatcher::stopWatching()
     }
 }
 
+/*
+Returns whether DataWatcher is watching for commands.
+*/
 bool Neuromag::DataWatcher::isWatching()
 {
     return mIsWatching;
