@@ -29,11 +29,11 @@ jobs:
 
       - name: Get code stats
         run: |
-        sudo apt-get install cloc 
-        cloc . > info.txt
+          sudo apt-get install cloc 
+          cloc .
         
-      - name: Save results
-        uses: actions/upload-artifact@v2
-        with:
-          name: info
-          path: info.txt
+      # - name: Save results
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: info
+      #     path: info.txt
