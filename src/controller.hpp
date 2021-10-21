@@ -36,6 +36,8 @@ private:
     void configureFileWriterController();
     void configureDataSenderController();
     void sendData();
+    void prepareToExitApplication();
+
 
     bool mContinueRunning;
     int uSecondsSleepTime;

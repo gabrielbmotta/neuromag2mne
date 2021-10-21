@@ -55,6 +55,7 @@ void Controller::run()
     checkForNewData();
     usleep(uSecondsSleepTime);
   }
+  prepareToExitApplication();
 }
 
 void Controller::checkForNewData()
@@ -113,7 +114,6 @@ void Controller::parseInputArguments(const int argc, char* argv[])
     {
       mFileNameToRead = parsingResult.fileNameToRead;
     }
-
   }
 }
 
@@ -126,6 +126,26 @@ void Controller::displayHelp(const std::string& helpString)
   std::cout << helpString;
   std::cout << "\n";
   //todo postamble
+}
+
+void Controller::prepareToExitApplication()
+{
+  if( mNeuromagMode ) {
+    mNeuromagController->stop();
+  } else if( mRandomDataMode ) {
+    mRandomDataController->stop();
+  } else if( mReadFromFileMode ) {
+    mFileReaderController->stop();
+  }
+
+  if( mSaveToFileMode )
+  {
+    mFileWriterController->stop();
+  }
+  if ( mSendDataMode )
+  {
+    mDataSenderController->stop();
+  }
 }
 
 void Controller::configureNeuromagController()
