@@ -18,5 +18,6 @@ int main (int argc, char* argv[])
 //todo documentation
 //todo standardize use of namespace in the project
 //todo think about bundling together mCommandWatcher and mDataWatcher and abstract them within a specific controller
+//todo try to go through all the problems in the project and solve them.
 
 
