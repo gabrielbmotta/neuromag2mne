@@ -17,6 +17,11 @@ NeuromagController::NeuromagController()
 
 }
 
+void NeuromagController::start()
+{
+
+}
+
 void NeuromagController::configureCommandWatcher()
 {
   configureCommandWatcherCallbacks();

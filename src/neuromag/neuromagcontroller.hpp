@@ -7,6 +7,7 @@
 
 class NeuromagController
 {
+  friend void acquisitionSoftwareRunning(void* ptr);
 public:
   NeuromagController();
   void start();
