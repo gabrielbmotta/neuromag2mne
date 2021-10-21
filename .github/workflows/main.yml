@@ -29,7 +29,7 @@ jobs:
 
       - name: Get code stats
         run: |
-        npm install -g cloc
+        sudo apt-get install cloc 
         cloc . > info.txt
         
       - name: Save results
