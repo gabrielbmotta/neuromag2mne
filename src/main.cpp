@@ -10,14 +10,13 @@ int main (int argc, char* argv[])
   return 0;
 }
 
+//todo consistency in the way include guards are created
 //todo logging mechanism
 //todo licensing. candidate mozilla public license.
 //todo testing must include coverage
 //todo profiling
 //todo documentation
 //todo standardize use of namespace in the project
-//todo solve templated shared pointer to accept non default constructors
 //todo think about bundling together mCommandWatcher and mDataWatcher and abstract them within a specific controller
-//todo consistency in the way include guards are created
 
 
