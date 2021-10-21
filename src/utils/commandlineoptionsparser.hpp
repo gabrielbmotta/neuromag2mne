@@ -7,7 +7,7 @@
 #include "commandlineoption.hpp"
 
 
-// This clas parses input options for the main application. 
+// This class parses input options for the main application.
 // To test it you can use the following code. 
 
 
@@ -88,16 +88,15 @@
 //     return 0;
 
 // }
-
 class CommandlineOptionsParser
 {
 private:
 
-    bool m_bOptionsParsedCorrectly;
-    bool m_bStopOnErrors;
-    int m_helpDescriptionPrintMargin1;
-    int m_helpDescriptionPrintMargin2;
-    std::vector<CommandlineOption> m_options;
+    bool mOptionsParsedCorrectly;
+    bool mStopOnErrors;
+    int mHelpDescriptionPrintMargin1;
+    int mHelpDescriptionPrintMargin2;
+    std::vector<CommandlineOption> mOptions;
 
 public:
 
