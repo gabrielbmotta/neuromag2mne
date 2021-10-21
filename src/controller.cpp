@@ -1,25 +1,24 @@
 
-#include "controller.hpp"
 #include <unistd.h>
+#include "controller.hpp"
+#include "utils/sharedpointer.hpp"
 
-#include "utils/commandlineoptionsparser.hpp"
 
-void acquisitionSoftwareRunning(void* ptr)
+void stopCallback(void* ptr)
 {
-    std::cout << "Acquisition software has been started.\n";
-    Controller* c(static_cast<Controller*>(ptr));
-    c->mAcquisitionSoftwareRunning = true;
+  Controller* cPtr(static_cast<Controller*>(ptr));
+  cPtr->stop();
 }
 
-// =========================================================================
-
 Controller::Controller()
-: mIsActive(false),
-  mAcquisitionSoftwareRunning(false),
-  mContinueRunning(false),
-  mOptionsParsed(false),
-  mCallbacksConfigured(false),
-  uSecondsSleepTime(100)
+    : mContinueRunning(false),
+      uSecondsSleepTime(100),
+      mVerboseMode(false),
+      mNeuromagMode(false),
+      mRandomDataMode(false),
+      mReadFromFileMode(false),
+      mSendDataMode(false),
+      mSaveToFileMode(false),
 {
 
 }
@@ -27,69 +26,64 @@ Controller::Controller()
 void Controller::start()
 {
   std::cout << "=== Controller Startup ===\n";
-  configureCommandWatcher();
-  configureDataWatcher();
-
-  if ( configurationIsReady() )
-  {
-    mContinueRunning = true;
-    run();
+  if( mNeuromagMode ) {
+    configureNeuromagController();
+  } else if( mRandomDataMode ) {
+    configureRandomDataController();
+  } else if( mReadFromFileMode ) {
+    configureFileReaderController();
   }
-}
 
-void Controller::configureCommandWatcher()
-{
-  configureCommandWatcherCallbacks();
-  mCommandWatcher->connect();
-  mCommandWatcher->startWatching();
-}
-
-void Controller::configureCommandWatcherCallbacks()
-{
-  std::cout << "Registering CommandWatcher callbacks.\n";
-
-  mCommandWatcher->registerCallback("wkup", acquisitionSoftwareRunning, this);
-  mCommandWatcher->showCallbacks();
-  mCallbacksConfigured = true;
-}
-
-void Controller::configureDataWatcher()
-{
-    configureCommandWatcherCallbacks();
-    mDataWatcher->connect();
-    mDataWatcher->startWatching();
-}
-
-void Controller::configureDataWatcherCallbacks()
-{
-//  std::cout << "Registering DataWatcher callbacks.\n";
-//  mDataWatcher->registerCallback("xxx", testCallback1, this);
+  if( mSaveToFileMode )
+  {
+    configureFileWriterController();
+  }
+  if ( mSendDataMode )
+  {
+    configureDataSenderController();
+  }
+  run();
 }
 
 void Controller::run()
 {
+  mContinueRunning = true;
   while (mContinueRunning)
   {
-    if(mAcquisitionSoftwareRunning)
-    {
-      configureDataWatcher();
-      sendDataToDataManager();
-    }
+    checkForNewData();
     usleep(uSecondsSleepTime);
+  }
+  prepareToExitApplication();
+}
+
+void Controller::checkForNewData()
+{
+  if( dataAvailable() )
+  {
+    sendData();
   }
 }
 
-void Controller::sendDataToDataManager()
+void Controller::sendData()
 {
-  while(mAcquisitionSoftwareRunning)
+  while ( dataAvailable() )
   {
-    if( dataAvailable() ){
-      SharedPointer<Data> data = mDataQueue.front();
-      mDataQueue.pop();
-      //todo - put 'data' somewhere.
+    //todo be careful make read from queue multithread safe!!!
+    if ( mSaveToFileMode )
+    {
+      mFileWriterController->pushNewData(mDataQueue.front());
     }
+    if ( mSendDataMode )
+    {
+      mDataSenderController->pushNewData(mDataQueue.front());
+    }
+    mDataQueue.pop();
   }
+}
 
+bool Controller::dataAvailable() const
+{
+  return !mDataQueue.empty();
 }
 
 void Controller::stop()
@@ -97,92 +91,88 @@ void Controller::stop()
   mContinueRunning = false;
 }
 
-void Controller::printCommand(const std::string& s) const
-{
-    std::cout << s << "\n";
-}
-
 void Controller::parseInputArguments(const int argc, char* argv[])
 {
-  std::cout << "Parsing options!!\n";
-  //     std::vector<std::string> opt1Flags;
-//     opt1Flags.push_back("-dsfs");
-//     std::vector<std::string> opt1Help;
-//     opt1Help.push_back("This is my second help");
-//     CommandlineOption opt1("option1", opt1Flags, opt1Help, WITHOUT_VALUE);
-
-//     std::vector<std::string> opt2Flags;
-//     opt2Flags.push_back("-f");
-//     opt2Flags.push_back("--file");
-//     std::vector<std::string> opt2Help;
-//     opt2Help.push_back("this is my help");
-//     opt2Help.push_back("Because this is my second example.");
-//     CommandlineOption opt2("option2", opt2Flags, opt2Help, CommandlineOption::WITH_VALUE);
-
-//     CommandlineOption opt3(opt1);
-//     opt3.name = std::string("option3");
-//     // opt3.flagsList[0] = std::string("-ff");
-//     // opt3.flagsList[1] = std::string("--ffile");
-//     // opt3.helpString[0] = "this is my help modified";
-//     // opt3.helpString.pop_back();
-
-//     std::vector<std::string> opt4Flags;
-//     opt4Flags.push_back("-h");
-//     opt4Flags.push_back("--help");
-//     std::vector<std::string> opt4Help;
-//     opt4Help.push_back("this is the HELP!!");
-//     opt4Help.push_back("Because this is my second example.");
-//     CommandlineOption opt4("help", opt4Flags, opt4Help, WITHOUT_VALUE);
-
-//     // if( opt2.hasFlag("-f") )
-//     // {
-//     //     std::cout << "it has the flag!!\n";
-//     // } else {
-//     //     std::cout << "it doesn't have the flag!!\n";
-//     // }
-
-//     CommandlineOptionsParser parser;
-//     parser.addOption(opt1);
-//     parser.addOption(opt2);
-//     parser.addOption(opt3);
-//     parser.addOption(opt4);
-//     parser.setStopOnError(false);
-
-//     parser.parse(argc, argv);
-
-//     if( parser.allOptionsParsedCorrectly() )
-//     {
-//         testOption(parser, "option1");
-//         testOption(parser, "option2");
-//         testOption(parser, "option3");
-//         testOption(parser, "help");
-//     }
-
-
-//     std::cout << parser.getHelpDescription();
-  mOptionsParsed = true;
+  OptionsPack parsingResult = mInputArgumentsController->parse(argc, argv);
+  if ( mInputArgumentsController->errorWhileParsingOptions() )
+  {
+    std::cout << "Something went wrong parsing commandline input options.\n";
+    displayHelp(mInputArgumentsController->getHelpStr());
+    exit(1);
+  }
+  if ( parsingResult.displayHelp )
+  {
+    displayHelp(mInputArgumentsController->getHelpStr());
+    exit(0);
+  } else {
+    mVerboseMode = parsingResult.verboseMode;
+    mRandomDataMode = parsingResult.randomDataMode;
+    mReadFromFileMode = parsingResult.readFromFileMode;
+    if( mReadFromFileMode )
+    {
+      mFileNameToRead = parsingResult.fileNameToRead;
+    }
+  }
 }
 
-bool Controller::configurationIsReady() const
+void Controller::displayHelp(const std::string& helpString)
 {
-  bool allGood(true);
+  //todo preamble name date etc...
+  std::cout << "\n";
+  std::cout << "Neuromag2MNE\n";
+  std::cout << "Version. " << versionMayor << "." << versionMinor << "\n";
+  std::cout << helpString;
+  std::cout << "\n";
+  //todo postamble
+}
 
-  if ( mOptionsParsed )
-  {
-    std::cout << "Options parsed ok. \n";
-  }
-  else
-  {
-    std::cout << "Something went wrong while parsing the options.\n";
-    allGood = false;
+void Controller::prepareToExitApplication()
+{
+  if( mNeuromagMode ) {
+    mNeuromagController->stop();
+  } else if( mRandomDataMode ) {
+    mRandomDataController->stop();
+  } else if( mReadFromFileMode ) {
+    mFileReaderController->stop();
   }
 
-  //todo continue... with other options...
-
-  return allGood;
+  if( mSaveToFileMode )
+  {
+    mFileWriterController->stop();
+  }
+  if ( mSendDataMode )
+  {
+    mDataSenderController->stop();
+  }
 }
 
-bool Controller::dataAvailable()
+void Controller::configureNeuromagController()
 {
-  return !mDataQueue.empty();
+  //todo figure out how to report configuration options...
+  mNeuromagController->start();
 }
+
+void Controller::configureRandomDataController()
+{
+  //todo figure out how to report configuration options...
+  mRandomDataController->start();
+}
+
+void Controller::configureFileReaderController()
+{
+  //todo figure out how to report configuration options...
+  mFileReaderController->start();
+}
+
+void Controller::configureFileWriterController()
+{
+  //todo figure out a way to pass configurations...
+  mFileWriterController->start();
+}
+
+void Controller::configureDataSenderController()
+{
+  //todo figure out how to report configuration options...
+  mDataSenderController->start();
+}
+

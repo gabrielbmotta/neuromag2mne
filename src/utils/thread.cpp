@@ -11,7 +11,7 @@ Thread::Thread()
 bool Thread::startThread(void*(fcn)(void*), void* param)
 {
 #if defined __linux__ || defined __APPLE__
-  if(pthread_create(&mThread, NULL, fcn, param))
+  if(pthread_create(&mThread, nullptr, fcn, param))
   {
     std::cout << "Unable to start thread;\n";
     return false;

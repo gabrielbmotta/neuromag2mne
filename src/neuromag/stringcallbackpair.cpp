@@ -1,4 +1,4 @@
-#include "stringcallbackpair.h"
+#include "stringcallbackpair.hpp"
 
 StringCallbackPair::StringCallbackPair(const std::string& s, void (*fcn)(void *), void *call)
         : trigger_string(s),

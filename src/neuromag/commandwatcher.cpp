@@ -28,7 +28,7 @@ void* Neuromag::watchCommands(void* receiver)
     }
     std::cout << "Exiting watch loop.\n";
     
-    return NULL;
+    return nullptr;
 }
 
 /*

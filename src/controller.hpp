@@ -5,46 +5,60 @@
 #include <iostream>
 #include <queue>
 
-#include "neuromag/commandwatcher.hpp"
-#include "neuromag/datawatcher.hpp"
+#include "neuromag2mne.hpp"
 #include "utils/scopedpointer.hpp"
-#include "utils/sharedpointer.hpp"
-
+#include "inputargumentsparser.hpp"
 
 //todo super temp do not ship
+//todo this probably needs to be something of more entity... :)
 struct Data{
     int temp;
 };
 
 class Controller
 {
-    friend void acquisitionSoftwareRunning(void*);
+    friend void stopCallback(void*);
 public:
     Controller();
     void start();
     void stop();
-    void printCommand(const std::string& s) const;
     void parseInputArguments(int argc, char* argv[]);
 
 private:
-    bool configurationIsReady() const;
-    void configureCommandWatcherCallbacks();
-    void configureDataWatcherCallbacks();
-    void configureCommandWatcher();
-    void configureDataWatcher();
     void run();
+    static void displayHelp(const std::string& helpStr);
 
-    inline bool dataAvailable();
-    void sendDataToDataManager();
+    inline bool dataAvailable() const;
+    void checkForNewData();
 
-    bool mIsActive;
-    bool mAcquisitionSoftwareRunning;
+    void configureNeuromagController();
+    void configureRandomDataController();
+    void configureFileReaderController();
+    void configureFileWriterController();
+    void configureDataSenderController();
+    void sendData();
+    void prepareToExitApplication();
+
+
     bool mContinueRunning;
-    bool mOptionsParsed;
-    bool mCallbacksConfigured;
     int uSecondsSleepTime;
-    ScopedPointer<Neuromag::CommandWatcher> mCommandWatcher;
-    ScopedPointer<Neuromag::DataWatcher> mDataWatcher;
+    bool mVerboseMode;
+
+    bool mNeuromagMode;
+    bool mRandomDataMode;
+    bool mReadFromFileMode;
+    std::string mFileNameToRead;
+    bool mSendDataMode;
+    bool mSaveToFileMode;
+    std::string mFileNameToSave;
+
+    ScopedPointer<InputArgumentsParser> mInputArgumentsController;
+    ScopedPointer<Neuromag::NeuromagController> mNeuromagController;
+    ScopedPointer<RandomDataController> mRandomDataController;
+    ScopedPointer<FileController> mFileReaderController;
+
+    ScopedPointer<DataSenderController> mDataSenderController;
+    ScopedPointer<FileController> mFileWriterController;
 
     std::queue<SharedPointer<Data> > mDataQueue;
 };

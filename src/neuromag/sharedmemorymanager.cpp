@@ -92,8 +92,8 @@ Gets data from shared memory.
 */
 void* SharedMemory::Manager::getData()
 {
-    SharedMemory::Block* pMemBlock = NULL;
-    SharedMemory::Client* pMemClient = NULL;
+    SharedMemory::Block* pMemBlock = nullptr;
+    SharedMemory::Client* pMemClient = nullptr;
     SharedMemory::Message msg = mSocket.getSharedMemoryMessage();
 
     if(msg.size > 0 && msg.shmem_buf >= 0)
@@ -104,7 +104,7 @@ void* SharedMemory::Manager::getData()
         //todo - get data and update client tally to say we read the data
     }
 
-    return NULL;
+    return nullptr;
 }
 
 /*
