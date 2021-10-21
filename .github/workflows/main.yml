@@ -4,11 +4,9 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on push or pull request
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -16,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  CI:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -28,3 +26,14 @@ jobs:
       # Runs a single command using the runners shell
       - name: Check if project builds
         run: make
+
+      - name: Get code stats
+        run: |
+        npm install -g cloc
+        cloc . > info.txt
+        
+      - name: Save results
+        uses: actions/upload-artifact@v2
+        with:
+          name: info
+          path: info.txt
