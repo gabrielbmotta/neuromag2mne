@@ -16,7 +16,7 @@ INC= -I$(SOURCEDIR)/utils \
      -I$(SOURCEDIR)/neuromag \
      -I$(SOURCEDIR)/fiff
 
-CXXFLAGS += -std=c++98 #-std=c++11 -std=c++14 -std=c++17
+CXXFLAGS += -std=c++98#-std=c++11 -std=c++14 -std=c++17
 CXXFLAGSDEBUG := -g \
 	-Wall  \
 	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
@@ -42,7 +42,7 @@ CXXFLAGSDEBUG := -g \
 UNAME := $(shell uname)
 ifeq ($(UNAME),Darwin)
 	CXX = clang++
-	CXXFLAGS +=
+#	CXXFLAGS +=
 else ifeq ($(UNAME),Linux)
 	CXX = g++
 	CXXFLAGS += -pthread
@@ -57,7 +57,7 @@ all: dir_prepare executable
 debug: CXXFLAGS += -DDEBUG $(CXXFLAGSDEBUG)
 debug: dir_prepare executable
 
-executable: CXXFLAGS += -O3
+executable: CXXFLAGS +=-O3
 executable: $(OUTDIR)/$(EXECUTABLE)
 
 dir_prepare:
