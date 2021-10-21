@@ -37,7 +37,6 @@ void Controller::configureCommandWatcher()
 void Controller::configureCommandWatcherCallbacks()
 {
   std::cout << "Registering CommandWatcher callbacks.\n";
-
   mCommandWatcher->registerCallback("wkup", acquisitionSoftwareRunning, this);
   mCommandWatcher->showCallbacks();
 }
