@@ -1,36 +1,67 @@
 
-#include <unistd.h>
+#include <unistd.h> // for sleep.
 #include "controller.hpp"
-#include "utils/sharedpointer.hpp"
+#include "inputargumentsparser.hpp"
+#include "neuromag/neuromagcontroller.hpp"
+#include "randomData/randomdatacontroller.hpp"
+#include "fiff/filecontroller.hpp"
+#include "dataSender/datasendercontroller.hpp"
 
-
-void stopCallback(void* ptr)
-{
-  Controller* cPtr(static_cast<Controller*>(ptr));
-  cPtr->stop();
-}
 
 Controller::Controller()
     : mContinueRunning(false),
-      uSecondsSleepTime(100),
+      muSecondsSleepTime(100),
       mVerboseMode(false),
-      mNeuromagMode(false),
-      mRandomDataMode(false),
-      mReadFromFileMode(false),
-      mSendDataMode(false),
-      mSaveToFileMode(false),
+      mSourceMode(NEUROMAG),
+      mSendDataMode(true),
+      mSaveToFileMode(false)
 {
 
+}
+
+void Controller::parseInputArguments(const int argc, char* argv[])
+{
+  OptionsPack parsingResult = mInputArgumentsController->parse(argc, argv);
+  if ( mInputArgumentsController->errorWhileParsingOptions() )
+  {
+    std::cout << "Something went wrong parsing commandline input options.\n";
+    displayHelp(mInputArgumentsController->getHelpStr());
+    exit(1);
+  }
+  if ( parsingResult.displayHelp )
+  {
+    displayHelp(mInputArgumentsController->getHelpStr());
+    exit(0);
+  } else {
+    mVerboseMode = parsingResult.verboseMode;
+    if ( parsingResult.randomDataMode )
+    {
+      mSourceMode = RANDOM_DATA;
+    } else if ( parsingResult.readFromFileMode )
+    {
+      mSourceMode = FILE_READ;
+      mFileNameToRead = parsingResult.fileNameToRead;
+    }
+    if ( parsingResult.dontSendDataMode )
+    {
+      mSendDataMode = false;
+    }
+    if ( parsingResult.saveToFileMode )
+    {
+      mSaveToFileMode = true;
+      mFileNameToSave = parsingResult.fileNameToSave;
+    }
+  }
 }
 
 void Controller::start()
 {
   std::cout << "=== Controller Startup ===\n";
-  if( mNeuromagMode ) {
+  if( mSourceMode == NEUROMAG ) {
     configureNeuromagController();
-  } else if( mRandomDataMode ) {
+  } else if( mSourceMode == RANDOM_DATA ) {
     configureRandomDataController();
-  } else if( mReadFromFileMode ) {
+  } else if( mSourceMode == FILE_READ ) {
     configureFileReaderController();
   }
 
@@ -51,7 +82,7 @@ void Controller::run()
   while (mContinueRunning)
   {
     checkForNewData();
-    usleep(uSecondsSleepTime);
+    usleep(muSecondsSleepTime);
   }
   prepareToExitApplication();
 }
@@ -68,51 +99,26 @@ void Controller::sendData()
 {
   while ( dataAvailable() )
   {
-    //todo be careful make read from queue multithread safe!!!
-    if ( mSaveToFileMode )
-    {
-      mFileWriterController->pushNewData(mDataQueue.front());
-    }
     if ( mSendDataMode )
     {
-      mDataSenderController->pushNewData(mDataQueue.front());
+//      mDataSenderController->send(mDataQueue.front());
     }
-    mDataQueue.pop();
+    if ( mSaveToFileMode )
+    {
+//      mFileWriterController->write(mDataQueue.front());
+    }
+    mDataQueue->pop();
   }
 }
 
 bool Controller::dataAvailable() const
 {
-  return !mDataQueue.empty();
+  return !mDataQueue->empty();
 }
 
 void Controller::stop()
 {
   mContinueRunning = false;
-}
-
-void Controller::parseInputArguments(const int argc, char* argv[])
-{
-  OptionsPack parsingResult = mInputArgumentsController->parse(argc, argv);
-  if ( mInputArgumentsController->errorWhileParsingOptions() )
-  {
-    std::cout << "Something went wrong parsing commandline input options.\n";
-    displayHelp(mInputArgumentsController->getHelpStr());
-    exit(1);
-  }
-  if ( parsingResult.displayHelp )
-  {
-    displayHelp(mInputArgumentsController->getHelpStr());
-    exit(0);
-  } else {
-    mVerboseMode = parsingResult.verboseMode;
-    mRandomDataMode = parsingResult.randomDataMode;
-    mReadFromFileMode = parsingResult.readFromFileMode;
-    if( mReadFromFileMode )
-    {
-      mFileNameToRead = parsingResult.fileNameToRead;
-    }
-  }
 }
 
 void Controller::displayHelp(const std::string& helpString)
@@ -123,16 +129,15 @@ void Controller::displayHelp(const std::string& helpString)
   std::cout << "Version. " << versionMayor << "." << versionMinor << "\n";
   std::cout << helpString;
   std::cout << "\n";
-  //todo postamble
 }
 
 void Controller::prepareToExitApplication()
 {
-  if( mNeuromagMode ) {
+  if( mSourceMode == NEUROMAG ) {
     mNeuromagController->stop();
-  } else if( mRandomDataMode ) {
+  } else if( mSourceMode == RANDOM_DATA ) {
     mRandomDataController->stop();
-  } else if( mReadFromFileMode ) {
+  } else if( mSourceMode == FILE_READ ) {
     mFileReaderController->stop();
   }
 

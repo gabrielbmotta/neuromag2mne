@@ -8,7 +8,8 @@
 #include "collector_info.hpp"
 #include "../utils/thread.hpp"
 #include "../utils/tcpsocket.hpp"
-#include "stringcallbackpair.hpp"
+#include "../utils/stringcallbackpair.hpp"
+#include "neuromagcontroller.hpp"
 
 namespace Neuromag{
 
@@ -27,11 +28,11 @@ public:
     CommandWatcher();
 
     void connect();
-    void connect(int, std::string);
+    void connect(int port, const std::string& password);
     void disconnect();
 
-    void registerCallback(const std::string& str, void (*func)(void*), void* receiver);
-    void deleteCallback(const std::string& str, void (*func)(void*), void* receiver);
+    void registerCallback(const StringCallbackPair<NeuromagController>& callbackPair);
+    void deleteCallback(const StringCallbackPair<NeuromagController>& callbackPair);
     void showCallbacks();
 
     void startWatching();
@@ -39,13 +40,16 @@ public:
     state getState();
 
 private:
-    void checkForCallbacks(std::string);
-
-    std::vector<StringCallbackPair>     mCallbacks;
+    void checkForCallbacks(const std::string& msg);
+    bool mContinueWatching;
+    int muSecondsSleep;
+    std::vector<StringCallbackPair<NeuromagController> >    mCallbacks;
     state                               mState;
     Thread                              mThread;
     TCPSocket                           mSocket;
 };
+
+
 
 }//namespace
 #endif // COMMANDWATCHER

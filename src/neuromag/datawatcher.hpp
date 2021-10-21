@@ -5,7 +5,7 @@
 #include "types.hpp"
 #include "../utils/thread.hpp"
 #include "sharedmemorymanager.hpp"
-#include "stringcallbackpair.hpp"
+#include "../utils/stringcallbackpair.hpp"
 
 #include <string>
 #include <vector>
@@ -33,7 +33,7 @@ public:
     bool isWatching();
 
 private:
-    std::vector<StringCallbackPair>     mCallbacks;
+    std::vector<StringCallbackPair<DataWatcher> >   mCallbacks;
     bool                                mIsWatching;
     Thread                              mThread;
     SharedMemory::Manager               mMemManager;

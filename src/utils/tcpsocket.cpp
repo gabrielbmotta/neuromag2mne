@@ -17,7 +17,8 @@
 Creates a TCP Socket
 */
 TCPSocket::TCPSocket()
-  : mSocketId(0)
+  : mPort(0)
+  , mSocketId(0)
   , mIsConnected(false)
   , mReceivingBufferSize(16348)
 {
@@ -40,14 +41,14 @@ void TCPSocket::connect(const char* addr, int port)
 #if defined __linux__ || defined __APPLE__
     mSocketId = socket(AF_INET, SOCK_STREAM, 0);
 
-    sockaddr_in server_address = getPOSIXSocketAddress();
+    setPOSIXSocketAddress();
 
-    if (::connect(mSocketId, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
+    if ( ::connect(mSocketId,
+                  (struct sockaddr *) &mServerAddress,
+                      sizeof(mServerAddress)) < 0 )
 	{
 		std::cout << "Unable to connect to " << addr << ":" << port << "\n";
-    }
-    else
-    {
+    } else {
         std::cout << "Connected to " << addr << ":" << port << "\n";
         mIsConnected = true;
     }
@@ -163,15 +164,11 @@ void TCPSocket::setAddressAndPort(const char* addr, int port)
 /*
 Generates a sockaddr_in struct and populates it with stored address and port information.
 */
-sockaddr_in TCPSocket::getPOSIXSocketAddress()
+void TCPSocket::setPOSIXSocketAddress()
 {
-    sockaddr_in server_address;
-
-    server_address.sin_addr.s_addr = inet_addr(mAddress.c_str());
-    server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(static_cast<uint>(mPort));
-
-    return server_address;
+  mServerAddress.sin_addr.s_addr = inet_addr(mAddress.c_str());
+  mServerAddress.sin_family = AF_INET;
+  mServerAddress.sin_port = htons(static_cast<uint>(mPort));
 }
 #elif defined _WIN32
 #endif

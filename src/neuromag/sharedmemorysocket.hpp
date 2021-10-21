@@ -22,7 +22,7 @@ this new data is being stored. We can request a struct that tells us where
 in the shared memory block we can find data. This struct is what is returned
 by 'getSharedMemoryMessage()', and can be used, once the location of the
 shared memory block is also obtained (functionality that is not provided
-by this class), to get the ptr to the memory location of new data.
+by this class), to get the mPtr to the memory location of new data.
 */
 class Socket
 {

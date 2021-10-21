@@ -5,17 +5,21 @@
 template<typename T>
 class ScopedPointer{
 public: 
-    ScopedPointer():ptr(new T()){};
-    ~ScopedPointer(){delete ptr;};
+    ScopedPointer(): mPtr(new T()){};
+    ~ScopedPointer(){delete mPtr;};
 
     T* operator -> () const
     {
-        return ptr;
+        return mPtr;
+    }
+    T* data() const
+    {
+      return mPtr;
     }
 private:
-    ScopedPointer(const ScopedPointer& other) {ptr = other.ptr;};
-    ScopedPointer& operator = (ScopedPointer& other){ptr = other.ptr; return *this;}
-    T* ptr;
+    ScopedPointer(const ScopedPointer& other) { mPtr = other.mPtr;};
+    ScopedPointer& operator=(ScopedPointer& other){ mPtr = other.mPtr; return *this;}
+    T* mPtr;
 };
 
 #endif // SCOPEDPOINTER

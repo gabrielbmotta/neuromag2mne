@@ -13,7 +13,6 @@ class TCPSocket
 public:
     TCPSocket();
 
-    void connect(std::string addr, int port);
     void connect(const char* addr, int port);
     void disconnect();
     bool isConnected();
@@ -26,16 +25,16 @@ public:
 private:
     void setAddressAndPort(const char* addr, int port);
 #if defined __linux__ || defined __APPLE__
-    sockaddr_in getPOSIXSocketAddress();
+    void setPOSIXSocketAddress();
 #elif defined _WIN32
 #endif
 
     std::string mAddress;
     int mPort;
-
     int mSocketId;
     bool mIsConnected;
     const int mReceivingBufferSize;
+    sockaddr_in mServerAddress;
 };
 
 #endif

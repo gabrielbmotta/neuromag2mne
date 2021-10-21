@@ -11,7 +11,7 @@ Function to be executed in separate thread by the thread class.
 void* Neuromag::watchData(void* input)
 {
     DataWatcher* ptr = static_cast<DataWatcher*>(input);
-    //ptr.
+    //mPtr.
     return nullptr;
 }
 
@@ -41,13 +41,13 @@ void Neuromag::DataWatcher::disconnet()
 }
 
 /*
-Adds callback to be called when new data is available.
+Adds callbackName to be called when new data is available.
 */
 void Neuromag::DataWatcher::registerCallback(void (*func)(void*))
 {
     // if(mIsWatching)
     // {
-    //     std::cout << "Unable to register callback while watching.\n";
+    //     std::cout << "Unable to register callbackName while watching.\n";
     // }
     // else
     // {
@@ -55,7 +55,7 @@ void Neuromag::DataWatcher::registerCallback(void (*func)(void*))
     // }
 }
 /*
-Removes a callback.
+Removes a callbackName.
 */
 void Neuromag::DataWatcher::deleteCallback(void (*func)(void*))
 {
