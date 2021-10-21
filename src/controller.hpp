@@ -5,12 +5,9 @@
 #include <iostream>
 #include <queue>
 
-#include "utils/scopedpointer.hpp"
-#include "utils/sharedpointer.hpp"
-#include "neuromag/commandwatcher.hpp"
-#include "neuromag/datawatcher.hpp"
-#include "inputargumentsparser.hpp"
 #include "neuromag2mne.hpp"
+#include "utils/scopedpointer.hpp"
+#include "inputargumentsparser.hpp"
 
 //todo super temp do not ship
 struct Data{
@@ -19,7 +16,7 @@ struct Data{
 
 class Controller
 {
-    friend void acquisitionSoftwareRunning(void*);
+    friend void stopCallback(void*);
 public:
     Controller();
     void start();
@@ -27,28 +24,39 @@ public:
     void parseInputArguments(int argc, char* argv[]);
 
 private:
-    void configureCommandWatcherCallbacks();
-    void configureDataWatcherCallbacks();
-    void configureCommandWatcher();
-    void configureDataWatcher();
-    static void displayHelp(const std::string& helpStr);
     void run();
+    static void displayHelp(const std::string& helpStr);
 
     inline bool dataAvailable() const;
     void checkForNewData();
 
-    bool mAcquisitionSoftwareRunning;
+    void configureNeuromagController();
+    void configureRandomDataController();
+    void configureFileReaderController();
+    void configureFileWriterController();
+    void configureDataSenderController();
+    void sendData();
+
     bool mContinueRunning;
     int uSecondsSleepTime;
-
     bool mVerboseMode;
+
+    bool mNeuromagMode;
     bool mRandomDataMode;
     bool mReadFromFileMode;
     std::string mFileNameToRead;
+    bool mSendDataMode;
+    bool mSaveToFileMode;
+    std::string mFileNameToSave;
 
-    ScopedPointer<Neuromag::CommandWatcher> mCommandWatcher;
-    ScopedPointer<Neuromag::DataWatcher> mDataWatcher;
     ScopedPointer<InputArgumentsParser> mInputArgumentsController;
+    ScopedPointer<Neuromag::NeuromagController> mNeuromagController;
+    ScopedPointer<RandomDataController> mRandomDataController;
+    ScopedPointer<FileController> mFileReaderController;
+
+    ScopedPointer<DataSenderController> mDataSenderController;
+    ScopedPointer<FileController> mFileWriterController;
+
     std::queue<SharedPointer<Data> > mDataQueue;
 };
 

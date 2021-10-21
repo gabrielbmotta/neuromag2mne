@@ -1,20 +1,26 @@
 
-#include "controller.hpp"
 #include <unistd.h>
+#include "controller.hpp"
+#include "utils/sharedpointer.hpp"
 
-void acquisitionSoftwareRunning(void* ptr)
+
+void stopCallback(void* ptr)
 {
-    std::cout << "Acquisition software has been started.\n";
-    Controller* c(static_cast<Controller*>(ptr));
-    c->mAcquisitionSoftwareRunning = true;
+  Controller* cPtr(static_cast<Controller*>(ptr));
+  cPtr->stop();
 }
 
-// =========================================================================
-
 Controller::Controller()
-: mAcquisitionSoftwareRunning(false),
-  mContinueRunning(false),
-  uSecondsSleepTime(100)
+    : mContinueRunning(false),
+      uSecondsSleepTime(100),
+      mVerboseMode(false),
+      mNeuromagMode(false),
+      mRandomDataMode(false),
+      mReadFromFileMode(false),
+      mFileNameToRead(""),
+      mSendDataMode(false),
+      mSaveToFileMode(false),
+      mFileNameToSave("")
 {
 
 }
@@ -22,36 +28,23 @@ Controller::Controller()
 void Controller::start()
 {
   std::cout << "=== Controller Startup ===\n";
-  configureCommandWatcher();
-  //todo figure out play between dependent controllers.
+  if( mNeuromagMode ) {
+    configureNeuromagController();
+  } else if( mRandomDataMode ) {
+    configureRandomDataController();
+  } else if( mReadFromFileMode ) {
+    configureFileReaderController();
+  }
+
+  if( mSaveToFileMode )
+  {
+    configureFileWriterController();
+  }
+  if ( mSendDataMode )
+  {
+    configureDataSenderController();
+  }
   run();
-}
-
-void Controller::configureCommandWatcher()
-{
-  configureCommandWatcherCallbacks();
-  mCommandWatcher->connect();
-  mCommandWatcher->startWatching();
-}
-
-void Controller::configureCommandWatcherCallbacks()
-{
-  std::cout << "Registering CommandWatcher callbacks.\n";
-  mCommandWatcher->registerCallback("wkup", acquisitionSoftwareRunning, this);
-  mCommandWatcher->showCallbacks();
-}
-
-void Controller::configureDataWatcher()
-{
-    configureDataWatcherCallbacks();
-    mDataWatcher->connect();
-    mDataWatcher->startWatching();
-}
-
-void Controller::configureDataWatcherCallbacks()
-{
-//  std::cout << "Registering DataWatcher callbacks.\n";
-//  mDataWatcher->registerCallback("xxx", testCallback1, this);
 }
 
 void Controller::run()
@@ -59,26 +52,39 @@ void Controller::run()
   mContinueRunning = true;
   while (mContinueRunning)
   {
-    if(mAcquisitionSoftwareRunning)
-    {
-      configureDataWatcher();
-      checkForNewData();
-    }
+    checkForNewData();
     usleep(uSecondsSleepTime);
   }
 }
 
 void Controller::checkForNewData()
 {
-  while(mAcquisitionSoftwareRunning)
+  if( dataAvailable() )
   {
-    if( dataAvailable() ){
-      SharedPointer<Data> data = mDataQueue.front();
-      mDataQueue.pop();
-      //todo - put 'data' somewhere.
-    }
+    sendData();
   }
+}
 
+void Controller::sendData()
+{
+  while ( dataAvailable() )
+  {
+    //todo be careful make read from queue multithread safe!!!
+    if ( mSaveToFileMode )
+    {
+      mFileWriterController->pushNewData(mDataQueue.front());
+    }
+    if ( mSendDataMode )
+    {
+      mDataSenderController->pushNewData(mDataQueue.front());
+    }
+    mDataQueue.pop();
+  }
+}
+
+bool Controller::dataAvailable() const
+{
+  return !mDataQueue.empty();
 }
 
 void Controller::stop()
@@ -92,14 +98,9 @@ void Controller::parseInputArguments(const int argc, char* argv[])
   if ( mInputArgumentsController->errorWhileParsingOptions() )
   {
     std::cout << "Something went wrong parsing commandline input options.\n";
-//    std::cout << "Your current options are...\n";
-//    parsingResult.print();
-
     displayHelp(mInputArgumentsController->getHelpStr());
-
     exit(1);
   }
-
   if ( parsingResult.displayHelp )
   {
     displayHelp(mInputArgumentsController->getHelpStr());
@@ -112,12 +113,8 @@ void Controller::parseInputArguments(const int argc, char* argv[])
     {
       mFileNameToRead = parsingResult.fileNameToRead;
     }
-  }
-}
 
-bool Controller::dataAvailable() const
-{
-  return !mDataQueue.empty();
+  }
 }
 
 void Controller::displayHelp(const std::string& helpString)
@@ -130,3 +127,34 @@ void Controller::displayHelp(const std::string& helpString)
   std::cout << "\n";
   //todo postamble
 }
+
+void Controller::configureNeuromagController()
+{
+  //todo figure out how to report configuration options...
+  mNeuromagController->start();
+}
+
+void Controller::configureRandomDataController()
+{
+  //todo figure out how to report configuration options...
+  mRandomDataController->start();
+}
+
+void Controller::configureFileReaderController()
+{
+  //todo figure out how to report configuration options...
+  mFileReaderController->start();
+}
+
+void Controller::configureFileWriterController()
+{
+  //todo figure out a way to pass configurations...
+  mFileWriterController->start();
+}
+
+void Controller::configureDataSenderController()
+{
+  //todo figure out how to report configuration options...
+  mDataSenderController->start();
+}
+
