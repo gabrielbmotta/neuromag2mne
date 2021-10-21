@@ -12,13 +12,19 @@ struct OptionsPack
   :displayHelp(false),
    verboseMode(false),
    randomDataMode(false),
-   readFromFileMode(false){ }
+   readFromFileMode(false),
+   saveToFileMode(false),
+   dontSendDataMode(false)
+   { }
 
   bool displayHelp;
   bool verboseMode;
   bool randomDataMode;
   bool readFromFileMode;
   std::string fileNameToRead;
+  bool saveToFileMode;
+  std::string fileNameToSave;
+  bool dontSendDataMode;
 
   void print() const
   {
@@ -28,6 +34,9 @@ struct OptionsPack
     std::cout << "randomDataMode: " << randomDataMode << "\n";
     std::cout << "readFromFileMode: " << readFromFileMode << "\n";
     std::cout << "fileNameToRead: " << fileNameToRead << "\n";
+    std::cout << "saveToFileMode: " << saveToFileMode << "\n";
+    std::cout << "fileNameToSave: " << fileNameToSave << "\n";
+    std::cout << "dontSendDataMode; " << dontSendDataMode << "\n";
   }
 };
 

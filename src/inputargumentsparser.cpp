@@ -23,6 +23,12 @@ OptionsPack InputArgumentsParser::parse(int argc, char **argv)
     {
       optionsOut.fileNameToRead = mParser.value("optionReadFromFile");
     }
+    optionsOut.saveToFileMode = mParser.isSet("optionSaveToFile");
+    if (mParser.isSet("optionSaveToFile") )
+    {
+      optionsOut.fileNameToSave = mParser.value("optionsSaveToFile");
+    }
+    optionsOut.dontSendDataMode = mParser.isSet("optionDontSendData");
   }
   return optionsOut;
 }
@@ -38,8 +44,11 @@ void InputArgumentsParser::configureOptions()
   helpFlags.push_back("/?");
   std::vector<std::string> helpOptionHelp;
   helpOptionHelp.push_back("Display this help description.");
-  CommandlineOption optHelp("optionHelp", helpFlags, helpOptionHelp, CommandlineOption::WITHOUT_VALUE);
-  mParser.addOption(optHelp);
+  CommandlineOption optionHelp("optionHelp",
+                            helpFlags,
+                            helpOptionHelp,
+                            CommandlineOption::WITHOUT_VALUE);
+  mParser.addOption(optionHelp);
 
   std::vector<std::string> verboseFlags;
   verboseFlags.push_back("-v");
@@ -47,8 +56,11 @@ void InputArgumentsParser::configureOptions()
   std::vector<std::string> verboseHelp;
   verboseHelp.push_back("Verbose mode on.");
   verboseHelp.push_back("During execution, different description messages will be printed to terminal.");
-  CommandlineOption optVerbose("optionVerbose", verboseFlags, verboseHelp, CommandlineOption::WITHOUT_VALUE);
-  mParser.addOption(optVerbose);
+  CommandlineOption optionVerbose("optionVerbose",
+                               verboseFlags,
+                               verboseHelp,
+                               CommandlineOption::WITHOUT_VALUE);
+  mParser.addOption(optionVerbose);
 
   std::vector<std::string> randomModeFlags;
   randomModeFlags.push_back("--random");
@@ -57,21 +69,45 @@ void InputArgumentsParser::configureOptions()
   randomModeHelp.push_back("Random data mode.");
   randomModeHelp.push_back("Instead of capturing raw data from Neuromag MEG,");
   randomModeHelp.push_back("generate random data.");
-  CommandlineOption optRandomData("optionRandomData", randomModeFlags,
+  CommandlineOption optionRandomData("optionRandomData",
+                                  randomModeFlags,
                                   randomModeHelp,
                                   CommandlineOption::WITHOUT_VALUE);
-  mParser.addOption(optRandomData);
+  mParser.addOption(optionRandomData);
 
   std::vector<std::string> readFromFileFlags;
-  readFromFileFlags.push_back("-f");
-  readFromFileFlags.push_back("--file");
+  readFromFileFlags.push_back("-i");
+  readFromFileFlags.push_back("--in");
   std::vector<std::string> readFromFileHelp;
   readFromFileHelp.push_back("Read from file");
   readFromFileHelp.push_back("Instead of capturing raw data from Neuromag MEG,");
   readFromFileHelp.push_back("read the data from a file and stream it.");
-  CommandlineOption optReadFromFile("optionReadFromFile", readFromFileFlags, readFromFileHelp,
+  CommandlineOption optionReadFromFile("optionReadFromFile",
+                                    readFromFileFlags,
+                                    readFromFileHelp,
                                     CommandlineOption::WITH_VALUE);
-  mParser.addOption(optReadFromFile);
+  mParser.addOption(optionReadFromFile);
+
+  std::vector<std::string> saveToFileFlags;
+  saveToFileFlags.push_back("-o");
+  saveToFileFlags.push_back("--out");
+  std::vector<std::string> saveToFileHelp;
+  saveToFileHelp.push_back("Save to file.");
+  saveToFileHelp.push_back("Specify a filename to save the output to.");
+  CommandlineOption optionSaveToFile("optionSaveToFile",
+                                  saveToFileFlags,
+                                  saveToFileHelp,
+                                  CommandlineOption::WITH_VALUE);
+  mParser.addOption(optionSaveToFile);
+
+  std::vector<std::string> doNotSendDataFlags;
+  doNotSendDataFlags.push_back("--dont-send-data");
+  std::vector<std::string> doNotSendDataHelp;
+  doNotSendDataHelp.push_back("Avoid sending data to a server.");
+  CommandlineOption optionDontSendData("optionDontSendData",
+                                    doNotSendDataFlags,
+                                    doNotSendDataHelp);
+  mParser.addOption(optionDontSendData);
 }
 
 bool InputArgumentsParser::errorWhileParsingOptions() const
