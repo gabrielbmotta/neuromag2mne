@@ -17,10 +17,8 @@ Controller::Controller()
       mNeuromagMode(false),
       mRandomDataMode(false),
       mReadFromFileMode(false),
-      mFileNameToRead(""),
       mSendDataMode(false),
       mSaveToFileMode(false),
-      mFileNameToSave("")
 {
 
 }
