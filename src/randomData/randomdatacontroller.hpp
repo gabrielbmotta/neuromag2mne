@@ -1,7 +1,7 @@
 #ifndef NEUROMAG2MNE_RANDOMDATACONTROLLER_HPP
 #define NEUROMAG2MNE_RANDOMDATACONTROLLER_HPP
 
-namespace RandomData {
+namespace randomData {
 
 class RandomDataController
 {

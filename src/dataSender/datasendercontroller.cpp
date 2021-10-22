@@ -2,22 +2,22 @@
 #include "datasendercontroller.hpp"
 
 
-DataSender::DataSenderController::DataSenderController()
+dataSender::DataSenderController::DataSenderController()
 {
 
 }
 
-void DataSender::DataSenderController::start()
+void dataSender::DataSenderController::start()
 {
 
 }
 
-void DataSender::DataSenderController::stop()
+void dataSender::DataSenderController::stop()
 {
 
 }
 
-void DataSender::DataSenderController::send()
+void dataSender::DataSenderController::send()
 {
 
 }

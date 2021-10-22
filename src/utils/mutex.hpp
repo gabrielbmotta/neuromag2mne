@@ -1,5 +1,5 @@
-#ifndef MUTEX_AND_LOCKER
-#define MUTEX_AND_LOCKER
+#ifndef NEUROMAG2MNE_MUTEX_HPP
+#define NEUROMAG2MNE_MUTEX_HPP
 
 #if defined __linux__ || defined __APPLE__
     #include <pthread.h>

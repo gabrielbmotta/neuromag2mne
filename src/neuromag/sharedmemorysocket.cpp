@@ -15,7 +15,7 @@
 /*
 Constructs a Socket.
 */
-SharedMemory::Socket::Socket()
+sharedMemory::Socket::Socket()
 : mIsConnected(false)
 {
 }
@@ -25,7 +25,7 @@ Connects socket to given client path with using given client id.
 
 Does nothing if socket is already connected.
 */
-void SharedMemory::Socket::connect(int sharedMemId, std::string clientPath)
+void sharedMemory::Socket::connect(int sharedMemId, std::string clientPath)
 {
     if(isConnected())
     {
@@ -53,7 +53,7 @@ Disconnects socket.
 
 Does nothing if already disconnected.
 */
-void SharedMemory::Socket::disconnect()
+void sharedMemory::Socket::disconnect()
 {
     if(!isConnected())
     {
@@ -64,7 +64,7 @@ void SharedMemory::Socket::disconnect()
 /*
 Returns whether socket is connected.
 */
-bool SharedMemory::Socket::isConnected()
+bool sharedMemory::Socket::isConnected()
 {
     return mIsConnected;
 }
@@ -74,9 +74,9 @@ Gets message from neuromag shared memory server.
 
 This message gives us where in the shared memory block we can find data.
 */
-SharedMemory::Message SharedMemory::Socket::getSharedMemoryMessage()
+sharedMemory::Message sharedMemory::Socket::getSharedMemoryMessage()
 {
-    SharedMemory::Message msg;
+    sharedMemory::Message msg;
 
     if(isConnected())
     {
@@ -92,7 +92,7 @@ SharedMemory::Message SharedMemory::Socket::getSharedMemoryMessage()
 /*
 Stores client ID and path.
 */
-void SharedMemory::Socket::setClientIDAndPath(int id, std::string path)
+void sharedMemory::Socket::setClientIDAndPath(int id, std::string path)
 {
     mMemoryClientId = id;
     mClientPath = path;
@@ -102,7 +102,7 @@ void SharedMemory::Socket::setClientIDAndPath(int id, std::string path)
 /*
 Generates POSIX struct for socket address.
 */
-sockaddr_un SharedMemory::Socket::getPOSIXSocketAddress()
+sockaddr_un sharedMemory::Socket::getPOSIXSocketAddress()
 {
     sockaddr_un address;
     memset(&address, 0, sizeof(address));

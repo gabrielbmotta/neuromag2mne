@@ -3,7 +3,7 @@
 #include <sys/shm.h>
 
 
-namespace SharedMemory{
+namespace sharedMemory{
 
 //--------------------------------------------------------------------
 // Neuromag Shared Memory Defaults.
@@ -22,7 +22,7 @@ Constructs a Parameters object with default values.
 
 Values should be set to something valid before use.
 */
-SharedMemory::Parameters::Parameters()
+sharedMemory::Parameters::Parameters()
 : mId(0)
 , mClientPath("")
 , mServerPath("")
@@ -34,15 +34,15 @@ SharedMemory::Parameters::Parameters()
 /*
 Returns a Parameters object initialized to default Neuromag values;
 */
-SharedMemory::Parameters SharedMemory::Parameters::neuromagDefault()
+sharedMemory::Parameters sharedMemory::Parameters::neuromagDefault()
 {
-    SharedMemory::Parameters param;
+    sharedMemory::Parameters param;
 
-    param.mId           = SharedMemory::Parameters::default_NeuromagClientId;
-    param.mClientPath   = SharedMemory::Parameters::default_NeuromagClientPath;
-    param.mServerPath   = SharedMemory::Parameters::default_NeuromagServerPath;
-    param.mNumBlocks    = SharedMemory::Parameters::default_NeuromagNumBlocks;
-    param.mMaxData      = SharedMemory::Parameters::default_NeuromagMaxData;
+    param.mId           = sharedMemory::Parameters::default_NeuromagClientId;
+    param.mClientPath   = sharedMemory::Parameters::default_NeuromagClientPath;
+    param.mServerPath   = sharedMemory::Parameters::default_NeuromagServerPath;
+    param.mNumBlocks    = sharedMemory::Parameters::default_NeuromagNumBlocks;
+    param.mMaxData      = sharedMemory::Parameters::default_NeuromagMaxData;
 
     return param;
 }
@@ -50,14 +50,14 @@ SharedMemory::Parameters SharedMemory::Parameters::neuromagDefault()
 /*
 Constructs a parameterless Manager
 */
-SharedMemory::Manager::Manager()
+sharedMemory::Manager::Manager()
 {
 }
 
 /*
 Constructs a Manager with the given parameters.
 */
-SharedMemory::Manager::Manager(SharedMemory::Parameters param)
+sharedMemory::Manager::Manager(sharedMemory::Parameters param)
 : mParam(param)
 {
 }
@@ -65,7 +65,7 @@ SharedMemory::Manager::Manager(SharedMemory::Parameters param)
 /*
 Connects Manager to shared memory.
 */
-void SharedMemory::Manager::connect()
+void sharedMemory::Manager::connect()
 {
     mSocket.connect(mParam.mId, mParam.mClientPath);
 
@@ -74,7 +74,7 @@ void SharedMemory::Manager::connect()
 /*
 Disconnects Manager from shared memory.
 */
-void SharedMemory::Manager::disconnect()
+void sharedMemory::Manager::disconnect()
 {
 
 }
@@ -82,7 +82,7 @@ void SharedMemory::Manager::disconnect()
 /*
 Sets the parameters of this Manager instance.
 */
-void SharedMemory::Manager::setParameters(const Parameters& param)
+void sharedMemory::Manager::setParameters(const Parameters& param)
 {
     mParam = param;
 }
@@ -90,11 +90,11 @@ void SharedMemory::Manager::setParameters(const Parameters& param)
 /*
 Gets data from shared memory.
 */
-void* SharedMemory::Manager::getData()
+void* sharedMemory::Manager::getData()
 {
-    SharedMemory::Block* pMemBlock = nullptr;
-    SharedMemory::Client* pMemClient = nullptr;
-    SharedMemory::Message msg = mSocket.getSharedMemoryMessage();
+    sharedMemory::Block* pMemBlock = nullptr;
+    sharedMemory::Client* pMemClient = nullptr;
+    sharedMemory::Message msg = mSocket.getSharedMemoryMessage();
 
     if(msg.size > 0 && msg.shmem_buf >= 0)
     {
@@ -110,17 +110,17 @@ void* SharedMemory::Manager::getData()
 /*
 Gets pointer to where in the system the block of shared memory is.
 */
-bool SharedMemory::Manager::initSharedMemoryPointer()
+bool sharedMemory::Manager::initSharedMemoryPointer()
 {
     pthread_key_t key = ftok(mParam.mServerPath.c_str(), 'A');
 
     int id;
-    if((id = shmget(key, sizeof(SharedMemory::Block), IPC_CREAT | 0666)) == -1)
+    if((id = shmget(key, sizeof(sharedMemory::Block), IPC_CREAT | 0666)) == -1)
     {
         std::cout << "Unable to get shared memory id.\n";
         return false;
     }
-    if(!(mpSharedMemoryBlock = static_cast<SharedMemory::Block*>(shmat(id,0,0))))
+    if(!(mpSharedMemoryBlock = static_cast<sharedMemory::Block*>(shmat(id, 0, 0))))
     {
         std::cout << "Unable to get shared memory pointer.\n";
         return false;

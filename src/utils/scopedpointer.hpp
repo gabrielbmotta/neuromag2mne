@@ -1,6 +1,6 @@
 // scopedpointer.hpp
-#ifndef SCOPEDPOINTER
-#define SCOPEDPOINTER
+#ifndef NEUROMAG2MNE_SCOPEDPOINTER_HPP
+#define NEUROMAG2MNE_SCOPEDPOINTER_HPP
 
 template<typename T>
 class ScopedPointer{
@@ -22,4 +22,4 @@ private:
     T* mPtr;
 };
 
-#endif // SCOPEDPOINTER
+#endif // NEUROMAG2MNE_SCOPEDPOINTER_HPP

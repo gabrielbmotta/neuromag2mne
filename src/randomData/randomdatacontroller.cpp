@@ -3,17 +3,17 @@
 
 #include "randomdatacontroller.hpp"
 
-RandomData::RandomDataController::RandomDataController()
+randomData::RandomDataController::RandomDataController()
 {
   std::cout << "Creating random data controller.\n";
 }
 
-void RandomData::RandomDataController::start()
+void randomData::RandomDataController::start()
 {
 
 }
 
-void RandomData::RandomDataController::stop()
+void randomData::RandomDataController::stop()
 {
 
 }

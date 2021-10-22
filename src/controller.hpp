@@ -1,6 +1,6 @@
 //CONTROLLER
-#ifndef CONTROLLER
-#define CONTROLLER
+#ifndef NEUROMAG2MNE_CONTROLLER_HPP
+#define NEUROMAG2MNE_CONTROLLER_HPP
 
 #include <iostream>
 #include <queue>
@@ -10,10 +10,10 @@
 #include "utils/sharedpointer.hpp"
 
 class InputArgumentsParser;
-namespace Neuromag { class NeuromagController; }
-namespace RandomData { class RandomDataController;}
-namespace Fiff { class FileController; }
-namespace DataSender { class DataSenderController; }
+namespace neuromag { class NeuromagController; }
+namespace randomData { class RandomDataController;}
+namespace fiff { class FileController; }
+namespace dataSender { class DataSenderController; }
 
 //todo super temp do not ship
 //todo this probably needs to be something of more entity... :)
@@ -63,15 +63,15 @@ private:
 
   ScopedPointer<InputArgumentsParser> mInputArgumentsController;
 
-  ScopedPointer<Neuromag::NeuromagController> mNeuromagController;
-  ScopedPointer<RandomData::RandomDataController> mRandomDataController;
-  ScopedPointer<Fiff::FileController> mFileReaderController;
+  ScopedPointer<neuromag::NeuromagController> mNeuromagController;
+  ScopedPointer<randomData::RandomDataController> mRandomDataController;
+  ScopedPointer<fiff::FileController> mFileReaderController;
 
-  ScopedPointer<DataSender::DataSenderController> mDataSenderController;
-  ScopedPointer<Fiff::FileController> mFileWriterController;
+  ScopedPointer<dataSender::DataSenderController> mDataSenderController;
+  ScopedPointer<fiff::FileController> mFileWriterController;
 
   ScopedPointer<std::queue<SharedPointer<Data> > > mDataQueue;
 };
 
-#endif // CONTROLLER
+#endif // NEUROMAG2MNE_CONTROLLER_HPP
 

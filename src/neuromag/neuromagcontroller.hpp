@@ -3,7 +3,7 @@
 
 #include "../utils/scopedpointer.hpp"
 
-namespace Neuromag{
+namespace neuromag{
 
 class CommandWatcher;
 class DataWatcher;

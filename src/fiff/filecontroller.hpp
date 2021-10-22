@@ -1,7 +1,7 @@
 #ifndef NEUROMAG2MNE_FILECONTROLLER_HPP
 #define NEUROMAG2MNE_FILECONTROLLER_HPP
 
-namespace Fiff{
+namespace fiff{
 
 class FileController
 {

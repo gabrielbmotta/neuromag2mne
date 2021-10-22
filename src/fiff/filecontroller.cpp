@@ -1,21 +1,21 @@
 #include "filecontroller.hpp"
 
-Fiff::FileController::FileController()
+fiff::FileController::FileController()
 {
 
 }
 
-void Fiff::FileController::start()
+void fiff::FileController::start()
 {
 
 }
 
-void Fiff::FileController::stop()
+void fiff::FileController::stop()
 {
 
 }
 
-void Fiff::FileController::write()
+void fiff::FileController::write()
 {
 
 }

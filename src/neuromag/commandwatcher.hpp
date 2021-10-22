@@ -1,6 +1,6 @@
 //commandwatcher.hpp
-#ifndef COMMAND_WATCHER
-#define COMMAND_WATCHER
+#ifndef NEUROMAG2MNE_COMMANDWATCHER_HPP
+#define NEUROMAG2MNE_COMMANDWATCHER_HPP
 
 #include <string>
 #include <vector>
@@ -11,7 +11,7 @@
 #include "../utils/stringcallbackpair.hpp"
 #include "neuromagcontroller.hpp"
 
-namespace Neuromag{
+namespace neuromag{
 
 void* watchCommands(void*);
 
@@ -21,9 +21,9 @@ public:
     friend void* watchCommands(void*);
 
     enum state{
-        DISCONNECTED_NOT_WATCHING,
-        CONNECTED_NOT_WATCHING,
-        CONNECTED_WATCHING
+        DisconnectedNotWatching,
+        ConnectedNotWatching,
+        ConnectedWatching
     };
     CommandWatcher();
 
@@ -52,4 +52,4 @@ private:
 
 
 }//namespace
-#endif // COMMANDWATCHER
+#endif // NEUROMAG2MNE_COMMANDWATCHER_HPP

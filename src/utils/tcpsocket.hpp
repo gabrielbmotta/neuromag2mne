@@ -1,5 +1,5 @@
-#ifndef TCP_SOCKET
-#define TCP_SOCKET
+#ifndef NEUROMAG2MNE_TCPSOCKET_HPP
+#define NEUROMAG2MNE_TCPSOCKET_HPP
 
 #if defined __linux__ || defined __APPLE__
 #include <netinet/in.h>

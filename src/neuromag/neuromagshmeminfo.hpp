@@ -1,5 +1,5 @@
-#ifndef SHARED_MEMORY_INFO
-#define SHARED_MEMORY_INFO
+#ifndef NEUROMAG2MNE_NEUROMAGSHMEMINFO_HPP
+#define NEUROMAG2MNE_NEUROMAGSHMEMINFO_HPP
 
 #define SERVER_PATH         "/neuro/dacq/sockets/dacq_server"
 #define CLIENT_PATH         "/neuro/dacq/sockets/dacq_client_"
@@ -9,7 +9,7 @@
 #define SHMEM_NUM_BLOCKS    100
 #define SHMEM_NO_BUF        -1
 
-namespace SharedMemory{
+namespace sharedMemory{
 
 struct Client{
     int client_id;

@@ -1,5 +1,5 @@
-#ifndef NEUROMAG2MNE_SHAREDPOINTER_H
-#define NEUROMAG2MNE_SHAREDPOINTER_H
+#ifndef NEUROMAG2MNE_SHAREDPOINTER_HPP
+#define NEUROMAG2MNE_SHAREDPOINTER_HPP
 
 template<typename T>
 class SharedPointer
@@ -109,4 +109,4 @@ private:
   unsigned int* mCount;
 };
 
-#endif //NEUROMAG2MNE_SHAREDPOINTER_H
+#endif //NEUROMAG2MNE_SHAREDPOINTER_HPP
