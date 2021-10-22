@@ -1,6 +1,8 @@
 #ifndef THREADING
 #define THREADING
 
+#include "utils_global.hpp"
+
 #if defined __linux__ || defined __APPLE__
     #include <pthread.h>
 #elif defined _WIN32

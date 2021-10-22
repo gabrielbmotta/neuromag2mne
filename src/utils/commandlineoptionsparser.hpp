@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "commandlineoption.hpp"
+#include "utils_global.hpp"
 
 
 // This class parses input options for the main application.

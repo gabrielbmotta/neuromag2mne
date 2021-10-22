@@ -1,6 +1,8 @@
 #ifndef NEUROMAG2MNE_MUTEX_HPP
 #define NEUROMAG2MNE_MUTEX_HPP
 
+#include "utils_global.hpp"
+
 #if defined __linux__ || defined __APPLE__
     #include <pthread.h>
 #endif

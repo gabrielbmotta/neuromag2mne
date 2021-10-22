@@ -1,6 +1,8 @@
 #ifndef NEUROMAG2MNE_TCPSOCKET_HPP
 #define NEUROMAG2MNE_TCPSOCKET_HPP
 
+#include "utils_global.hpp"
+
 #if defined __linux__ || defined __APPLE__
 #include <netinet/in.h>
 #elif defined _WIN32

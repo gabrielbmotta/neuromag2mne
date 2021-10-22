@@ -5,6 +5,8 @@
 #include "mutex.hpp"
 #include <vector>
 #include <string>
+#include "utils_global.hpp"
+
 template<typename T>
 /*
 Provides a queue that can be used across threads.

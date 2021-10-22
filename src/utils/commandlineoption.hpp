@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "utils_global.hpp"
+
 class CommandlineOption
 {
 public:
