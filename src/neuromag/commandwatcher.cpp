@@ -33,9 +33,10 @@ void* neuromag::watchCommands(void* receiver)
 Constructs a command watcher.
 */
 neuromag::CommandWatcher::CommandWatcher()
-    : mState(DisconnectedNotWatching),
-      mContinueWatching(false),
-      muSecondsSleep(100)
+    : mContinueWatching(false),
+      muSecondsSleep(100),
+      mState(DisconnectedNotWatching)
+
 {
 
 }
@@ -56,19 +57,23 @@ void neuromag::CommandWatcher::connect()
 /*
 Connects to collector server at the port and with the password given by parameters.
 */
-void neuromag::CommandWatcher::connect(int port, const std::string& password)
+void neuromag::CommandWatcher::connect(unsigned int port, const std::string& password)
 {
   if(mState != DisconnectedNotWatching)
   {
     disconnect();
   }
 
-  mSocket.connect(COLLECTOR_ADDR, COLLECTOR_PORT);
+  mSocket.connect(COLLECTOR_ADDR, port);
 //    std::cout << mSocket.receive_blocking() << "\n";
   mSocket.receive_blocking();
 
 //    std::cout << "Sending password...\n";
-  mSocket.send(TELNET_CMD_PASS);
+//todo solve this mess :S
+  std::string passwordCMD("pass ");
+  passwordCMD.append(password).append(RETURN);
+
+  mSocket.send(passwordCMD.c_str());
 //    std::cout << mSocket.receive_blocking() << "\n";
   mSocket.receive_blocking();
 
@@ -187,7 +192,8 @@ void neuromag::CommandWatcher::checkForCallbacks(const std::string& msg)
 
   for(it = mCallbacks.begin(); it != mCallbacks.end(); it++)
   {
-    if(msg.find(it->string()) != -1){
+    if( msg.find( it->string() ) != std::string::npos )
+    {
       std::cout << "We've received a message containing " << it->string() << ".\n";
       it->callCallback();
     }
