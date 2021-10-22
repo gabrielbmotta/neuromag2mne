@@ -26,3 +26,14 @@ jobs:
       # Runs a single command using the runners shell
       - name: Check if project builds
         run: make
+
+      - name: Get code stats
+        run: |
+          sudo apt-get install cloc 
+          cloc .
+        
+      # - name: Save results
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: info
+      #     path: info.txt
