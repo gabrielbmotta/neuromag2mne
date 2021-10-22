@@ -7,6 +7,7 @@ class DataSenderController
 {
 public:
   DataSenderController();
+  ~DataSenderController();
   void start();
   void stop();
   void send();

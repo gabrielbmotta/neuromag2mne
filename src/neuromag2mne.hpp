@@ -10,8 +10,9 @@
 const int versionMayor = 0;
 const int versionMinor = 1;
 
-
-#if __cplusplus <= 201103L
+//todo solve this.
+//#if __cplusplus <= 201103L
+#ifndef nullptr
 #define nullptr NULL
 #endif
 

@@ -44,6 +44,7 @@ class InputArgumentsParser
 {
 public:
   InputArgumentsParser();
+  ~InputArgumentsParser();
   OptionsPack parse(int argc, char* argv[]);
   std::string getHelpStr();
   bool errorWhileParsingOptions() const;

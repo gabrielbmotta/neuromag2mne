@@ -5,6 +5,11 @@ fiff::FileController::FileController()
 
 }
 
+fiff::FileController::~FileController()
+{
+
+}
+
 void fiff::FileController::start()
 {
 

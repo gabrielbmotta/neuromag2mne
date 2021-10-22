@@ -8,6 +8,11 @@ randomData::RandomDataController::RandomDataController()
   std::cout << "Creating random data controller.\n";
 }
 
+randomData::RandomDataController::~RandomDataController()
+{
+
+}
+
 void randomData::RandomDataController::start()
 {
 

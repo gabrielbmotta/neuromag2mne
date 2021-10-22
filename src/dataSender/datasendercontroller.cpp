@@ -7,6 +7,11 @@ dataSender::DataSenderController::DataSenderController()
 
 }
 
+dataSender::DataSenderController::~DataSenderController()
+{
+
+}
+
 void dataSender::DataSenderController::start()
 {
 

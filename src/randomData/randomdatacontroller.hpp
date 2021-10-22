@@ -7,6 +7,7 @@ class RandomDataController
 {
 public:
   RandomDataController();
+  ~RandomDataController();
   void start();
   void stop();
 

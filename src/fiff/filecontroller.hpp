@@ -7,7 +7,7 @@ class FileController
 {
 public:
   FileController();
-
+  ~FileController();
   void start();
   void stop();
   void write();

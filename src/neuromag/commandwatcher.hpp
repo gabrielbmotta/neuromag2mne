@@ -26,6 +26,7 @@ public:
         ConnectedWatching
     };
     CommandWatcher();
+    ~CommandWatcher();
 
     void connect();
     void connect(int port, const std::string& password);

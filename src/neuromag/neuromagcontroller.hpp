@@ -13,6 +13,7 @@ class NeuromagController
   friend void acquisitionSoftwareRunning(void* ptr);
 public:
   NeuromagController();
+  ~NeuromagController();
   void start();
   void stop();
 

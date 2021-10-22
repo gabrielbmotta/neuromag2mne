@@ -19,6 +19,11 @@ Controller::Controller()
 
 }
 
+Controller::~Controller()
+{
+
+}
+
 void Controller::parseInputArguments(const int argc, char* argv[])
 {
   OptionsPack parsingResult = mInputArgumentsController->parse(argc, argv);

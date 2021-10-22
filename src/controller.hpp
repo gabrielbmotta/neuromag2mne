@@ -25,6 +25,7 @@ class Controller
 {
 public:
   Controller();
+  ~Controller();
   void start();
   void stop();
   void parseInputArguments(int argc, char* argv[]);

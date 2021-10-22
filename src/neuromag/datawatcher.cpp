@@ -23,6 +23,11 @@ neuromag::DataWatcher::DataWatcher()
 {
 }
 
+neuromag::DataWatcher::~DataWatcher()
+{
+
+}
+
 /*
 Connects DataWatcher to shared memory.
 */

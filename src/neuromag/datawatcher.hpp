@@ -20,6 +20,7 @@ public:
     friend void* watchData(void*);
 
     DataWatcher();
+    ~DataWatcher();
 
     void connect();
     void disconnect();

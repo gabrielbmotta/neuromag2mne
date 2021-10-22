@@ -2,6 +2,8 @@
 #ifndef NEUROMAG2MNE_SCOPEDPOINTER_HPP
 #define NEUROMAG2MNE_SCOPEDPOINTER_HPP
 
+#include <memory>
+
 template<typename T>
 class ScopedPointer{
 public: 

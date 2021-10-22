@@ -40,6 +40,11 @@ neuromag::CommandWatcher::CommandWatcher()
 
 }
 
+neuromag::CommandWatcher::~CommandWatcher()
+{
+
+}
+
 /*
 Connects to collector server.
 */

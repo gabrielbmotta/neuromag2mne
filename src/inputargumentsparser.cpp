@@ -9,6 +9,11 @@ InputArgumentsParser::InputArgumentsParser()
   configureOptions();
 }
 
+InputArgumentsParser::~InputArgumentsParser()
+{
+
+}
+
 OptionsPack InputArgumentsParser::parse(int argc, char **argv)
 {
   mParser.parse(argc, argv);
