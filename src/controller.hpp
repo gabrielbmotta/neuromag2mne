@@ -53,7 +53,7 @@ private:
   void prepareToExitApplication();
 
   bool mContinueRunning;
-  int muSecondsSleepTime;
+  unsigned int muSecondsSleepTime;
 
   bool mVerboseMode;
   SourceModeType mSourceMode;
