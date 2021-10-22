@@ -1,5 +1,6 @@
 
 #include <unistd.h> // for sleep.
+#include <cstdlib>
 #include "controller.hpp"
 #include "inputargumentsparser.hpp"
 #include "neuromag/neuromagcontroller.hpp"
