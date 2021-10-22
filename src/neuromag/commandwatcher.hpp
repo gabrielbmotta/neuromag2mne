@@ -29,7 +29,7 @@ public:
     ~CommandWatcher();
 
     void connect();
-    void connect(int port, const std::string& password);
+    void connect(unsigned int port, const std::string& password);
     void disconnect();
 
     void registerCallback(const StringCallbackPair<NeuromagController>& callbackPair);
@@ -43,7 +43,7 @@ public:
 private:
     void checkForCallbacks(const std::string& msg);
     bool mContinueWatching;
-    int muSecondsSleep;
+    unsigned int muSecondsSleep;
     std::vector<StringCallbackPair<NeuromagController> >    mCallbacks;
     state                               mState;
     Thread                              mThread;

@@ -12,22 +12,23 @@
 namespace sharedMemory{
 
 struct Client{
-    int client_id;
-    int done;
+  unsigned long int client_id;
+  int done;
 };
 
 struct Block{
-    Client clients[SHMEM_NUM_BLOCKS];
-    unsigned char data[SHMEM_MAX_DATA];
+  Client clients[SHMEM_NUM_BLOCKS];
+  unsigned char data[SHMEM_MAX_DATA];
 };
 
+//todo fix signedness. see $>make debug;
 struct Message{
-    int kind;
-    int type;
-    int size;
-    int loc;
-    int shmem_buf;
-    int shmem_loc;
+  unsigned long int kind;
+  unsigned long int type;
+  unsigned long int size;
+  int loc;
+  unsigned long int shmem_buf;
+  int shmem_loc;
 };
 }//namespace
 #endif
