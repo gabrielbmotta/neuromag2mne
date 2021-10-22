@@ -34,7 +34,7 @@ void CommandlineOptionsParser::addOption(std::string& name,
 void CommandlineOptionsParser::addOption(std::string& name,
                                          std::vector<std::string>& flags,
                                          std::vector<std::string>& helpLine,
-                                         CommandlineOption::CommandlineOptionType type)
+                                         CommandlineOption::commandlineOptionType type)
 {
   mOptions.push_back(CommandlineOption(name, flags, helpLine, type));
 }
@@ -175,7 +175,7 @@ int CommandlineOptionsParser::parse(int argc, char** argv)
           opt.value = std::string(argv[i + 1]);
           ++i;
         } else {
-          std::cout << "Error parsing input argumets. Arg: " << opt.name << " requires a following value.\n";
+          std::cout << "Error parsing input arguments. Arg: " << opt.name << " requires a following value.\n";
           errorsWhileParsing = true;
           if(mStopOnErrors)
           {

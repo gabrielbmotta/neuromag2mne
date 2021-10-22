@@ -1,15 +1,14 @@
-#ifndef COMMANDLINEOPTION
-#define COMMANDLINEOPTION
+#ifndef NEUROMAG2MNE_COMMANDLINEOPTION_HPP
+#define NEUROMAG2MNE_COMMANDLINEOPTION_HPP
 
 #include <iostream>
 #include <string>
 #include <vector>
 
-
 class CommandlineOption
 {
 public:
-    enum CommandlineOptionType
+    enum commandlineOptionType
     {
         WITH_VALUE,
         WITHOUT_VALUE
@@ -17,7 +16,7 @@ public:
     std::string name;
     std::vector<std::string> flagsList;
     std::vector<std::string> helpString;
-    CommandlineOptionType type;
+    commandlineOptionType type;
     bool isSet;
     std::string value;
     
@@ -30,14 +29,14 @@ public:
                       const std::vector<std::string>& flags, 
                       const std::vector<std::string>& helpLine);
 
-    CommandlineOption(const std::string& name, 
-                      const std::vector<std::string>& flags, 
-                      const std::vector<std::string>& helpLine, 
-                      CommandlineOptionType type);
+    CommandlineOption(const std::string& name,
+                      const std::vector<std::string>& flags,
+                      const std::vector<std::string>& helpLine,
+                      commandlineOptionType type);
 
     bool hasFlag(const std::string& flag) const;
 
 };
 
 
-#endif // COMMANDLINEOPTION
+#endif // NEUROMAG2MNE_COMMANDLINEOPTION_HPP

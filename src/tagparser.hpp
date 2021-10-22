@@ -1,5 +1,5 @@
-#ifndef TAGPARSER
-#define TAGPARSER
+#ifndef NEUROMAG2MNE_TAGPARSER_HPP
+#define NEUROMAG2MNE_TAGPARSER_HPP
 
 #include "fiff/fiff.hpp"
 #include "neuromag/types.hpp"

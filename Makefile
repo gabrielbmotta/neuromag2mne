@@ -6,16 +6,13 @@ BUILDDIR = build
 EXECUTABLE = neuromag2mne
 
 SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
-SOURCES += $(wildcard $(SOURCEDIR)/utils/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/dataSender/*.cpp)
 SOURCES += $(wildcard $(SOURCEDIR)/fiff/*.cpp)
 SOURCES += $(wildcard $(SOURCEDIR)/neuromag/*.cpp)
 SOURCES += $(wildcard $(SOURCEDIR)/randomData/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/utils/*.cpp)
 
 OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
-
-#INC= -I$(SOURCEDIR)/utils \
-#     -I$(SOURCEDIR)/neuromag \
-#     -I$(SOURCEDIR)/fiff
 
 CXXFLAGS += -std=c++98#-std=c++11 -std=c++14 -std=c++17
 CXXFLAGSDEBUG := -g \
@@ -62,9 +59,11 @@ executable: CXXFLAGS +=-O3
 executable: $(OUTDIR)/$(EXECUTABLE)
 
 dir_prepare:
-	mkdir -p $(BUILDDIR)/utils
-	mkdir -p $(BUILDDIR)/neuromag
+	mkdir -p $(BUILDDIR)/dataSender
 	mkdir -p $(BUILDDIR)/fiff
+	mkdir -p $(BUILDDIR)/neuromag
+	mkdir -p $(BUILDDIR)/randomData
+	mkdir -p $(BUILDDIR)/utils
 	mkdir -p $(OUTDIR)
 
 $(OUTDIR)/$(EXECUTABLE): $(OBJECTS)

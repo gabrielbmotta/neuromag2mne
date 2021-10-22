@@ -1,6 +1,6 @@
 // FIFF.HPP
-#ifndef FIFF
-#define FIFF
+#ifndef NEUROMAG2MNE_FIFF_HPP
+#define NEUROMAG2MNE_FIFF_HPP
 
 //Tags
 #define FIFF_NCHAN          200
@@ -13,5 +13,5 @@
 //Block Types
 #define FIFFB_RAW_DATA      102
 
-#endif // FIFF
+#endif // NEUROMAG2MNE_FIFF_HPP
 

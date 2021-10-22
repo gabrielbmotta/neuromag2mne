@@ -1,6 +1,10 @@
 #include <iostream>
-
 #include "tagparser.hpp"
+
+TagParser::TagParser()
+{
+
+}
 
 void TagParser::processTag(const Tag& tag)
 {
@@ -14,8 +18,9 @@ void TagParser::processTag(const Tag& tag)
         case FIFF_BLOCK_START:
             break;
         default:
-            std::cout << "tagparser.processTag: Unkown Tag Kind\n";
+            std::cout << "tagparser.processTag: Unknown Tag Kind\n";
             break;
     }
 }
+
 

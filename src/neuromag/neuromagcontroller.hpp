@@ -2,8 +2,11 @@
 #define NEUROMAG2MNE_NEUROMAGCONTROLLER_HPP
 
 #include "../utils/scopedpointer.hpp"
-#include "commandwatcher.hpp"
-#include "datawatcher.hpp"
+
+namespace neuromag{
+
+class CommandWatcher;
+class DataWatcher;
 
 class NeuromagController
 {
@@ -11,6 +14,10 @@ class NeuromagController
 public:
   NeuromagController();
   void start();
+  void stop();
+
+  void signalAcquisitionSoftwareRunning();
+
 private:
 
   void configureCommandWatcher();
@@ -20,9 +27,11 @@ private:
 
   bool mContinueRunning;
   bool mAcquisitionSoftwareRunning;
-  ScopedPointer<Neuromag::CommandWatcher> mCommandWatcher;
-  ScopedPointer<Neuromag::DataWatcher> mDataWatcher;
+  int muSecondsSleepTime;
+  ScopedPointer<CommandWatcher> mCommandWatcher;
+  ScopedPointer<DataWatcher> mDataWatcher;
 };
 
+}
 
 #endif //NEUROMAG2MNE_NEUROMAGCONTROLLER_HPP

@@ -1,5 +1,5 @@
-#ifndef TYPES
-#define TYPES
+#ifndef NEUROMAG2MNE_TYPES_HPP
+#define NEUROMAG2MNE_TYPES_HPP
 
 struct Tag
 {
@@ -16,5 +16,5 @@ struct MeasurementInfo
     int     numChannels;
 };
 
-#endif // TYPES
+#endif // NEUROMAG2MNE_TYPES_HPP
 

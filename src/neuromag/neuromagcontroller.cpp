@@ -1,50 +1,66 @@
 #include "neuromagcontroller.hpp"
 
+#include <unistd.h> // for sleep.
 #include <iostream>
 
-//free function
-void acquisitionSoftwareRunning(void* ptr)
-{
-  std::cout << "Acquisition software has been started.\n";
-  NeuromagController* c(static_cast<NeuromagController*>(ptr));
-  c->mAcquisitionSoftwareRunning = true;
-}
+#include "../utils/stringcallbackpair.hpp"
+#include "commandwatcher.hpp"
+#include "datawatcher.hpp"
 
-NeuromagController::NeuromagController()
+////free function
+//void acquisitionSoftwareRunning(void* mPtr)
+//{
+//  std::cout << "Acquisition software has been started.\n";
+//  NeuromagController* c(static_cast<NeuromagController*>(mPtr));
+//  c->mAcquisitionSoftwareRunning = true;
+//}
+
+neuromag::NeuromagController::NeuromagController()
 : mContinueRunning(false),
-  mAcquisitionSoftwareRunning(false)
+  mAcquisitionSoftwareRunning(false),
+  muSecondsSleepTime(100)
 {
 
 }
 
-void NeuromagController::start()
+void neuromag::NeuromagController::start()
 {
-
+  configureCommandWatcher();
 }
 
-void NeuromagController::configureCommandWatcher()
+void neuromag::NeuromagController::configureCommandWatcher()
 {
   configureCommandWatcherCallbacks();
   mCommandWatcher->connect();
   mCommandWatcher->startWatching();
 }
 
-void NeuromagController::configureCommandWatcherCallbacks()
+void neuromag::NeuromagController::configureCommandWatcherCallbacks()
 {
   std::cout << "Registering CommandWatcher callbacks.\n";
-  mCommandWatcher->registerCallback("wkup", acquisitionSoftwareRunning, this);
-  mCommandWatcher->showCallbacks();
+  mCommandWatcher->registerCallback(
+      StringCallbackPair<NeuromagController>("wkup", &NeuromagController::signalAcquisitionSoftwareRunning, this) );
 }
 
-void NeuromagController::configureDataWatcher()
+void neuromag::NeuromagController::signalAcquisitionSoftwareRunning()
+{
+  mAcquisitionSoftwareRunning = true;
+}
+
+void neuromag::NeuromagController::configureDataWatcher()
 {
   configureDataWatcherCallbacks();
   mDataWatcher->connect();
   mDataWatcher->startWatching();
 }
 
-void NeuromagController::configureDataWatcherCallbacks()
+void neuromag::NeuromagController::configureDataWatcherCallbacks()
 {
 //  std::cout << "Registering DataWatcher callbacks.\n";
 //  mDataWatcher->registerCallback("xxx", testCallback1, this);
+}
+
+void neuromag::NeuromagController::stop()
+{
+  mContinueRunning = false;
 }

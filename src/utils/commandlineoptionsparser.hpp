@@ -30,7 +30,7 @@
 // int main(int argc, char* argv[])
 // {
 //     std::vector<std::string> opt1Flags;
-//     opt1Flags.push_back("-dsfs");
+//     opt1Flags.push_back("-opt1");
 //     std::vector<std::string> opt1Help;
 //     opt1Help.push_back("This is my second help");
 //     CommandlineOption opt1("option1", opt1Flags, opt1Help, WITHOUT_VALUE);
@@ -45,8 +45,8 @@
 
 //     CommandlineOption opt3(opt1);
 //     opt3.name = std::string("option3");
-//     // opt3.flagsList[0] = std::string("-ff");
-//     // opt3.flagsList[1] = std::string("--ffile");
+//     // opt3.flagsList[0] = std::string("-f");
+//     // opt3.flagsList[1] = std::string("--file");
 //     // opt3.helpString[0] = "this is my help modified";
 //     // opt3.helpString.pop_back();
     
@@ -112,7 +112,7 @@ public:
     void addOption( std::string& name, 
                     std::vector<std::string>& flags, 
                     std::vector<std::string>& helpLIne, 
-                    CommandlineOption::CommandlineOptionType type );
+                    CommandlineOption::commandlineOptionType type );
 
     void addOption(const CommandlineOption& opt);
 

@@ -1,95 +1,22 @@
 
-#include <unistd.h>
+#include <unistd.h> // for sleep.
 #include "controller.hpp"
-#include "utils/sharedpointer.hpp"
+#include "inputargumentsparser.hpp"
+#include "neuromag/neuromagcontroller.hpp"
+#include "randomData/randomdatacontroller.hpp"
+#include "fiff/filecontroller.hpp"
+#include "dataSender/datasendercontroller.hpp"
 
-
-void stopCallback(void* ptr)
-{
-  Controller* cPtr(static_cast<Controller*>(ptr));
-  cPtr->stop();
-}
 
 Controller::Controller()
     : mContinueRunning(false),
-      uSecondsSleepTime(100),
+      muSecondsSleepTime(100),
       mVerboseMode(false),
-      mNeuromagMode(false),
-      mRandomDataMode(false),
-      mReadFromFileMode(false),
-      mSendDataMode(false),
+      mSourceMode(NEUROMAG),
+      mSendDataMode(true),
       mSaveToFileMode(false)
 {
 
-}
-
-void Controller::start()
-{
-  std::cout << "=== Controller Startup ===\n";
-  if( mNeuromagMode ) {
-    configureNeuromagController();
-  } else if( mRandomDataMode ) {
-    configureRandomDataController();
-  } else if( mReadFromFileMode ) {
-    configureFileReaderController();
-  }
-
-  if( mSaveToFileMode )
-  {
-    configureFileWriterController();
-  }
-  if ( mSendDataMode )
-  {
-    configureDataSenderController();
-  }
-
-  run();
-}
-
-void Controller::run()
-{
-  mContinueRunning = true;
-  while (mContinueRunning)
-  {
-    checkForNewData();
-    usleep(uSecondsSleepTime);
-  }
-  prepareToExitApplication();
-}
-
-void Controller::checkForNewData()
-{
-  if( dataAvailable() )
-  {
-    sendData();
-  }
-}
-
-void Controller::sendData()
-{
-  while ( dataAvailable() )
-  {
-    //todo be careful make read from queue multithread safe!!!
-    if ( mSaveToFileMode )
-    {
-      mFileWriterController->pushNewData(mDataQueue.front());
-    }
-    if ( mSendDataMode )
-    {
-      mDataSenderController->pushNewData(mDataQueue.front());
-    }
-    mDataQueue.pop();
-  }
-}
-
-bool Controller::dataAvailable() const
-{
-  return !mDataQueue.empty();
-}
-
-void Controller::stop()
-{
-  mContinueRunning = false;
 }
 
 void Controller::parseInputArguments(const int argc, char* argv[])
@@ -107,14 +34,91 @@ void Controller::parseInputArguments(const int argc, char* argv[])
     exit(0);
   } else {
     mVerboseMode = parsingResult.verboseMode;
-    mRandomDataMode = parsingResult.randomDataMode;
-    mReadFromFileMode = parsingResult.readFromFileMode;
-    //todo add an enum to store the Source Mode instead of independent bools.
-    if( mReadFromFileMode )
+    if ( parsingResult.randomDataMode )
     {
+      mSourceMode = RANDOM_DATA;
+    } else if ( parsingResult.readFromFileMode )
+    {
+      mSourceMode = FILE_READ;
       mFileNameToRead = parsingResult.fileNameToRead;
     }
+    if ( parsingResult.dontSendDataMode )
+    {
+      mSendDataMode = false;
+    }
+    if ( parsingResult.saveToFileMode )
+    {
+      mSaveToFileMode = true;
+      mFileNameToSave = parsingResult.fileNameToSave;
+    }
   }
+}
+
+void Controller::start()
+{
+  std::cout << "=== Controller Startup ===\n";
+  if( mSourceMode == NEUROMAG ) {
+    configureNeuromagController();
+  } else if( mSourceMode == RANDOM_DATA ) {
+    configureRandomDataController();
+  } else if( mSourceMode == FILE_READ ) {
+    configureFileReaderController();
+  }
+
+  if( mSaveToFileMode )
+  {
+    configureFileWriterController();
+  }
+  if ( mSendDataMode )
+  {
+    configureDataSenderController();
+  }
+  run();
+}
+
+void Controller::run()
+{
+  mContinueRunning = true;
+  while (mContinueRunning)
+  {
+    checkForNewData();
+    usleep(muSecondsSleepTime);
+  }
+  prepareToExitApplication();
+}
+
+void Controller::checkForNewData()
+{
+  if( dataAvailable() )
+  {
+    sendData();
+  }
+}
+
+void Controller::sendData()
+{
+  while ( dataAvailable() )
+  {
+    if ( mSendDataMode )
+    {
+//      mDataSenderController->send(mDataQueue.front());
+    }
+    if ( mSaveToFileMode )
+    {
+//      mFileWriterController->write(mDataQueue.front());
+    }
+    mDataQueue->pop();
+  }
+}
+
+bool Controller::dataAvailable() const
+{
+  return !mDataQueue->empty();
+}
+
+void Controller::stop()
+{
+  mContinueRunning = false;
 }
 
 void Controller::displayHelp(const std::string& helpString)
@@ -125,16 +129,15 @@ void Controller::displayHelp(const std::string& helpString)
   std::cout << "Version. " << versionMayor << "." << versionMinor << "\n";
   std::cout << helpString;
   std::cout << "\n";
-  //todo postamble
 }
 
 void Controller::prepareToExitApplication()
 {
-  if( mNeuromagMode ) {
+  if( mSourceMode == NEUROMAG ) {
     mNeuromagController->stop();
-  } else if( mRandomDataMode ) {
+  } else if( mSourceMode == RANDOM_DATA ) {
     mRandomDataController->stop();
-  } else if( mReadFromFileMode ) {
+  } else if( mSourceMode == FILE_READ ) {
     mFileReaderController->stop();
   }
 

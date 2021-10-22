@@ -1,16 +1,16 @@
 // DATAWATCHER
-#ifndef DATA_WATCHER
-#define DATA_WATCHER
+#ifndef NEUROMAG2MNE_DATAWATCHER_HPP
+#define NEUROMAG2MNE_DATAWATCHER_HPP
 
 #include "types.hpp"
 #include "../utils/thread.hpp"
 #include "sharedmemorymanager.hpp"
-#include "stringcallbackpair.hpp"
+#include "../utils/stringcallbackpair.hpp"
 
 #include <string>
 #include <vector>
 
-namespace Neuromag{
+namespace neuromag{
 
 void* watchData(void*);
 
@@ -22,7 +22,7 @@ public:
     DataWatcher();
 
     void connect();
-    void disconnet();
+    void disconnect();
 
     void registerCallback(void (*func)(void*));
     void deleteCallback(void (*func)(void*));
@@ -33,10 +33,10 @@ public:
     bool isWatching();
 
 private:
-    std::vector<StringCallbackPair>     mCallbacks;
+    std::vector<StringCallbackPair<DataWatcher> >   mCallbacks;
     bool                                mIsWatching;
     Thread                              mThread;
-    SharedMemory::Manager               mMemManager;
+    sharedMemory::Manager               mMemManager;
 };
 }//namespace
-#endif // DATAWATCHER
+#endif // NEUROMAG2MNE_DATAWATCHER_HPP
