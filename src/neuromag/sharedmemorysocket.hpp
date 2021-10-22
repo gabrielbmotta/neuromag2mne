@@ -1,5 +1,5 @@
-#ifndef SHARED_MEMORY_SOCKET
-#define SHARED_MEMORY_SOCKET
+#ifndef NEUROMAG2MNE_SHAREDMEMORYSOCKET_HPP
+#define NEUROMAG2MNE_SHAREDMEMORYSOCKET_HPP
 
 #if defined __linux__ || defined __APPLE__
     #include <sys/un.h>
@@ -11,7 +11,7 @@
 
 #include "neuromagshmeminfo.hpp"
 
-namespace SharedMemory
+namespace sharedMemory
 {
 
 /*
@@ -22,7 +22,7 @@ this new data is being stored. We can request a struct that tells us where
 in the shared memory block we can find data. This struct is what is returned
 by 'getSharedMemoryMessage()', and can be used, once the location of the
 shared memory block is also obtained (functionality that is not provided
-by this class), to get the ptr to the memory location of new data.
+by this class), to get the mPtr to the memory location of new data.
 */
 class Socket
 {
@@ -33,7 +33,7 @@ public:
     void disconnect();
     bool isConnected();
 
-    SharedMemory::Message getSharedMemoryMessage();
+    sharedMemory::Message getSharedMemoryMessage();
     
 private:
     void setClientIDAndPath(int id, std::string path);

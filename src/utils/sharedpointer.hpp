@@ -1,146 +1,112 @@
-#ifndef NEUROMAG2MNE_SHAREDPOINTER_H
-#define NEUROMAG2MNE_SHAREDPOINTER_H
+#ifndef NEUROMAG2MNE_SHAREDPOINTER_HPP
+#define NEUROMAG2MNE_SHAREDPOINTER_HPP
 
 template<typename T>
 class SharedPointer
 {
 public:
-    SharedPointer()
-            :_ptr(NULL),_count(NULL)
+  SharedPointer()
+      : mPtr(nullptr), mCount(nullptr)
+  {
+  }
+
+  explicit SharedPointer(T* ptr)
+      : mPtr(nullptr), mCount(nullptr)
+  {
+    if ( ptr != nullptr )
     {
+      mPtr = ptr;
+      initCounter();
     }
+  }
 
-    SharedPointer(T* ptr)
-            :_ptr(NULL),_count(NULL)
+  SharedPointer(const SharedPointer& other)
+      : mPtr(other.mPtr), mCount(other.mCount)
+  {
+    if( other.isConfigured() )
     {
-      if ( ptr != NULL )
-      {
-        _ptr = ptr;
-        initCounter();
-      }
+      incrementCount();
     }
+  }
 
-    SharedPointer(const SharedPointer& other)
-            : _ptr(other._ptr), _count(other._count)
+  SharedPointer& operator=(const SharedPointer& other)
+  {
+    if( this != &other )
     {
-      if( other._ptr != NULL )
-      {
-        incrementCount();
-      }
-    }
-
-//    SharedPointer(SharedPointer&& other)
-//    {
-//        if (other._ptr != NULL)
-//        {
-//            _ptr = other._ptr;
-//            _count = other._count;
-//            other._ptr = NULL;
-//            other._count = NULL;
-//        }
-//    }
-
-    SharedPointer& operator=(const SharedPointer& other)
-    {
-      if( this != &other )
-      {
-        if ( _ptr != NULL )
-        {
-          decrementCount();
-          deleteIfZero();
-        }
-        _ptr = other._ptr;
-        _count = other._count;
-        incrementCount();
-      }
-      return *this;
-    }
-
-//    SharedPointer& operator=(SharedPointer&& other)
-//    {
-//        if( this != &other )
-//        {
-//            if ( _ptr != NULL )
-//            {
-//                (*_count)--;
-//                if ( *_count == 0 )
-//                {
-//                    delete _count;
-//                    _count = NULL;
-//                    delete _ptr;
-//                    _ptr = NULL;
-//                }
-//            }
-//            _ptr = other._ptr;
-//            _count = other._count;
-//            if ( _count != NULL)
-//            {
-//                (*_count)++;
-//            }
-//        }
-//        return *this;
-//    }
-
-    ~SharedPointer()
-    {
-      if ( _ptr != NULL )
+      if ( isConfigured() )
       {
         decrementCount();
         deleteIfZero();
       }
+      if ( other.isConfigured() )
+      {
+        mPtr = other.mPtr;
+        mCount = other.mCount;
+        incrementCount();
+      } else {
+        mPtr = other.mPtr;
+        mCount = other.mCount;
+      }
     }
+    return *this;
+  }
 
-    T* operator->() const
+  ~SharedPointer()
+  {
+    if ( isConfigured() )
     {
-      return _ptr;
+      decrementCount();
+      deleteIfZero();
     }
+  }
 
-    T* data() const
-    {
-      return _ptr;
-    }
+  T* operator->() const
+  {
+    return mPtr;
+  }
 
 private:
 
-    bool isConfigured() const {
-      return (_ptr != NULL);
-    }
+  inline bool isConfigured() const
+  {
+    return (mPtr != nullptr);
+  }
 
-    inline void initCounter()
+  inline void initCounter()
+  {
+    mCount = new unsigned int;
+    *mCount = 1;
+  }
+
+  inline void incrementCount()
+  {
+    if (mCount != nullptr)
     {
-      _count = new unsigned int;
-      *_count = 1;
+      *mCount += 1;
     }
+  }
 
-    inline void incrementCount()
+  inline void decrementCount()
+  {
+    if (mCount != nullptr)
     {
-      if (_count != NULL)
-      {
-        *_count += 1;
-      }
+      *mCount -= 1;
     }
+  }
 
-    inline void decrementCount()
+  inline void deleteIfZero()
+  {
+    if (*mCount == 0 )
     {
-      if (_count != NULL)
-      {
-        *_count -= 1;
-      }
+      delete mCount;
+      mCount = nullptr;
+      delete mPtr;
+      mPtr = nullptr;
     }
+  }
 
-    inline void deleteIfZero()
-    {
-      if ( *_count == 0 )
-      {
-        delete _count;
-        _count = NULL;
-        delete _ptr;
-        _ptr = NULL;
-      }
-    }
-
-    T* _ptr;
-    unsigned int* _count;
+  T* mPtr;
+  unsigned int* mCount;
 };
 
-#endif //NEUROMAG2MNE_SHAREDPOINTER_H
+#endif //NEUROMAG2MNE_SHAREDPOINTER_HPP

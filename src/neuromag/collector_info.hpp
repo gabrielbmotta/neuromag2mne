@@ -1,5 +1,5 @@
-#ifndef COLLECTOR_INFO
-#define COLLECTOR_INFO
+#ifndef NEUROMAG2MNE_COLLECTOR_INFO_HPP
+#define NEUROMAG2MNE_COLLECTOR_INFO_HPP
 
 #define COLLECTOR_ADDR      "127.0.0.1"         //collector host address
 #define COLLECTOR_PORT      11122               //collector host port  

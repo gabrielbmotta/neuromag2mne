@@ -1,5 +1,5 @@
-#ifndef SHARED_MEMORY_INFO
-#define SHARED_MEMORY_INFO
+#ifndef NEUROMAG2MNE_NEUROMAGSHMEMINFO_HPP
+#define NEUROMAG2MNE_NEUROMAGSHMEMINFO_HPP
 
 #define SERVER_PATH         "/neuro/dacq/sockets/dacq_server"
 #define CLIENT_PATH         "/neuro/dacq/sockets/dacq_client_"
@@ -9,25 +9,26 @@
 #define SHMEM_NUM_BLOCKS    100
 #define SHMEM_NO_BUF        -1
 
-namespace SharedMemory{
+namespace sharedMemory{
 
 struct Client{
-    int client_id;
-    int done;
+  unsigned long int client_id;
+  int done;
 };
 
 struct Block{
-    Client clients[SHMEM_NUM_BLOCKS];
-    unsigned char data[SHMEM_MAX_DATA];
+  Client clients[SHMEM_NUM_BLOCKS];
+  unsigned char data[SHMEM_MAX_DATA];
 };
 
+//todo fix signedness. see $>make debug;
 struct Message{
-    int kind;
-    int type;
-    int size;
-    int loc;
-    int shmem_buf;
-    int shmem_loc;
+  unsigned long int kind;
+  unsigned long int type;
+  unsigned long int size;
+  int loc;
+  unsigned long int shmem_buf;
+  int shmem_loc;
 };
 }//namespace
 #endif

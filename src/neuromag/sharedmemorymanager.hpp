@@ -1,11 +1,11 @@
-#ifndef SHARED_MEMORY_MANAGER
-#define SHARED_MEMORY_MANAGER
+#ifndef NEUROMAG2MNE_SHAREDMEMORYMANAGER_HPP
+#define NEUROMAG2MNE_SHAREDMEMORYMANAGER_HPP
 
 #include <string>
 #include "neuromagshmeminfo.hpp"
 #include "sharedmemorysocket.hpp"
 
-namespace SharedMemory{
+namespace sharedMemory{
 
 struct Parameters{
     Parameters();
@@ -37,14 +37,14 @@ public:
 
     void setParameters(const Parameters& param);
 
-    void* getData(); /*will return sharedptr of data once added*/
+    void* getData(); /*will return sharedpointer of data once added*/
 
 private:
 
     bool initSharedMemoryPointer();
 
-    SharedMemory::Socket    mSocket;
-    SharedMemory::Block*    mpSharedMemoryBlock;
+    sharedMemory::Socket    mSocket;
+    sharedMemory::Block*    mpSharedMemoryBlock;
     Parameters              mParam;
 };
 

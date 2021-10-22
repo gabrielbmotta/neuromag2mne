@@ -8,46 +8,53 @@ Enters loop to watch shared memory and call callbacks as data becomes available.
 
 Function to be executed in separate thread by the thread class.
 */
-void* Neuromag::watchData(void* input)
+void* neuromag::watchData(void* input)
 {
     DataWatcher* ptr = static_cast<DataWatcher*>(input);
-    //ptr.
-    return NULL;
+    std::cout << ptr;
+    //mPtr.
+    return nullptr;
 }
 
 /*
 Constructs a DataWatcher
 */
-Neuromag::DataWatcher::DataWatcher()
+neuromag::DataWatcher::DataWatcher()
 : mIsWatching(false)
 {
+}
+
+neuromag::DataWatcher::~DataWatcher()
+{
+
 }
 
 /*
 Connects DataWatcher to shared memory.
 */
-void Neuromag::DataWatcher::connect()
+void neuromag::DataWatcher::connect()
 {
-    mMemManager.setParameters(SharedMemory::Parameters::neuromagDefault());
+    mMemManager.setParameters(sharedMemory::Parameters::neuromagDefault());
     mMemManager.connect();
 }
 
 /*
 Disconnects DataWatcher.
 */
-void Neuromag::DataWatcher::disconnet()
+void neuromag::DataWatcher::disconnect()
 {
     
 }
 
 /*
-Adds callback to be called when new data is available.
+Adds callbackName to be called when new data is available.
 */
-void Neuromag::DataWatcher::registerCallback(void (*func)(void*))
+void neuromag::DataWatcher::registerCallback(void (*func)(void*))
 {
+  std::cout << func;
     // if(mIsWatching)
     // {
-    //     std::cout << "Unable to register callback while watching.\n";
+    //     std::cout << "Unable to register callbackName while watching.\n";
     // }
     // else
     // {
@@ -55,17 +62,17 @@ void Neuromag::DataWatcher::registerCallback(void (*func)(void*))
     // }
 }
 /*
-Removes a callback.
+Removes a callbackName.
 */
-void Neuromag::DataWatcher::deleteCallback(void (*func)(void*))
+void neuromag::DataWatcher::deleteCallback(void (*func)(void*))
 {
-    
+    std::cout << func;
 }
 
 /*
 Prints all callbacks to screen.
 */
-void Neuromag::DataWatcher::showCallbacks()
+void neuromag::DataWatcher::showCallbacks()
 {
     // int i = 0;
     // std::vector<DataCallback>::iterator it;
@@ -79,7 +86,7 @@ void Neuromag::DataWatcher::showCallbacks()
 /*
 Starts new thread to watch shared memory.
 */
-void Neuromag::DataWatcher::startWatching()
+void neuromag::DataWatcher::startWatching()
 {
     if(mThread.startThread(watchData, this))
     {
@@ -90,7 +97,7 @@ void Neuromag::DataWatcher::startWatching()
 /*
 Stops watching data.
 */
-void Neuromag::DataWatcher::stopWatching()
+void neuromag::DataWatcher::stopWatching()
 {
     if(mThread.stopThread())
     {
@@ -101,7 +108,7 @@ void Neuromag::DataWatcher::stopWatching()
 /*
 Returns whether DataWatcher is watching for commands.
 */
-bool Neuromag::DataWatcher::isWatching()
+bool neuromag::DataWatcher::isWatching()
 {
     return mIsWatching;
 }

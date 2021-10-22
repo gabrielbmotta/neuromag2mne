@@ -11,7 +11,7 @@ Thread::Thread()
 bool Thread::startThread(void*(fcn)(void*), void* param)
 {
 #if defined __linux__ || defined __APPLE__
-  if(pthread_create(&mThread, NULL, fcn, param))
+  if(pthread_create(&mThread, nullptr, fcn, param))
   {
     std::cout << "Unable to start thread;\n";
     return false;
@@ -31,12 +31,12 @@ bool Thread::stopThread()
     std::cout << "Unable to stop thread;\n";
     return false;
   }
+//  mIsRunning = false;
+//  return false;
   return true;
 #elif defined _WIN32
 
 #endif
-  mIsRunning = false;
-  return false;
 }
 
 bool Thread::runAsThread(void*(fcn)(void*), void* param)

@@ -1,14 +1,11 @@
 
 #include "commandlineoption.hpp"
 
-
 CommandlineOption::CommandlineOption()
-: name(""),
-  flagsList(std::vector<std::string>()),
+: flagsList(std::vector<std::string>()),
   helpString(std::vector<std::string>()),
   type(CommandlineOption::WITHOUT_VALUE),
-  isSet(false),
-  value("")
+  isSet(false)
 {
 }
 
@@ -18,10 +15,8 @@ CommandlineOption::CommandlineOption(const std::string& name,
   flagsList(flags),
   helpString(std::vector<std::string>()),
   type(CommandlineOption::WITHOUT_VALUE),
-  isSet(false),
-  value("")
-{
-}
+  isSet(false)
+{ }
 
 CommandlineOption::CommandlineOption(const std::string& name,
                   const std::vector<std::string>& flags,
@@ -29,30 +24,27 @@ CommandlineOption::CommandlineOption(const std::string& name,
 : name(name),
   flagsList(flags),
   helpString(helpLine),
-  type(WITHOUT_VALUE),
-  isSet(false),
-  value("")
-{
-}
+  type(CommandlineOption::WITHOUT_VALUE),
+  isSet(false)
+{ }
 
 CommandlineOption::CommandlineOption(const std::string& name,
-                  const std::vector<std::string>& flags,
-                  const std::vector<std::string>& helpLine,
-                  CommandlineOptionType type)
+                                     const std::vector<std::string>& flags,
+                                     const std::vector<std::string>& helpLine,
+                                     commandlineOptionType type)
 : name(name),
   flagsList(flags),
   helpString(helpLine),
   type(type),
-  isSet(false),
-  value("")
-{
-}
+  isSet(false)
+{ }
 
 bool CommandlineOption::hasFlag(const std::string& flag) const
 {
-    for ( unsigned long int i = 0; i < flagsList.size(); ++i )
+  std::vector<std::string>::const_iterator it;
+  for ( it = flagsList.begin(); it != flagsList.end() ; it++)
     {
-        if ( flagsList[i] == flag)
+        if ( *it == flag)
         {
             return true;
         }

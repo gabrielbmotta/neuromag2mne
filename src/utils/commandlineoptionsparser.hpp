@@ -7,7 +7,7 @@
 #include "commandlineoption.hpp"
 
 
-// This clas parses input options for the main application. 
+// This class parses input options for the main application.
 // To test it you can use the following code. 
 
 
@@ -30,7 +30,7 @@
 // int main(int argc, char* argv[])
 // {
 //     std::vector<std::string> opt1Flags;
-//     opt1Flags.push_back("-dsfs");
+//     opt1Flags.push_back("-opt1");
 //     std::vector<std::string> opt1Help;
 //     opt1Help.push_back("This is my second help");
 //     CommandlineOption opt1("option1", opt1Flags, opt1Help, WITHOUT_VALUE);
@@ -45,8 +45,8 @@
 
 //     CommandlineOption opt3(opt1);
 //     opt3.name = std::string("option3");
-//     // opt3.flagsList[0] = std::string("-ff");
-//     // opt3.flagsList[1] = std::string("--ffile");
+//     // opt3.flagsList[0] = std::string("-f");
+//     // opt3.flagsList[1] = std::string("--file");
 //     // opt3.helpString[0] = "this is my help modified";
 //     // opt3.helpString.pop_back();
     
@@ -88,16 +88,15 @@
 //     return 0;
 
 // }
-
 class CommandlineOptionsParser
 {
 private:
 
-    bool m_bOptionsParsedCorrectly;
-    bool m_bStopOnErrors;
-    int m_helpDescriptionPrintMargin1;
-    int m_helpDescriptionPrintMargin2;
-    std::vector<CommandlineOption> m_options;
+    bool mOptionsParsedCorrectly;
+    bool mStopOnErrors;
+    int mHelpDescriptionPrintMargin1;
+    int mHelpDescriptionPrintMargin2;
+    std::vector<CommandlineOption> mOptions;
 
 public:
 
@@ -113,7 +112,7 @@ public:
     void addOption( std::string& name, 
                     std::vector<std::string>& flags, 
                     std::vector<std::string>& helpLIne, 
-                    CommandlineOption::CommandlineOptionType type );
+                    CommandlineOption::commandlineOptionType type );
 
     void addOption(const CommandlineOption& opt);
 

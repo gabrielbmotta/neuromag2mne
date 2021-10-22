@@ -1,6 +1,6 @@
 //commandwatcher.hpp
-#ifndef COMMAND_WATCHER
-#define COMMAND_WATCHER
+#ifndef NEUROMAG2MNE_COMMANDWATCHER_HPP
+#define NEUROMAG2MNE_COMMANDWATCHER_HPP
 
 #include <string>
 #include <vector>
@@ -8,9 +8,10 @@
 #include "collector_info.hpp"
 #include "../utils/thread.hpp"
 #include "../utils/tcpsocket.hpp"
-#include "stringcallbackpair.h"
+#include "../utils/stringcallbackpair.hpp"
+#include "neuromagcontroller.hpp"
 
-namespace Neuromag{
+namespace neuromag{
 
 void* watchCommands(void*);
 
@@ -20,18 +21,19 @@ public:
     friend void* watchCommands(void*);
 
     enum state{
-        DISCONNECTED_NOT_WATCHING,
-        CONNECTED_NOT_WATCHING,
-        CONNECTED_WATCHING
+        DisconnectedNotWatching,
+        ConnectedNotWatching,
+        ConnectedWatching
     };
     CommandWatcher();
+    ~CommandWatcher();
 
     void connect();
-    void connect(int, std::string);
+    void connect(unsigned int port, const std::string& password);
     void disconnect();
 
-    void registerCallback(const std::string& str, void (*func)(void*), void* receiver);
-    void deleteCallback(const std::string& str, void (*func)(void*), void* receiver);
+    void registerCallback(const StringCallbackPair<NeuromagController>& callbackPair);
+    void deleteCallback(const StringCallbackPair<NeuromagController>& callbackPair);
     void showCallbacks();
 
     void startWatching();
@@ -39,13 +41,16 @@ public:
     state getState();
 
 private:
-    void checkForCallbacks(std::string);
-
-    std::vector<StringCallbackPair>     mCallbacks;
+    void checkForCallbacks(const std::string& msg);
+    bool mContinueWatching;
+    unsigned int muSecondsSleep;
+    std::vector<StringCallbackPair<NeuromagController> >    mCallbacks;
     state                               mState;
     Thread                              mThread;
     TCPSocket                           mSocket;
 };
 
+
+
 }//namespace
-#endif // COMMANDWATCHER
+#endif // NEUROMAG2MNE_COMMANDWATCHER_HPP

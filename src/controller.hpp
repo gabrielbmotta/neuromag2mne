@@ -1,53 +1,78 @@
 //CONTROLLER
-#ifndef CONTROLLER
-#define CONTROLLER
+#ifndef NEUROMAG2MNE_CONTROLLER_HPP
+#define NEUROMAG2MNE_CONTROLLER_HPP
 
 #include <iostream>
 #include <queue>
 
-#include "neuromag/commandwatcher.hpp"
-#include "neuromag/datawatcher.hpp"
+#include "neuromag2mne.hpp"
 #include "utils/scopedpointer.hpp"
 #include "utils/sharedpointer.hpp"
 
+class InputArgumentsParser;
+namespace neuromag { class NeuromagController; }
+namespace randomData { class RandomDataController;}
+namespace fiff { class FileController; }
+namespace dataSender { class DataSenderController; }
 
 //todo super temp do not ship
+//todo this probably needs to be something of more entity... :)
 struct Data{
-    int temp;
+  int temp;
 };
 
 class Controller
 {
-    friend void acquisitionSoftwareRunning(void*);
 public:
-    Controller();
-    void start();
-    void stop();
-    void printCommand(const std::string& s) const;
-    void parseInputArguments(int argc, char* argv[]);
+  Controller();
+  ~Controller();
+  void start();
+  void stop();
+  void parseInputArguments(int argc, char* argv[]);
 
 private:
-    bool configurationIsReady() const;
-    void configureCommandWatcherCallbacks();
-    void configureDataWatcherCallbacks();
-    void configureCommandWatcher();
-    void configureDataWatcher();
-    void run();
+  enum SourceModeType
+  {
+    NEUROMAG,
+    RANDOM_DATA,
+    FILE_READ
+  };
+  void run();
+  static void displayHelp(const std::string& helpStr);
 
-    inline bool dataAvailable();
-    void sendDataToDataManager();
+  inline bool dataAvailable() const;
+  void checkForNewData();
 
-    bool mIsActive;
-    bool mAcquisitionSoftwareRunning;
-    bool mContinueRunning;
-    bool mOptionsParsed;
-    bool mCallbacksConfigured;
-    int uSecondsSleepTime;
-    ScopedPointer<Neuromag::CommandWatcher> mCommandWatcher;
-    ScopedPointer<Neuromag::DataWatcher> mDataWatcher;
+  void configureNeuromagController();
+  void configureRandomDataController();
+  void configureFileReaderController();
 
-    std::queue<SharedPointer<Data> > mDataQueue;
+  void configureFileWriterController();
+  void configureDataSenderController();
+  void sendData();
+  void prepareToExitApplication();
+
+  bool mContinueRunning;
+  unsigned int muSecondsSleepTime;
+
+  bool mVerboseMode;
+  SourceModeType mSourceMode;
+  std::string mFileNameToRead;
+  bool mSendDataMode;
+  bool mSaveToFileMode;
+  std::string mFileNameToSave;
+
+  ScopedPointer<InputArgumentsParser> mInputArgumentsController;
+
+  ScopedPointer<neuromag::NeuromagController> mNeuromagController;
+  ScopedPointer<randomData::RandomDataController> mRandomDataController;
+  ScopedPointer<fiff::FileController> mFileReaderController;
+
+  ScopedPointer<dataSender::DataSenderController> mDataSenderController;
+  ScopedPointer<fiff::FileController> mFileWriterController;
+
+  ScopedPointer<std::queue<SharedPointer<Data> > > mDataQueue;
 };
 
-#endif // CONTROLLER
+#endif // NEUROMAG2MNE_CONTROLLER_HPP
 
