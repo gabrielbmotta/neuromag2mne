@@ -1,7 +1,11 @@
 #include "sharedmemorymanager.hpp"
+
+#ifndef nullptr
+#define nullptr NULL
+#endif
+
 #include <iostream>
 #include <sys/shm.h>
-
 
 namespace sharedMemory{
 
