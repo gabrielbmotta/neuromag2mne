@@ -31,12 +31,12 @@ bool Thread::stopThread()
     std::cout << "Unable to stop thread;\n";
     return false;
   }
+//  mIsRunning = false;
+//  return false;
   return true;
 #elif defined _WIN32
 
 #endif
-  mIsRunning = false;
-  return false;
 }
 
 bool Thread::runAsThread(void*(fcn)(void*), void* param)
