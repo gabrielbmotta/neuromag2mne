@@ -17,29 +17,50 @@ void* watchData(void*);
 class DataWatcher
 {
 public:
-    friend void* watchData(void*);
+  friend void* watchData(void*);
 
-    DataWatcher();
-    ~DataWatcher();
+  struct Callback{
+    Callback(void (*function)(SharedPointer<Data>))
+    : mFunction(function){};
+    void operator()(SharedPointer<Data> in){mFunction(in);};
+    void (*mFunction)(SharedPointer<Data>);
+  };
 
-    void connect();
-    void disconnect();
+  enum state{
+    DisconnectedNotWatching,
+    ConnectedNotWatching,
+    ConnectedWatching
+  };
 
-    void registerCallback(void (*func)(void*));
-    void deleteCallback(void (*func)(void*));
-    void showCallbacks();
+  DataWatcher();
+  ~DataWatcher();
 
-    void startWatching();
-    void stopWatching();
-    bool isWatching();
+  void connect();
+  void disconnect();
+
+  void registerCallback(Callback);
+  void registerCallback(void (*function)(SharedPointer<Data>));
+
+  void deleteCallback(Callback);
+  void deleteCallback(void (*function)(SharedPointer<Data>));
+
+  void showCallbacks();
+
+  void startWatching();
+  void stopWatching();
+  state getState();
 
 private:
+  void sendDataToCallbacks(SharedPointer<Data>);
 
-    void sendDataToCallbacks(SharedPointer<Data>);
-    std::vector<StringCallbackPair<DataWatcher> >   mCallbacks;
-    bool                                mIsWatching;
-    Thread                              mThread;
-    sharedMemory::Manager               mMemManager;
+  bool            mContinueWatching;
+  unsigned int    muSecondsSleep;
+  state           mState;
+
+  std::vector<Callback> mCallbacks;
+
+  Thread                  mThread;
+  sharedMemory::Manager   mMemManager;
 };
 }//namespace
 #endif // NEUROMAG2MNE_DATAWATCHER_HPP

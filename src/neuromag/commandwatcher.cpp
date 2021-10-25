@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <unistd.h>
 
@@ -15,13 +14,15 @@ void* neuromag::watchCommands(void* receiver)
   CommandWatcher* pComWatcher = static_cast<CommandWatcher*>(receiver);
   pComWatcher->mSocket.send(TELNET_CMD_MONI);
   pComWatcher->mContinueWatching = true;
-  while ( pComWatcher->mContinueWatching )
+
+  while (pComWatcher->mContinueWatching)
   {
     std::string reply = pComWatcher->mSocket.receive_blocking();
-    if ( reply.size() )
+    if (reply.size())
     {
       pComWatcher->checkForCallbacks(reply);
     }
+
     usleep(pComWatcher->muSecondsSleep);
   }
   std::cout << "Exiting watch loop.\n";
@@ -33,12 +34,10 @@ void* neuromag::watchCommands(void* receiver)
 Constructs a command watcher.
 */
 neuromag::CommandWatcher::CommandWatcher()
-    : mContinueWatching(false),
-      muSecondsSleep(100),
-      mState(DisconnectedNotWatching)
-
+: mContinueWatching(false)
+, muSecondsSleep(100)
+, mState(DisconnectedNotWatching)
 {
-
 }
 
 neuromag::CommandWatcher::~CommandWatcher()
@@ -56,30 +55,23 @@ void neuromag::CommandWatcher::connect()
 
 /*
 Connects to collector server at the port and with the password given by parameters.
+
+Does nothing if already connected to something.
 */
 void neuromag::CommandWatcher::connect(unsigned int port, const std::string& password)
 {
   if(mState != DisconnectedNotWatching)
   {
-    disconnect();
+    return;
   }
 
   mSocket.connect(COLLECTOR_ADDR, port);
-//    std::cout << mSocket.receive_blocking() << "\n";
   mSocket.receive_blocking();
 
-//    std::cout << "Sending password...\n";
-//todo solve this mess :S
-  std::string passwordCMD("pass ");
-  passwordCMD.append(password).append(RETURN);
-
-  mSocket.send(passwordCMD.c_str());
-//    std::cout << mSocket.receive_blocking() << "\n";
+  mSocket.send(TELNET_CMD_PASS);
   mSocket.receive_blocking();
 
-//    std::cout << "Sending name...\n";
   mSocket.send(TELNET_CMD_NAME);
-//    std::cout << mSocket.receive_blocking() << "\n";
   mSocket.receive_blocking();
 
   mState = ConnectedNotWatching;
@@ -115,14 +107,7 @@ void neuromag::CommandWatcher::registerCallback(const Callback& callback)
 
 void neuromag::CommandWatcher::registerCallback(std::string trigger,void (*function)(void*))
 {
-  if(mState == ConnectedWatching)
-  {
-    std::cout << "Unable to register callbackName while watching.\n";
-  }
-  else
-  {
-    mCallbacks.push_back(Callback(trigger, function));
-  }
+  mCallbacks.push_back(Callback(trigger, function));
 }
 
 /*
@@ -170,6 +155,8 @@ Stops watching commands.
 void neuromag::CommandWatcher::stopWatching()
 {
   if(mState == ConnectedWatching){
+    mContinueWatching = false;
+    usleep(muSecondsSleep);
     if (mThread.stopThread())
     {
       mState = ConnectedNotWatching;
