@@ -43,8 +43,8 @@ void neuromag::NeuromagController::configureCommandWatcher()
 void neuromag::NeuromagController::configureCommandWatcherCallbacks()
 {
   std::cout << "Registering CommandWatcher callbacks.\n";
-  mCommandWatcher->registerCallback(
-      StringCallbackPair<NeuromagController>("wkup", &NeuromagController::signalAcquisitionSoftwareRunning, this) );
+//  mCommandWatcher->registerCallback(
+//      StringCallbackPair<NeuromagController>("wkup", &NeuromagController::signalAcquisitionSoftwareRunning, this) );
 }
 
 void neuromag::NeuromagController::signalAcquisitionSoftwareRunning()

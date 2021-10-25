@@ -12,8 +12,11 @@ void* neuromag::watchData(void* input)
 {
     DataWatcher* ptr = static_cast<DataWatcher*>(input);
     std::cout << ptr;
-    //mPtr.
-    return nullptr;
+
+    while (true){
+      SharedPointer<Data> data = ptr->mMemManager.getData();
+
+    }
 }
 
 /*
@@ -111,5 +114,13 @@ Returns whether DataWatcher is watching for commands.
 bool neuromag::DataWatcher::isWatching()
 {
     return mIsWatching;
+}
+
+void neuromag::DataWatcher::sendDataToCallbacks(SharedPointer<Data> data)
+{
+  for(int i = 0; i < mCallbacks.size(); ++i)
+  {
+//    mCallbacks
+  }
 }
 

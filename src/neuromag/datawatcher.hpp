@@ -2,10 +2,10 @@
 #ifndef NEUROMAG2MNE_DATAWATCHER_HPP
 #define NEUROMAG2MNE_DATAWATCHER_HPP
 
-#include "types.hpp"
 #include "../utils/thread.hpp"
 #include "sharedmemorymanager.hpp"
 #include "../utils/stringcallbackpair.hpp"
+#include "../utils/sharedpointer.hpp"
 
 #include <string>
 #include <vector>
@@ -34,6 +34,8 @@ public:
     bool isWatching();
 
 private:
+
+    void sendDataToCallbacks(SharedPointer<Data>);
     std::vector<StringCallbackPair<DataWatcher> >   mCallbacks;
     bool                                mIsWatching;
     Thread                              mThread;
