@@ -8,6 +8,7 @@
 #include "neuromag2mne.hpp"
 #include "utils/scopedpointer.hpp"
 #include "utils/sharedpointer.hpp"
+#include "inputargumentsparser.hpp"
 
 class InputArgumentsParser;
 namespace neuromag { class NeuromagController; }
@@ -37,6 +38,12 @@ private:
     RANDOM_DATA,
     FILE_READ
   };
+
+  void checkErrorWhileParsing();
+  void checkIfDisplayHelp(const OptionsPack &parsingResult);
+  void configureSources(const OptionsPack &parsingResult);
+  void configureSinks(const OptionsPack &parsingResult);
+
   void run();
   static void displayHelp(const std::string& helpStr);
 
@@ -72,6 +79,7 @@ private:
   ScopedPointer<fiff::FileController> mFileWriterController;
 
   ScopedPointer<std::queue<SharedPointer<Data> > > mDataQueue;
+
 };
 
 #endif // NEUROMAG2MNE_CONTROLLER_HPP

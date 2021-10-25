@@ -27,35 +27,54 @@ Controller::~Controller()
 void Controller::parseInputArguments(const int argc, char* argv[])
 {
   OptionsPack parsingResult = mInputArgumentsController->parse(argc, argv);
+  checkErrorWhileParsing();
+  checkIfDisplayHelp(parsingResult);
+  configureSources(parsingResult);
+  configureSinks(parsingResult);
+}
+
+void Controller::configureSinks(const OptionsPack &parsingResult)
+{
+  if ( parsingResult.dontSendDataMode )
+  {
+    mSendDataMode = false;
+  }
+  if ( parsingResult.saveToFileMode )
+  {
+    mSaveToFileMode = true;
+    mFileNameToSave = parsingResult.fileNameToSave;
+  }
+}
+
+void Controller::configureSources(const OptionsPack &parsingResult)
+{
+  mVerboseMode = parsingResult.verboseMode;
+  if ( parsingResult.randomDataMode )
+  {
+    mSourceMode = RANDOM_DATA;
+  } else if ( parsingResult.readFromFileMode )
+  {
+    mSourceMode = FILE_READ;
+    mFileNameToRead = parsingResult.fileNameToRead;
+  }
+}
+
+void Controller::checkIfDisplayHelp(const OptionsPack &parsingResult)
+{
+  if ( parsingResult.displayHelp )
+  {
+    displayHelp(mInputArgumentsController->getHelpStr());
+    exit(0);
+  }
+}
+
+void Controller::checkErrorWhileParsing()
+{
   if ( mInputArgumentsController->errorWhileParsingOptions() )
   {
     std::cout << "Something went wrong parsing commandline input options.\n";
     displayHelp(mInputArgumentsController->getHelpStr());
     exit(1);
-  }
-  if ( parsingResult.displayHelp )
-  {
-    displayHelp(mInputArgumentsController->getHelpStr());
-    exit(0);
-  } else {
-    mVerboseMode = parsingResult.verboseMode;
-    if ( parsingResult.randomDataMode )
-    {
-      mSourceMode = RANDOM_DATA;
-    } else if ( parsingResult.readFromFileMode )
-    {
-      mSourceMode = FILE_READ;
-      mFileNameToRead = parsingResult.fileNameToRead;
-    }
-    if ( parsingResult.dontSendDataMode )
-    {
-      mSendDataMode = false;
-    }
-    if ( parsingResult.saveToFileMode )
-    {
-      mSaveToFileMode = true;
-      mFileNameToSave = parsingResult.fileNameToSave;
-    }
   }
 }
 
