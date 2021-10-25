@@ -12,22 +12,22 @@ namespace sharedMemory{
 struct Parameters {
   Parameters();
 
-  int mId;
-  int mMaxData;
-  int mNumBlocks;
-  int mMaxClients;
-  std::string mClientPath;
-  std::string mServerPath;
+  unsigned long int mId;
+  int               mMaxData;
+  int               mNumBlocks;
+  int               mMaxClients;
+  std::string       mClientPath;
+  std::string       mServerPath;
 
   static Parameters neuromagDefault();
 
 private:
-  static const int default_NeuromagClientId;
-  static const char *default_NeuromagClientPath;
-  static const char *default_NeuromagServerPath;
-  static const int default_NeuromagMaxData;
-  static const int default_NeuromagNumBlocks;
-  static const int default_NeuromagMaxClients;
+  static const unsigned long int  default_NeuromagClientId;
+  static const char*              default_NeuromagClientPath;
+  static const char*              default_NeuromagServerPath;
+  static const int                default_NeuromagMaxData;
+  static const int                default_NeuromagNumBlocks;
+  static const int                default_NeuromagMaxClients;
 };
 
 class Manager {

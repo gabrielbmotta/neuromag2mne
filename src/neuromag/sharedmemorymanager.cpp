@@ -14,12 +14,12 @@ namespace sharedMemory{
 // Edit these values to change the default hardcoded implementation.
 //--------------------------------------------------------------------
 
-const int   Parameters::default_NeuromagClientId    = 1304;
-const char* Parameters::default_NeuromagClientPath  = "/neuro/dacq/sockets/dacq_client_";
-const char* Parameters::default_NeuromagServerPath  = "/neuro/dacq/sockets/dacq_server";
-const int   Parameters::default_NeuromagMaxData     = 500 * 1500 * 4;
-const int   Parameters::default_NeuromagNumBlocks   = 100;
-const int   Parameters::default_NeuromagMaxClients  = 10;
+const unsigned long int   Parameters::default_NeuromagClientId    = 1304;
+const char*               Parameters::default_NeuromagClientPath  = "/neuro/dacq/sockets/dacq_client_";
+const char*               Parameters::default_NeuromagServerPath  = "/neuro/dacq/sockets/dacq_server";
+const int                 Parameters::default_NeuromagMaxData     = 500 * 1500 * 4;
+const int                 Parameters::default_NeuromagNumBlocks   = 100;
+const int                 Parameters::default_NeuromagMaxClients  = 10;
 }
 
 /*
@@ -141,7 +141,7 @@ void sharedMemory::Manager::confirmClientReadData(sharedMemory::Block *block)
   sharedMemory::Client* pMemClient = block->clients;
   for(int i = 0; i < mParam.mMaxClients; ++i)
   {
-    if(pMemClient->client_id == mParam.mId){
+    if(pMemClient->id == mParam.mId){
       pMemClient->done = 1;
     }
   }

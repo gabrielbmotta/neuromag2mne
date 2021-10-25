@@ -12,7 +12,7 @@
 namespace sharedMemory{
 
 struct Client{
-  unsigned long int client_id;
+  unsigned long int id;
   int done;
 };
 
