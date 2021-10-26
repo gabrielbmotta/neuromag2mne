@@ -56,11 +56,13 @@ OBJECTS-DEBUG = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-DEBUG)/%.o,$(SOURCES))
 ##############################################################################
 ##############################################################################
 
-all: release debug
+all: release debug test
 
 release: $(OUTDIR-RELEASE)/$(EXECUTABLE)
 
 debug: $(OUTDIR-DEBUG)/$(EXECUTABLE)
+
+test : test/test
 
 $(OUTDIR-RELEASE)/$(EXECUTABLE): $(OBJECTS-RELEASE)
 	mkdir -p $(@D)
@@ -77,6 +79,10 @@ $(OUTDIR-DEBUG)/$(EXECUTABLE): $(OBJECTS-DEBUG)
 $(OBJECTS-DEBUG): $(BUILDDIR-DEBUG)/%.o : $(SOURCEDIR)/%.cpp
 	mkdir -p $(@D)
 	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+test/test :
+	$(CXX) -c $(CXXFLAGS) test/test.cpp -o test/test.o
+	$(CXX) test/test.o $(CXXFLAGS) -o test/test
 
 clean:
 	rm -fr build*
