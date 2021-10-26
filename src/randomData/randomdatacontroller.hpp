@@ -3,8 +3,7 @@
 
 namespace randomData {
 
-class RandomDataController
-{
+class RandomDataController {
 public:
   RandomDataController();
   ~RandomDataController();
@@ -12,7 +11,6 @@ public:
   void stop();
 
 private:
-
 
 };
 
