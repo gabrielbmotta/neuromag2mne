@@ -11,7 +11,7 @@
 Controller::Controller()
     : mContinueRunning(false),
       muSecondsSleepTime(100),
-      mVerboseMode(false),
+      mVerboseMode(false), // todo still we need to add a verbose thing a log system.
       mSourceMode(NEUROMAG),
       mSendDataMode(true),
       mSaveToFileMode(false)

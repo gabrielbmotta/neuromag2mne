@@ -1,6 +1,8 @@
 #ifndef NEUROMAG2MNE_DATASENDERCONTROLLER_HPP
 #define NEUROMAG2MNE_DATASENDERCONTROLLER_HPP
 
+
+
 namespace dataSender {
 
 class DataSenderController
