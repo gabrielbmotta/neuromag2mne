@@ -8,14 +8,14 @@ class SharedPointer
 {
 public:
   SharedPointer()
-      : mPtr(nullptr), mCount(nullptr)
+      : mPtr(NULL), mCount(NULL)
   {
   }
 
   explicit SharedPointer(T* ptr)
-      : mPtr(nullptr), mCount(nullptr)
+      : mPtr(NULL), mCount(NULL)
   {
-    if ( ptr != nullptr )
+    if ( ptr != NULL )
     {
       mPtr = ptr;
       initCounter();
@@ -71,7 +71,7 @@ private:
 
   inline bool isConfigured() const
   {
-    return (mPtr != nullptr);
+    return (mPtr != NULL);
   }
 
   inline void initCounter()
@@ -82,7 +82,7 @@ private:
 
   inline void incrementCount()
   {
-    if (mCount != nullptr)
+    if (mCount != NULL)
     {
       *mCount += 1;
     }
@@ -90,7 +90,7 @@ private:
 
   inline void decrementCount()
   {
-    if (mCount != nullptr)
+    if (mCount != NULL)
     {
       *mCount -= 1;
     }
@@ -101,9 +101,9 @@ private:
     if (*mCount == 0 )
     {
       delete mCount;
-      mCount = nullptr;
+      mCount = NULL;
       delete mPtr;
-      mPtr = nullptr;
+      mPtr = NULL;
     }
   }
 

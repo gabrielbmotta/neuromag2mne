@@ -27,7 +27,7 @@ void* neuromag::watchCommands(void* receiver)
   }
   std::cout << "Exiting watch loop.\n";
 
-  return nullptr;
+  return NULL;
 }
 
 /*
@@ -190,7 +190,7 @@ void neuromag::CommandWatcher::checkForCallbacks(const std::string& msg)
     if(msg.find(mCallbacks[i].mTriggerString) != std::string::npos)
     {
       std::cout << "We've received a message containing " << mCallbacks[i].mTriggerString << ".\n";
-      mCallbacks[i](nullptr);
+      mCallbacks[i](NULL);
     }
   }
 }
