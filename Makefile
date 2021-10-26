@@ -1,20 +1,16 @@
 # Makefile for compiling and linking 
 
 SOURCEDIR = src
-OUTDIR = out
-BUILDDIR = build
 EXECUTABLE = neuromag2mne
+OUTDIR-RELEASE = out-release
+BUILDDIR-RELEASE = build-release
+OUTDIR-DEBUG = out-debug
+BUILDDIR-DEBUG = build-debug
 
+DIRECTORIES = $(wildcard $(SOURCEDIR)/*)
 SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
-SOURCES += $(wildcard $(SOURCEDIR)/dataSender/*.cpp)
-SOURCES += $(wildcard $(SOURCEDIR)/fiff/*.cpp)
-SOURCES += $(wildcard $(SOURCEDIR)/neuromag/*.cpp)
-SOURCES += $(wildcard $(SOURCEDIR)/randomData/*.cpp)
-SOURCES += $(wildcard $(SOURCEDIR)/utils/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/*/*.cpp)
 
-OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
-
-CXXFLAGS += -std=c++98#-std=c++11 -std=c++14 -std=c++17
 CXXFLAGSDEBUG := -g \
 	-Wall  \
 	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
@@ -37,41 +33,52 @@ CXXFLAGSDEBUG := -g \
 	-Wvariadic-macros \
 	-Wwrite-strings \
 
+CXXFLAGS-COMMON=$(CXXFLAGSDEBUG) -Werror -std=c++98 #-std=c++11 -std=c++14 -std=c++17
+
+CXXFLAGS-RELEASE=-DNDEBUG -O3 $(CXXFLAGS-COMMON)
+CXXFLAGS-DEBUG=-DDEBUG -g $(CXXFLAGS-COMMON)  $(CXXFLAGSDEBUG)
+
+##############################################################################
+##############################################################################
+
 UNAME := $(shell uname)
 ifeq ($(UNAME),Darwin)
 	CXX = clang++
-#	CXXFLAGS +=
 else ifeq ($(UNAME),Linux)
 	CXX = g++
 	CXXFLAGS += -pthread
 else
-# we still need to do this.
+# todo we still need to do this.
 endif
 
+OBJECTS-RELEASE = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-RELEASE)/%.o,$(SOURCES))
+OBJECTS-DEBUG = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-DEBUG)/%.o,$(SOURCES))
+
+##############################################################################
 ##############################################################################
 
-all: dir_prepare executable
+all: release debug
 
-debug: CXXFLAGS += -DDEBUG $(CXXFLAGSDEBUG)
-debug: dir_prepare executable
+release: $(OUTDIR-RELEASE)/$(EXECUTABLE)
 
-executable: CXXFLAGS +=-O3
-executable: $(OUTDIR)/$(EXECUTABLE)
+debug: $(OUTDIR-DEBUG)/$(EXECUTABLE)
 
-dir_prepare:
-	mkdir -p $(BUILDDIR)/dataSender
-	mkdir -p $(BUILDDIR)/fiff
-	mkdir -p $(BUILDDIR)/neuromag
-	mkdir -p $(BUILDDIR)/randomData
-	mkdir -p $(BUILDDIR)/utils
-	mkdir -p $(OUTDIR)
+$(OUTDIR-RELEASE)/$(EXECUTABLE): $(OBJECTS-RELEASE)
+	mkdir -p $(@D)
+	$(CXX) $^ $(CXXFLAGS) -o $@
 
-$(OUTDIR)/$(EXECUTABLE): $(OBJECTS)
-	$(CXX) $^ $(INC) $(CXXFLAGS) -o $@
+$(OBJECTS-RELEASE): $(BUILDDIR-RELEASE)/%.o : $(SOURCEDIR)/%.cpp
+	mkdir -p $(@D)
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-$(OBJECTS): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.cpp
-	$(CXX) -c $(CXXFLAGS) $(INC) $< -o $@
+$(OUTDIR-DEBUG)/$(EXECUTABLE): $(OBJECTS-DEBUG)
+	mkdir -p $(@D)
+	$(CXX) $^ $(CXXFLAGS) -o $@
+
+$(OBJECTS-DEBUG): $(BUILDDIR-DEBUG)/%.o : $(SOURCEDIR)/%.cpp
+	mkdir -p $(@D)
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 clean:
-	rm -fr $(BUILDDIR)/*
-	rm -f $(BUILDDIR)/*o $(OUTDIR)/$(EXECUTABLE)
+	rm -fr build*
+	rm -fR out*
