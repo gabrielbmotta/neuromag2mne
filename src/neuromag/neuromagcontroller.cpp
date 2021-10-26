@@ -15,6 +15,12 @@
 //  c->mAcquisitionSoftwareRunning = true;
 //}
 
+void neuromag::addDataToQueue(SharedPointer<Data> data, void* ptr)
+{
+  NeuromagController* NMController = static_cast<NeuromagController*>(ptr);
+  NMController->mDataQueue->push(data);
+}
+
 neuromag::NeuromagController::NeuromagController()
 : mContinueRunning(false),
   mAcquisitionSoftwareRunning(false),
@@ -61,8 +67,7 @@ void neuromag::NeuromagController::configureDataWatcher()
 
 void neuromag::NeuromagController::configureDataWatcherCallbacks()
 {
-//  std::cout << "Registering DataWatcher callbacks.\n";
-//  mDataWatcher->registerCallback("xxx", testCallback1, this);
+  mDataWatcher->registerCallback(addDataToQueue, this);
 }
 
 void neuromag::NeuromagController::stop()

@@ -20,6 +20,8 @@ void* neuromag::watchData(void* input)
     SharedPointer<Data> data = pDataWatcher->mMemManager.getData();
     pDataWatcher->sendDataToCallbacks(data);
   }
+
+  return NULL;
 }
 
 /*
@@ -69,9 +71,9 @@ void neuromag::DataWatcher::registerCallback(Callback callback)
   }
 }
 
-void neuromag::DataWatcher::registerCallback(void (*function)(SharedPointer<Data>))
+void neuromag::DataWatcher::registerCallback(void (*function)(SharedPointer<Data>, void* pointer), void* ptr)
 {
-  mCallbacks.push_back(Callback(function));
+  mCallbacks.push_back(Callback(function, ptr));
 }
 
 /*
@@ -82,7 +84,7 @@ void neuromag::DataWatcher::deleteCallback(Callback)
 
 }
 
-void neuromag::DataWatcher::deleteCallback(void (*function)(SharedPointer<Data>))
+void neuromag::DataWatcher::deleteCallback(void (*function)(SharedPointer<Data>, void* pointer), void* ptr)
 {
 
 }

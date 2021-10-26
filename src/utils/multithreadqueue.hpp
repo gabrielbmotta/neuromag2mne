@@ -26,7 +26,7 @@ public:
     T& data() {return mData;};
   private:
     Item(bool valid, T& data):mValid(valid),mData(data){};
-    Item();
+    Item(){};
 
     bool mValid;
     T& mData;
@@ -35,14 +35,14 @@ public:
   /*
   Constructs a MultiThreadQueue
   */
-  MultiThreadQueue();
+  MultiThreadQueue(){};
 
   /*
   Returns the element at the front of the queue
   */
   T& front()
   {
-    MutexLocker locker(mMutex);
+    MutexLocker locker(&mMutex);
     return mQueue.front();
   };
 
@@ -75,7 +75,7 @@ public:
   */
   void pop()
   {
-    MutexLocker locker(mMutex);
+    MutexLocker locker(&mMutex);
     mQueue.pop();
   };
 
@@ -84,7 +84,7 @@ public:
   */
   void push(T& item)
   {
-    MutexLocker locker(mMutex);
+    MutexLocker locker(&mMutex);
     mQueue.push(item);
   };
 
@@ -93,9 +93,15 @@ public:
    */
   size_t size()
   {
-    MutexLocker locker(mMutex);
+    MutexLocker locker(&mMutex);
     return mQueue.size();
   };
+
+  bool empty()
+  {
+    MutexLocker locker(&mMutex);
+    return !mQueue.size();
+  }
 
 private:
   std::queue<T>   mQueue;

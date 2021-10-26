@@ -20,10 +20,11 @@ public:
   friend void* watchData(void*);
 
   struct Callback{
-    Callback(void (*function)(SharedPointer<Data>))
-    : mFunction(function){};
-    void operator()(SharedPointer<Data> in){mFunction(in);};
-    void (*mFunction)(SharedPointer<Data>);
+    Callback(void (*function)(SharedPointer<Data>, void* pointer), void* pointer)
+    : mFunction(function), mPointer(pointer){};
+    void operator()(SharedPointer<Data> in){mFunction(in, mPointer);};
+    void (*mFunction)(SharedPointer<Data>, void* pointer);
+    void* mPointer;
   };
 
   enum state{
@@ -39,10 +40,10 @@ public:
   void disconnect();
 
   void registerCallback(Callback);
-  void registerCallback(void (*function)(SharedPointer<Data>));
+  void registerCallback(void (*function)(SharedPointer<Data>, void* pointer), void*);
 
   void deleteCallback(Callback);
-  void deleteCallback(void (*function)(SharedPointer<Data>));
+  void deleteCallback(void (*function)(SharedPointer<Data>, void* pointer), void*);
 
   void showCallbacks();
 
