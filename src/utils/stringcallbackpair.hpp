@@ -1,6 +1,8 @@
 #ifndef NEUROMAG2MNE_STRINGCALLBACKPAIR_HPP
 #define NEUROMAG2MNE_STRINGCALLBACKPAIR_HPP
 
+#include "utils_global.hpp"
+
 #include <string>
 
 template<typename T>

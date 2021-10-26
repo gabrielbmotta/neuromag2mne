@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 // FIFF.HPP
 #ifndef NEUROMAG2MNE_FIFF_HPP
 #define NEUROMAG2MNE_FIFF_HPP
@@ -13,5 +15,15 @@
 //Block Types
 #define FIFFB_RAW_DATA      102
 
-#endif // NEUROMAG2MNE_FIFF_HPP
+namespace fiff {
 
+struct Tag {
+  int32_t kind;   // Tag number.
+  int32_t type;   // Data type.
+  int32_t size;   // Size of data.
+  int32_t next;   // Next object. 0 is sequential, -1 if end of file.
+  void*   data;   // Pointer to data.
+};
+
+}//namespace
+#endif // NEUROMAG2MNE_FIFF_HPP

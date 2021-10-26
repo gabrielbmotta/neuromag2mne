@@ -6,7 +6,7 @@ TagParser::TagParser()
 
 }
 
-void TagParser::processTag(const Tag& tag)
+void TagParser::processTag(const fiff::Tag& tag)
 {
     switch (tag.kind){
         case FIFF_NCHAN:

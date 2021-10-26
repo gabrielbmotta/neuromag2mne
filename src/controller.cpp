@@ -1,5 +1,6 @@
 
 #include <unistd.h> // for sleep.
+#include <cstdlib>
 #include "controller.hpp"
 #include "inputargumentsparser.hpp"
 #include "neuromag/neuromagcontroller.hpp"
@@ -15,6 +16,7 @@ Controller::Controller()
       mSourceMode(NEUROMAG),
       mSendDataMode(true),
       mSaveToFileMode(false)
+//      mDataQueue(new DataQueue()) todo MAKE SURE we review this
 {
 
 }
@@ -178,6 +180,7 @@ void Controller::prepareToExitApplication()
 void Controller::configureNeuromagController()
 {
   //todo figure out how to report configuration options...
+  mNeuromagController->setSharedQueue(mDataQueue);
   mNeuromagController->start();
 }
 

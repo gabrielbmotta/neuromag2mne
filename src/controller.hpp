@@ -9,18 +9,14 @@
 #include "utils/scopedpointer.hpp"
 #include "utils/sharedpointer.hpp"
 #include "inputargumentsparser.hpp"
+#include "utils/multithreadqueue.hpp"
+#include "utils/data.hpp"
 
 class InputArgumentsParser;
 namespace neuromag { class NeuromagController; }
 namespace randomData { class RandomDataController;}
 namespace fiff { class FileController; }
 namespace dataSender { class DataSenderController; }
-
-//todo super temp do not ship
-//todo this probably needs to be something of more entity... :)
-struct Data{
-  int temp;
-};
 
 class Controller
 {
@@ -78,8 +74,7 @@ private:
   ScopedPointer<dataSender::DataSenderController> mDataSenderController;
   ScopedPointer<fiff::FileController> mFileWriterController;
 
-  ScopedPointer<std::queue<SharedPointer<Data> > > mDataQueue;
-
+  SharedPointer<MultiThreadQueue<SharedPointer<Data> > > mDataQueue;
 };
 
 #endif // NEUROMAG2MNE_CONTROLLER_HPP

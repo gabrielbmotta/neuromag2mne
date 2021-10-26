@@ -2,6 +2,7 @@
 #include "neuromagshmeminfo.hpp"
 
 #include <iostream>
+#include <unistd.h>
 
 /*
 Enters loop to watch shared memory and call callbacks as data becomes available.
@@ -10,17 +11,26 @@ Function to be executed in separate thread by the thread class.
 */
 void* neuromag::watchData(void* input)
 {
-    DataWatcher* ptr = static_cast<DataWatcher*>(input);
-    std::cout << ptr;
-    //mPtr.
-    return nullptr;
+  DataWatcher* pDataWatcher = static_cast<DataWatcher*>(input);
+  std::cout << pDataWatcher;
+  pDataWatcher->mContinueWatching = true;
+
+  while (pDataWatcher->mContinueWatching)
+  {
+    SharedPointer<Data> data = pDataWatcher->mMemManager.getData();
+    pDataWatcher->sendDataToCallbacks(data);
+  }
+
+  return NULL;
 }
 
 /*
 Constructs a DataWatcher
 */
 neuromag::DataWatcher::DataWatcher()
-: mIsWatching(false)
+: mContinueWatching(false)
+, muSecondsSleep(100)
+, mState(DisconnectedNotWatching)
 {
 }
 
@@ -49,24 +59,34 @@ void neuromag::DataWatcher::disconnect()
 /*
 Adds callbackName to be called when new data is available.
 */
-void neuromag::DataWatcher::registerCallback(void (*func)(void*))
+void neuromag::DataWatcher::registerCallback(Callback callback)
 {
-  std::cout << func;
-    // if(mIsWatching)
-    // {
-    //     std::cout << "Unable to register callbackName while watching.\n";
-    // }
-    // else
-    // {
-    //     mCallbacks.push_back(DataCallback(str, func));
-    // }
+  if(mState == ConnectedWatching)
+  {
+    std::cout << "Unable to register callbackName while watching.\n";
+  }
+  else
+  {
+    mCallbacks.push_back(callback);
+  }
 }
+
+void neuromag::DataWatcher::registerCallback(void (*function)(SharedPointer<Data>, void* pointer), void* ptr)
+{
+  mCallbacks.push_back(Callback(function, ptr));
+}
+
 /*
 Removes a callbackName.
 */
-void neuromag::DataWatcher::deleteCallback(void (*func)(void*))
+void neuromag::DataWatcher::deleteCallback(Callback)
 {
-    std::cout << func;
+
+}
+
+void neuromag::DataWatcher::deleteCallback(void (*function)(SharedPointer<Data>, void* pointer), void* ptr)
+{
+
 }
 
 /*
@@ -88,10 +108,12 @@ Starts new thread to watch shared memory.
 */
 void neuromag::DataWatcher::startWatching()
 {
+  if(mState == ConnectedNotWatching){
     if(mThread.startThread(watchData, this))
     {
-      mIsWatching = true;
+      mState = ConnectedWatching;
     }
+  }
 }
 
 /*
@@ -99,17 +121,37 @@ Stops watching data.
 */
 void neuromag::DataWatcher::stopWatching()
 {
-    if(mThread.stopThread())
+  if(mState == ConnectedWatching){
+    mContinueWatching = false;
+    usleep(muSecondsSleep);
+    if (mThread.stopThread())
     {
-      mIsWatching = false;
+      mState = ConnectedNotWatching;
     }
+  }
 }
 
 /*
-Returns whether DataWatcher is watching for commands.
+Gets the current state of the DataWatcher.
+
+Can be one of the following:
+    DisconnectedNotWatching   -   Disconnected. Not watching for data.
+    ConnectedNotWatching      -   Connected to shared memory. Not watching for data.
+    ConnectedWatching         -   Connected to shared memory. Watching for data.
 */
-bool neuromag::DataWatcher::isWatching()
+neuromag::DataWatcher::state neuromag::DataWatcher::getState()
 {
-    return mIsWatching;
+  return mState;
+}
+
+/*
+
+*/
+void neuromag::DataWatcher::sendDataToCallbacks(SharedPointer<Data> data)
+{
+  for(int i = 0; i < mCallbacks.size(); ++i)
+  {
+    mCallbacks[i](data);
+  }
 }
 

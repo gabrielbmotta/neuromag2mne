@@ -1,7 +1,11 @@
 #include "sharedmemorymanager.hpp"
+
+#ifndef nullptr
+#define nullptr NULL
+#endif
+
 #include <iostream>
 #include <sys/shm.h>
-
 
 namespace sharedMemory{
 
@@ -10,11 +14,12 @@ namespace sharedMemory{
 // Edit these values to change the default hardcoded implementation.
 //--------------------------------------------------------------------
 
-const int   Parameters::default_NeuromagClientId    = 1304;
-const char* Parameters::default_NeuromagClientPath  = "/neuro/dacq/sockets/dacq_client_";
-const char* Parameters::default_NeuromagServerPath  = "/neuro/dacq/sockets/dacq_server";
-const int   Parameters::default_NeuromagMaxData     = 500 * 1500 * 4;
-const int   Parameters::default_NeuromagNumBlocks   = 100;
+const unsigned long int   Parameters::default_NeuromagClientId    = 1304;
+const char*               Parameters::default_NeuromagClientPath  = "/neuro/dacq/sockets/dacq_client_";
+const char*               Parameters::default_NeuromagServerPath  = "/neuro/dacq/sockets/dacq_server";
+const int                 Parameters::default_NeuromagMaxData     = 500 * 1500 * 4;
+const int                 Parameters::default_NeuromagNumBlocks   = 100;
+const int                 Parameters::default_NeuromagMaxClients  = 10;
 }
 
 /*
@@ -41,6 +46,7 @@ sharedMemory::Parameters sharedMemory::Parameters::neuromagDefault()
   param.mServerPath   = sharedMemory::Parameters::default_NeuromagServerPath;
   param.mNumBlocks    = sharedMemory::Parameters::default_NeuromagNumBlocks;
   param.mMaxData      = sharedMemory::Parameters::default_NeuromagMaxData;
+  param.mMaxClients   = sharedMemory::Parameters::default_NeuromagMaxClients;
 
   return param;
 }
@@ -49,6 +55,7 @@ sharedMemory::Parameters sharedMemory::Parameters::neuromagDefault()
 Constructs a parameterless Manager
 */
 sharedMemory::Manager::Manager()
+: mParametersConfigured(false)
 {
 }
 
@@ -56,8 +63,9 @@ sharedMemory::Manager::Manager()
 Constructs a Manager with the given parameters.
 */
 sharedMemory::Manager::Manager(sharedMemory::Parameters param)
-    : mParam(param)
+: mParametersConfigured(false)
 {
+
 }
 
 /*
@@ -66,7 +74,7 @@ Connects Manager to shared memory.
 void sharedMemory::Manager::connect()
 {
   mSocket.connect(mParam.mId, mParam.mClientPath);
-
+  initSharedMemoryPointer();
 }
 
 /*
@@ -83,46 +91,58 @@ Sets the parameters of this Manager instance.
 void sharedMemory::Manager::setParameters(const Parameters& param)
 {
   mParam = param;
+  mParametersConfigured = true;
 }
 
 /*
 Gets data from shared memory.
 */
-void* sharedMemory::Manager::getData()
+SharedPointer<Data> sharedMemory::Manager::getData()
 {
-  sharedMemory::Block* pMemBlock = nullptr;
-  sharedMemory::Client* pMemClient = nullptr;
   sharedMemory::Message msg = mSocket.getSharedMemoryMessage();
 
   if(msg.size > 0 && msg.shmem_buf >= 0)
   {
-    pMemBlock = mpSharedMemoryBlock + msg.shmem_buf;
-    pMemClient = pMemBlock->clients;
+    sharedMemory::Block* pMemBlock = mpSharedMemoryBlock + msg.shmem_buf;
+
 
     //todo - get data and update client tally to say we read the data
+    confirmClientReadData(pMemBlock);
   }
 
-  return nullptr;
+  return SharedPointer<Data>();
 }
 
 /*
 Gets pointer to where in the system the block of shared memory is.
 */
-bool sharedMemory::Manager::initSharedMemoryPointer()
+void sharedMemory::Manager::initSharedMemoryPointer()
 {
   int key = ftok(mParam.mServerPath.c_str(), 'A');
-
   int id;
+
   if((id = shmget(key, sizeof(sharedMemory::Block), IPC_CREAT | 0666)) == -1)
   {
     std::cout << "Unable to get shared memory id.\n";
-    return false;
+    return;
   }
   if(!(mpSharedMemoryBlock = static_cast<sharedMemory::Block*>(shmat(id, 0, 0))))
   {
     std::cout << "Unable to get shared memory pointer.\n";
-    return false;
+    return;
   }
+}
 
-  return true;
+/*
+Updates section of shared memory that confirms that this client has read this portion of data"
+*/
+void sharedMemory::Manager::confirmClientReadData(sharedMemory::Block *block)
+{
+  sharedMemory::Client* pMemClient = block->clients;
+  for(int i = 0; i < mParam.mMaxClients; ++i)
+  {
+    if(pMemClient->id == mParam.mId){
+      pMemClient->done = 1;
+    }
+  }
 }

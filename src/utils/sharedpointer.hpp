@@ -1,6 +1,8 @@
 #ifndef NEUROMAG2MNE_SHAREDPOINTER_HPP
 #define NEUROMAG2MNE_SHAREDPOINTER_HPP
 
+#include "utils_global.hpp"
+
 template<typename T>
 class SharedPointer
 {
