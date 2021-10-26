@@ -15,7 +15,8 @@ Controller::Controller()
       mVerboseMode(false),
       mSourceMode(NEUROMAG),
       mSendDataMode(true),
-      mSaveToFileMode(false)
+      mSaveToFileMode(false),
+      mDataQueue(new DataQueue())
 {
 
 }
@@ -160,6 +161,7 @@ void Controller::prepareToExitApplication()
 void Controller::configureNeuromagController()
 {
   //todo figure out how to report configuration options...
+  mNeuromagController->setSharedQueue(mDataQueue);
   mNeuromagController->start();
 }
 

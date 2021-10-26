@@ -15,7 +15,9 @@ class DataWatcher;
 
 class NeuromagController
 {
-//  friend void acquisitionSoftwareRunning(void* ptr);
+  typedef MultiThreadQueue<SharedPointer<Data> > DataQueue;
+
+  //  friend void acquisitionSoftwareRunning(void* ptr);
   friend void addDataToQueue(SharedPointer<Data>, void*);
 
 public:
@@ -23,6 +25,8 @@ public:
   ~NeuromagController();
   void start();
   void stop();
+
+  void setSharedQueue(SharedPointer<DataQueue>);
 
   void signalAcquisitionSoftwareRunning();
 
@@ -39,7 +43,7 @@ private:
   ScopedPointer<CommandWatcher> mCommandWatcher;
   ScopedPointer<DataWatcher> mDataWatcher;
 
-  SharedPointer<MultiThreadQueue<SharedPointer<Data> > > mDataQueue;
+  SharedPointer<DataQueue> mDataQueue;
 };
 
 }

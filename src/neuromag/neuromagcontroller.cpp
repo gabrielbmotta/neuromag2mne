@@ -74,3 +74,8 @@ void neuromag::NeuromagController::stop()
 {
   mContinueRunning = false;
 }
+
+void neuromag::NeuromagController::setSharedQueue(SharedPointer<DataQueue> dataQueue)
+{
+  mDataQueue = dataQueue;
+}

@@ -20,6 +20,8 @@ namespace dataSender { class DataSenderController; }
 class Controller
 {
 public:
+  typedef MultiThreadQueue<SharedPointer<Data> > DataQueue;
+
   Controller();
   ~Controller();
   void start();
@@ -67,7 +69,7 @@ private:
   ScopedPointer<dataSender::DataSenderController> mDataSenderController;
   ScopedPointer<fiff::FileController> mFileWriterController;
 
-  SharedPointer<MultiThreadQueue<SharedPointer<Data> > > mDataQueue;
+  SharedPointer<DataQueue> mDataQueue;
 };
 
 #endif // NEUROMAG2MNE_CONTROLLER_HPP
