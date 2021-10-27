@@ -7,8 +7,8 @@ neuromag2mne
 *.a
 *.o
 
-out/
-build/
+out*
+build*
 
 .idea/
 

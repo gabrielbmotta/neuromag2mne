@@ -6,7 +6,7 @@ Creates a mutex.
 Mutex::Mutex()
 {
 #if defined __linux__ || defined __APPLE__
-//  mPThreadMutex = PTHREAD_MUTEX_INITIALIZER;
+  pthread_mutex_init(&mPThreadMutex, NULL);
 #endif
 }
 
