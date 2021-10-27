@@ -6,10 +6,16 @@ OUTDIR-RELEASE = out-release
 BUILDDIR-RELEASE = build-release
 OUTDIR-DEBUG = out-debug
 BUILDDIR-DEBUG = build-debug
+BUILDDIR-TEST = build-test
+OUTDIR-TEST = out-test
+TEST-DIR = test
+TEST-EXECUTABLE = run_tests
 
 DIRECTORIES = $(wildcard $(SOURCEDIR)/*)
 SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
 SOURCES += $(wildcard $(SOURCEDIR)/*/*.cpp)
+
+TESTS = $(wildcard $(TEST-DIR)/*.cpp)
 
 CXXFLAGSDEBUG := -Wall  -Wpedantic \
 	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
@@ -54,6 +60,8 @@ OBJECTS-RELEASE = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-RELEASE)/%.o,$(SOURCE
 OBJECTS-DEBUG = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-DEBUG)/%.o,$(SOURCES))
 
 OBJECTS-NO-MAIN = $(filter-out %/main.o,$(OBJECTS-RELEASE))
+OBJECTS-TEST = $(patsubst $(TEST-DIR)/%.cpp,$(BUILDDIR-TEST)/%.o,$(TESTS))
+
 
 ##############################################################################
 ##############################################################################
@@ -64,7 +72,7 @@ release: $(OUTDIR-RELEASE)/$(EXECUTABLE)
 
 debug: $(OUTDIR-DEBUG)/$(EXECUTABLE)
 
-test : test/test
+test : $(OUTDIR-TEST)/$(TEST-EXECUTABLE)
 
 $(OUTDIR-RELEASE)/$(EXECUTABLE): $(OBJECTS-RELEASE)
 	mkdir -p $(@D)
@@ -82,11 +90,14 @@ $(OBJECTS-DEBUG): $(BUILDDIR-DEBUG)/%.o : $(SOURCEDIR)/%.cpp
 	mkdir -p $(@D)
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-test/test :
-	$(CXX) -c $(CXXFLAGS) test/test.cpp -o test/test.o
-	$(CXX) test/test.o $(OBJECTS-NO-MAIN) $(CXXFLAGS) -o test/test
+$(OUTDIR-TEST)/$(TEST-EXECUTABLE) : $(OBJECTS-TEST)
+	mkdir -p $(@D)
+	$(CXX) $^ $(OBJECTS-NO-MAIN) $(CXXFLAGS) -o $@
+
+$(OBJECTS-TEST): $(BUILDDIR-TEST)/%.o : $(TEST-DIR)/%.cpp
+	mkdir -p $(@D)
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 clean:
 	rm -fr build*
 	rm -fR out*
-	rm -fR test/test
