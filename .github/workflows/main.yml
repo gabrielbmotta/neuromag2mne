@@ -31,6 +31,9 @@ jobs:
         run: |
           sudo apt-get install cloc 
           cloc .
+      - name: Run tests
+        run: |
+          ./out-test/run_tests
         
       # - name: Save results
       #   uses: actions/upload-artifact@v2
