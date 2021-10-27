@@ -53,6 +53,8 @@ endif
 OBJECTS-RELEASE = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-RELEASE)/%.o,$(SOURCES))
 OBJECTS-DEBUG = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-DEBUG)/%.o,$(SOURCES))
 
+OBJECTS-NO-MAIN = $(filter-out %/main.o,$(OBJECTS-RELEASE))
+
 ##############################################################################
 ##############################################################################
 
@@ -82,8 +84,9 @@ $(OBJECTS-DEBUG): $(BUILDDIR-DEBUG)/%.o : $(SOURCEDIR)/%.cpp
 
 test/test :
 	$(CXX) -c $(CXXFLAGS) test/test.cpp -o test/test.o
-	$(CXX) test/test.o $(CXXFLAGS) -o test/test
+	$(CXX) test/test.o $(OBJECTS-NO-MAIN) $(CXXFLAGS) -o test/test
 
 clean:
 	rm -fr build*
 	rm -fR out*
+	rm -fR test/test
