@@ -11,7 +11,7 @@ DIRECTORIES = $(wildcard $(SOURCEDIR)/*)
 SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
 SOURCES += $(wildcard $(SOURCEDIR)/*/*.cpp)
 
-CXXFLAGSDEBUG := -Wall  -Wpedantic
+CXXFLAGSDEBUG := -Wall  -Wpedantic \
 	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
 	-pedantic-errors -Wextra -Waggregate-return -Wcast-align \
 	-Wdisabled-optimization \
