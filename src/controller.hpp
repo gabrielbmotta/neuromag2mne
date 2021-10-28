@@ -18,8 +18,11 @@ namespace randomData { class RandomDataController;}
 namespace fiff { class FileController; }
 namespace dataSender { class DataSenderController; }
 
+void addDataToQueue(SharedPointer<Data>, void*);
+
 class Controller
 {
+  friend void addDataToQueue(SharedPointer<Data>, void*);
 public:
   Controller();
   ~Controller();
@@ -74,7 +77,7 @@ private:
   ScopedPointer<dataSender::DataSenderController> mDataSenderController;
   ScopedPointer<fiff::FileController> mFileWriterController;
 
-  SharedPointer<MultiThreadQueue<SharedPointer<Data> > > mDataQueue;
+  ScopedPointer<MultiThreadQueue<SharedPointer<Data> > > mDataQueue;
 };
 
 #endif // NEUROMAG2MNE_CONTROLLER_HPP

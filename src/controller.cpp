@@ -8,6 +8,11 @@
 #include "fiff/filecontroller.hpp"
 #include "dataSender/datasendercontroller.hpp"
 
+void addDataToQueue(SharedPointer<Data> data, void* ptr)
+{
+  Controller* controller = static_cast<Controller*>(ptr);
+  controller->mDataQueue->push(data);
+}
 
 Controller::Controller()
     : mContinueRunning(false),
@@ -16,7 +21,6 @@ Controller::Controller()
       mSourceMode(NEUROMAG),
       mSendDataMode(true),
       mSaveToFileMode(false)
-//      mDataQueue(new DataQueue()) todo MAKE SURE we review this
 {
 
 }
@@ -180,7 +184,7 @@ void Controller::prepareToExitApplication()
 void Controller::configureNeuromagController()
 {
   //todo figure out how to report configuration options...
-  mNeuromagController->setSharedQueue(mDataQueue);
+  mNeuromagController->registerDataCallback(addDataToQueue,this);
   mNeuromagController->start();
 }
 

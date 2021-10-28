@@ -8,23 +8,19 @@
 
 namespace neuromag{
 
-void addDataToQueue(SharedPointer<Data>, void*);
 
 class CommandWatcher;
 class DataWatcher;
 
 class NeuromagController
 {
-  //  friend void acquisitionSoftwareRunning(void* ptr);
-  friend void addDataToQueue(SharedPointer<Data>, void*);
-
 public:
   NeuromagController();
   ~NeuromagController();
   void start();
   void stop();
 
-  void setSharedQueue(SharedPointer<MultiThreadQueue<SharedPointer<Data> > >);
+  void registerDataCallback(void (*function)(SharedPointer<Data>, void* pointer), void*);
 
   void signalAcquisitionSoftwareRunning();
 
@@ -40,8 +36,6 @@ private:
   int muSecondsSleepTime;
   ScopedPointer<CommandWatcher> mCommandWatcher;
   ScopedPointer<DataWatcher> mDataWatcher;
-
-  SharedPointer<MultiThreadQueue<SharedPointer<Data> > > mDataQueue;
 };
 
 }
