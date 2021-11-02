@@ -60,6 +60,7 @@ Does nothing if already connected to something.
 */
 void neuromag::CommandWatcher::connect(unsigned int port, const std::string& password)
 {
+  std::cout << password;
   if(mState != DisconnectedNotWatching)
   {
     return;
@@ -115,12 +116,12 @@ Removes a callback.
 */
 void neuromag::CommandWatcher::deleteCallback(const Callback& callback)
 {
-
+ std::cout << "Deleting callback: " << callback.mTriggerString << "\n";
 }
 
 void neuromag::CommandWatcher::deleteCallback(std::string trigger,void (*function)(void*))
 {
-
+ std::cout << "Deleting callback: " << trigger << " with address: " << function << "\n";
 }
 
 /*
@@ -185,7 +186,7 @@ string is present, the callback function is called.
 */
 void neuromag::CommandWatcher::checkForCallbacks(const std::string& msg)
 {
-  for(int i = 0; i < mCallbacks.size(); ++i)
+  for(size_t i = 0; i < mCallbacks.size(); ++i)
   {
     if(msg.find(mCallbacks[i].mTriggerString) != std::string::npos)
     {
