@@ -20,7 +20,7 @@ neuromag::NeuromagController::NeuromagController()
   mAcquisitionSoftwareRunning(false),
   muSecondsSleepTime(100)
 {
-
+  muSecondsSleepTime = 100;
 }
 
 neuromag::NeuromagController::~NeuromagController()
