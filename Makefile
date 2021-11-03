@@ -58,7 +58,7 @@ CXXFLAGS-TEST-DEBUG=-DDEBUG -g -std=c++98
 ##############################################################################
 #CXXFLAG-COVERAGE=--coverage
 CXXFLAGS-COVERAGE=-fprofile-instr-generate -fcoverage-mapping
-CXXFLAGS-COVERAGE=-fprofile-arcs -ftest-coverage
+#CXXFLAGS-COVERAGE=-fprofile-arcs -ftest-coverage
 
 ##############################################################################
 ##############################################################################
@@ -77,7 +77,8 @@ endif
 OBJECTS-RELEASE = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-RELEASE)/%.o,$(SOURCES))
 OBJECTS-DEBUG = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR-DEBUG)/%.o,$(SOURCES))
 
-OBJECTS-NO-MAIN = $(filter-out %/main.o,$(OBJECTS-RELEASE))
+OBJECTS-NO-MAIN-RELEASE = $(filter-out %/main.o,$(OBJECTS-RELEASE))
+OBJECTS-NO-MAIN-DEBUG = $(filter-out %/main.o,$(OBJECTS-DEBUG))
 OBJECTS-TEST-RELEASE = $(patsubst $(TEST-DIR)/%.cpp,$(BUILDDIR-TEST-RELEASE)/%.o,$(TEST-SOURCES))
 OBJECTS-TEST-DEBUG = $(patsubst $(TEST-DIR)/%.cpp,$(BUILDDIR-TEST-DEBUG)/%.o,$(TEST-SOURCES))
 
@@ -114,7 +115,7 @@ $(OBJECTS-DEBUG): $(BUILDDIR-DEBUG)/%.o : $(SOURCEDIR)/%.cpp
 
 $(OUTDIR-TEST-RELEASE)/$(TEST-EXECUTABLE) : $(OBJECTS-TEST-RELEASE)
 	mkdir -p $(@D)
-	$(CXX) $(OBJECTS-NO-MAIN) $(CXXFLAGS-TEST-RELEASE) $(CXXFLAGS-COVERAGE) $^ -o $@
+	$(CXX) $(OBJECTS-NO-MAIN-RELEASE) $(CXXFLAGS-TEST-RELEASE) $(CXXFLAGS-COVERAGE) $^ -o $@
 
 $(OBJECTS-TEST-RELEASE): $(BUILDDIR-TEST-RELEASE)/%.o : $(TEST-DIR)/%.cpp
 	mkdir -p $(@D)
@@ -122,11 +123,11 @@ $(OBJECTS-TEST-RELEASE): $(BUILDDIR-TEST-RELEASE)/%.o : $(TEST-DIR)/%.cpp
 
 $(OUTDIR-TEST-DEBUG)/$(TEST-EXECUTABLE) : $(OBJECTS-TEST-DEBUG)
 	mkdir -p $(@D)
-	$(CXX) $(OBJECTS-NO-MAIN) $(CXXFLAGS-TEST-DEBUG) $^ -o $@
+	$(CXX) $(OBJECTS-NO-MAIN-DEBUG) $(CXXFLAGS-TEST-DEBUG) $(CXXFLAGS-COVERAGE) $^ -o $@
 
 $(OBJECTS-TEST-DEBUG): $(BUILDDIR-TEST-DEBUG)/%.o : $(TEST-DIR)/%.cpp
 	mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS-TEST-DEBUG) -c $< -o $@
+	$(CXX) $(CXXFLAGS-TEST-DEBUG) $(CXXFLAGS-COVERAGE) -c $< -o $@
 
 clean:
 	rm -fr build*
