@@ -10,7 +10,7 @@ namespace sharedMemory{
 // Edit these values to change the default hardcoded implementation.
 //--------------------------------------------------------------------
 
-const unsigned long int   Parameters::default_NeuromagClientId    = 1304;
+const unsigned long int   Parameters::default_NeuromagClientId    = 13014;
 const char*               Parameters::default_NeuromagClientPath  = "/neuro/dacq/sockets/dacq_client_";
 const char*               Parameters::default_NeuromagServerPath  = "/neuro/dacq/sockets/dacq_server";
 const int                 Parameters::default_NeuromagMaxData     = 500 * 1500 * 4;
