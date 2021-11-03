@@ -86,7 +86,9 @@ void neuromag::DataWatcher::deleteCallback(Callback)
 
 void neuromag::DataWatcher::deleteCallback(void (*function)(SharedPointer<Data>, void* pointer), void* ptr)
 {
-
+  if(ptr != NULL ) {
+    std::cout << "Deleting callback with address: " << function << "\n";
+  }
 }
 
 /*
@@ -149,7 +151,7 @@ neuromag::DataWatcher::state neuromag::DataWatcher::getState()
 */
 void neuromag::DataWatcher::sendDataToCallbacks(SharedPointer<Data> data)
 {
-  for(int i = 0; i < mCallbacks.size(); ++i)
+  for(unsigned long i = 0; i < mCallbacks.size(); ++i)
   {
     mCallbacks[i](data);
   }

@@ -61,7 +61,11 @@ Constructs a Manager with the given parameters.
 sharedMemory::Manager::Manager(sharedMemory::Parameters param)
 : mParametersConfigured(false)
 {
-
+  //todo remove this
+  if(param.mId == 0)
+  {
+    std::cout << "mId is zero\n";
+  }
 }
 
 /*
@@ -69,7 +73,7 @@ Connects Manager to shared memory.
 */
 void sharedMemory::Manager::connect()
 {
-  mSocket.connect(mParam.mId, mParam.mClientPath);
+  mSocket.connect(static_cast<int>(mParam.mId), mParam.mClientPath);
   initSharedMemoryPointer();
 }
 

@@ -5,11 +5,11 @@ Creates a mutex.
 */
 Mutex::Mutex()
 {
-#if defined __linux__
-  mPThreadMutex = PTHREAD_MUTEX_INITIALIZER;
-#elif defined __APPLE__
+//#if defined __linux__
+//  mPThreadMutex = PTHREAD_MUTEX_INITIALIZER;
+//#elif defined __APPLE__
   pthread_mutex_init(&mPThreadMutex, NULL);
-#endif
+//#endif
 }
 
 /*
