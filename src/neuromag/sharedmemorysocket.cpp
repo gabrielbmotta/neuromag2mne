@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cstdio>
+#include <unistd.h>
 
 #if defined __linux__ || defined __APPLE__
     #include <sys/stat.h>
@@ -27,23 +28,26 @@ Does nothing if socket is already connected.
 */
 void sharedMemory::Socket::connect(int sharedMemId, std::string clientPath)
 {
+    //std::cout << "PATH: " << clientPath << "\n";
     if(isConnected())
     {
         return;
     }
     setClientIDAndPath(sharedMemId, clientPath);
+    sockaddr_un address = getPOSIXSocketAddress();
+
+    unlink(address.sun_path);
     
     if ((mSocketId = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
     {
         std::cout << "Unable to create socket.\n";
         return;
     }
-
-    sockaddr_un address = getPOSIXSocketAddress();
     
     if (bind(mSocketId, (sockaddr *)(&address), sizeof(address)) < 0)
     {
-        std::cout << "Unable to bind socket.\n";
+        close(mSocketId);
+        std::cout << "Unable to bind socket " << address.sun_path << "\n";
     }
     mIsConnected = true;
 }
@@ -105,7 +109,7 @@ Generates POSIX struct for socket address.
 sockaddr_un sharedMemory::Socket::getPOSIXSocketAddress()
 {
     sockaddr_un address;
-    memset(&address, 0, sizeof(address));
+    memset(&address, '\0', sizeof(address));
     address.sun_family = AF_UNIX;
 
     char path[108];    

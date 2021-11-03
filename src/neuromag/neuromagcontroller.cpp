@@ -30,7 +30,8 @@ neuromag::NeuromagController::~NeuromagController()
 
 void neuromag::NeuromagController::start()
 {
-  configureCommandWatcher();
+  //configureCommandWatcher();
+  configureDataWatcher();
 }
 
 void neuromag::NeuromagController::configureCommandWatcher()
