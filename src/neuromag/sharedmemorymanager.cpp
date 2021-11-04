@@ -107,7 +107,7 @@ SharedPointer<Data> sharedMemory::Manager::getData()
 {
   sharedMemory::Message msg = mSocket.getSharedMemoryMessage();
 
-  if(msg.size > 0 && msg.shmem_buf >= 0)
+  if(msg.size > 0 && msg.shmem_buf > 0)
   {
     sharedMemory::Block* pMemBlock = mpSharedMemoryBlock + msg.shmem_buf;
 
