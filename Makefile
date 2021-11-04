@@ -32,7 +32,7 @@ CXXFLAGS-WARNINGS := -Wall  -Wpedantic \
 	-Wfloat-equal -Wformat=2 \
 	-Wformat-nonliteral -Wformat-security  \
 	-Wformat-y2k \
-	-Wimport  -Winit-self  -Winline \
+	-Wimport  -Winit-self \
 	-Winvalid-pch   \
 	-Wlong-long \
 	-Wmissing-include-dirs -Wmissing-noreturn \
