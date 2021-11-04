@@ -57,7 +57,7 @@ CXXFLAGS-TEST-DEBUG=-DDEBUG -g -std=c++98
 ##############################################################################
 ##############################################################################
 #CXXFLAG-COVERAGE=--coverage
-CXXFLAGS-COVERAGE=-fprofile-instr-generate -fcoverage-mapping
+#CXXFLAGS-COVERAGE=-fprofile-instr-generate -fcoverage-mapping
 #CXXFLAGS-COVERAGE=-fprofile-arcs -ftest-coverage
 
 ##############################################################################
