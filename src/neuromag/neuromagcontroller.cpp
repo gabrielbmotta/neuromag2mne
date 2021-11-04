@@ -17,11 +17,21 @@
 void neuromag::aquisitionSoftwareStartingCallback(void* data,void* ptr)
 {
   (void)data;
+  (void)ptr;
 
   neuromag::NeuromagController* NMC = static_cast<neuromag::NeuromagController*>(ptr);
+  std::cout << "Received CommandWatcher callback. Function aquisitionSoftwareStartingCallback \n";
   NMC->configureDataWatcher();
 }
 
+void neuromag::measurementStartingCallback(void *data, void *ptr)
+{
+  (void)data;
+  (void)ptr;
+
+  //neuromag::NeuromagController* NMC = static_cast<neuromag::NeuromagController*>(ptr);
+  std::cout << "Received CommandWatcher callback. Function measurementStartingCallback \n";
+}
 
 neuromag::NeuromagController::NeuromagController()
 : mContinueRunning(false),
@@ -53,7 +63,8 @@ void neuromag::NeuromagController::configureCommandWatcherCallbacks()
 {
   std::cout << "Registering CommandWatcher callbacks.\n";
   mCommandWatcher->registerCallback("wkup", aquisitionSoftwareStartingCallback, this);
-//  mCommandWatcher->registerCallback(
+  mCommandWatcher->registerCallback("200 Measurement mode", measurementStartingCallback, this);
+  //  mCommandWatcher->registerCallback(
 //      StringCallbackPair<NeuromagController>("wkup", &NeuromagController::signalAcquisitionSoftwareRunning, this) );
 
   mCommandWatcher->showCallbacks();

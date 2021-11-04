@@ -10,6 +10,7 @@ namespace neuromag{
 
 
 void aquisitionSoftwareStartingCallback(void*,void*);
+void measurementStartingCallback(void*,void*);
 
 class CommandWatcher;
 class DataWatcher;
@@ -17,6 +18,7 @@ class DataWatcher;
 class NeuromagController
 {
   friend void aquisitionSoftwareStartingCallback(void*,void*);
+  friend void measurementStartingCallback(void*,void*);
 public:
   NeuromagController();
   ~NeuromagController();
