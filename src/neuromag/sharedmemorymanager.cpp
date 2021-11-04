@@ -77,6 +77,12 @@ void sharedMemory::Manager::connect()
   initSharedMemoryPointer();
 }
 
+void sharedMemory::Manager::connect(const Parameters &param)
+{
+  setParameters(param);
+  connect();
+}
+
 /*
 Disconnects Manager from shared memory.
 */

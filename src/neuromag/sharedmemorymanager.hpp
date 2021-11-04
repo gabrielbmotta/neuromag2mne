@@ -36,6 +36,7 @@ public:
   Manager(Parameters param);
 
   void connect();
+  void connect(const Parameters &param);
   void disconnect();
 
   void setParameters(const Parameters &param);

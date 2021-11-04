@@ -35,7 +35,7 @@ public:
   /*
   Constructs a MultiThreadQueue
   */
-  MultiThreadQueue(){};
+  MultiThreadQueue():mQueue(),mMutex(){};
 
   /*
   Returns the element at the front of the queue

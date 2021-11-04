@@ -13,7 +13,9 @@ struct OptionsPack
    verboseMode(false),
    randomDataMode(false),
    readFromFileMode(false),
+   fileNameToRead(""),
    saveToFileMode(false),
+   fileNameToSave(""),
    dontSendDataMode(false)
    { }
 
