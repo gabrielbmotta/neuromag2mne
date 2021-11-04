@@ -21,11 +21,12 @@ public:
   friend void* watchCommands(void*);
 
   struct Callback{
-    Callback(std::string trigger,void (*function)(void*))
-    : mTriggerString(trigger), mFunction(function){};
-    void operator()(void* in){mFunction(in);};
+    Callback(std::string trigger,void (*function)(void*, void*), void* pointer)
+    : mTriggerString(trigger), mFunction(function), mPointer(pointer){};
+    void operator()(void* in){mFunction(in, mPointer);};
     std::string mTriggerString;
-    void (*mFunction)(void*);
+    void (*mFunction)(void*, void*);
+    void* mPointer;
   };
 
   enum state{
@@ -41,10 +42,10 @@ public:
   void disconnect();
 
   void registerCallback(const Callback& callback);
-  void registerCallback(std::string trigger,void (*function)(void*));
+  void registerCallback(std::string trigger,void (*function)(void*, void*), void* pointer);
 
   void deleteCallback(const Callback& callback);
-  void deleteCallback(std::string trigger,void (*function)(void*));
+  void deleteCallback(std::string trigger,void (*function)(void*, void*), void* pointer);
 
   void showCallbacks();
 

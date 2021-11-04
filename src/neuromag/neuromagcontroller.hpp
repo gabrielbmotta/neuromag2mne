@@ -9,11 +9,14 @@
 namespace neuromag{
 
 
+void aquisitionSoftwareStartingCallback(void*,void*);
+
 class CommandWatcher;
 class DataWatcher;
 
 class NeuromagController
 {
+  friend void aquisitionSoftwareStartingCallback(void*,void*);
 public:
   NeuromagController();
   ~NeuromagController();

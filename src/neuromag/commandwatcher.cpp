@@ -106,9 +106,9 @@ void neuromag::CommandWatcher::registerCallback(const Callback& callback)
   }
 }
 
-void neuromag::CommandWatcher::registerCallback(std::string trigger,void (*function)(void*))
+void neuromag::CommandWatcher::registerCallback(std::string trigger,void (*function)(void*, void*), void* pointer)
 {
-  mCallbacks.push_back(Callback(trigger, function));
+  mCallbacks.push_back(Callback(trigger, function, pointer));
 }
 
 /*
@@ -119,9 +119,10 @@ void neuromag::CommandWatcher::deleteCallback(const Callback& callback)
  std::cout << "Deleting callback: " << callback.mTriggerString << "\n";
 }
 
-void neuromag::CommandWatcher::deleteCallback(std::string trigger,void (*function)(void*))
+void neuromag::CommandWatcher::deleteCallback(std::string trigger,void (*function)(void*, void*), void* pointer)
 {
  std::cout << "Deleting callback: " << trigger << " with address: " << function << "\n";
+  (void)pointer;
 }
 
 /*
