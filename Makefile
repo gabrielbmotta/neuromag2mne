@@ -26,8 +26,8 @@ TEST-SOURCES = $(wildcard $(TEST-DIR)/*.cpp)
 ##############################################################################
 
 CXXFLAGS-WARNINGS := -Wall  -Wpedantic \
-	-Weffc++ -Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
-	-pedantic-errors -Wextra -Waggregate-return -Wcast-align \
+	-Wcast-qual -Wconversion -Wmissing-field-initializers -Wmissing-format-attribute \
+	-pedantic-errors -Wextra -Wcast-align \
 	-Wdisabled-optimization \
 	-Wfloat-equal -Wformat=2 \
 	-Wformat-nonliteral -Wformat-security  \
