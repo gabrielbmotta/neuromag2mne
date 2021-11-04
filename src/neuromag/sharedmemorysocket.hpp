@@ -2,7 +2,9 @@
 #define NEUROMAG2MNE_SHAREDMEMORYSOCKET_HPP
 
 #if defined __linux__ || defined __APPLE__
-    #include <sys/un.h>
+
+#include <sys/un.h>
+
 #elif defined _WIN32
 
 #endif
@@ -11,8 +13,7 @@
 
 #include "neuromagshmeminfo.hpp"
 
-namespace sharedMemory
-{
+namespace sharedMemory {
 
 /*
 A socket for communicating with the server part of the neuromag shared memory service.
@@ -24,28 +25,31 @@ by 'getSharedMemoryMessage()', and can be used, once the location of the
 shared memory block is also obtained (functionality that is not provided
 by this class), to get the mPtr to the memory location of new data.
 */
-class Socket
-{
+class Socket {
 public:
-    Socket();
+  Socket();
 
-    void connect(int sharedMemId, std::string clientPath);
-    void disconnect();
-    bool isConnected();
+  void connect(int sharedMemId, std::string clientPath);
 
-    sharedMemory::Message getSharedMemoryMessage();
-    
+  void disconnect();
+
+  bool isConnected();
+
+  sharedMemory::Message getSharedMemoryMessage();
+
 private:
-    void setClientIDAndPath(int id, std::string path);
+  void setClientIDAndPath(int id, std::string path);
 
 #if defined __linux__ || defined __APPLE__
-    sockaddr_un getPOSIXSocketAddress();
+
+  sockaddr_un getPOSIXSocketAddress();
+
 #endif
 
-    int         mMemoryClientId;
-    int         mSocketId;
-    std::string mClientPath;
-    bool        mIsConnected;
+  int mMemoryClientId;
+  int mSocketId;
+  std::string mClientPath;
+  bool mIsConnected;
 };
 }//namespace
 #endif

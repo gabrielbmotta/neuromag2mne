@@ -5,10 +5,12 @@
 #include <unistd.h>
 
 #if defined __linux__ || defined __APPLE__
-    #include <sys/stat.h>
-    #include <sys/un.h>
-    #include <sys/socket.h>
-    #include <sys/shm.h>
+
+#include <sys/stat.h>
+#include <sys/un.h>
+#include <sys/socket.h>
+#include <sys/shm.h>
+
 #elif defined _WIN32
 
 #endif
@@ -17,7 +19,7 @@
 Constructs a Socket.
 */
 sharedMemory::Socket::Socket()
-: mIsConnected(false)
+        : mIsConnected(false)
 {
 }
 
@@ -28,28 +30,28 @@ Does nothing if socket is already connected.
 */
 void sharedMemory::Socket::connect(int sharedMemId, std::string clientPath)
 {
-    //std::cout << "PATH: " << clientPath << "\n";
-    if(isConnected())
-    {
-        return;
-    }
-    setClientIDAndPath(sharedMemId, clientPath);
-    sockaddr_un address = getPOSIXSocketAddress();
+  //std::cout << "PATH: " << clientPath << "\n";
+  if(isConnected())
+  {
+    return;
+  }
+  setClientIDAndPath(sharedMemId, clientPath);
+  sockaddr_un address = getPOSIXSocketAddress();
 
-    unlink(address.sun_path);
-    
-    if ((mSocketId = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
-    {
-        std::cout << "Unable to create socket.\n";
-        return;
-    }
-    
-    if (bind(mSocketId, (sockaddr *)(&address), sizeof(address)) < 0)
-    {
-        close(mSocketId);
-        std::cout << "Unable to bind socket " << address.sun_path << "\n";
-    }
-    mIsConnected = true;
+  unlink(address.sun_path);
+
+  if((mSocketId = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
+  {
+    std::cout << "Unable to create socket.\n";
+    return;
+  }
+
+  if(bind(mSocketId, (sockaddr *) (&address), sizeof(address)) < 0)
+  {
+    close(mSocketId);
+    std::cout << "Unable to bind socket " << address.sun_path << "\n";
+  }
+  mIsConnected = true;
 }
 
 /*
@@ -59,10 +61,10 @@ Does nothing if already disconnected.
 */
 void sharedMemory::Socket::disconnect()
 {
-    if(!isConnected())
-    {
-        return;
-    }
+  if(!isConnected())
+  {
+    return;
+  }
 }
 
 /*
@@ -70,7 +72,7 @@ Returns whether socket is connected.
 */
 bool sharedMemory::Socket::isConnected()
 {
-    return mIsConnected;
+  return mIsConnected;
 }
 
 /*
@@ -80,17 +82,17 @@ This message gives us where in the shared memory block we can find data.
 */
 sharedMemory::Message sharedMemory::Socket::getSharedMemoryMessage()
 {
-    sharedMemory::Message msg;
+  sharedMemory::Message msg;
 
-    if(isConnected())
+  if(isConnected())
+  {
+    if(recv(mSocketId, (void *) (&msg), sizeof(msg), 0) == -1)
     {
-        if(recv(mSocketId, (void*)(&msg), sizeof(msg), 0) == -1)
-        {
-            std::cout << "Unable to retrieve message.\n";
-        }
+      std::cout << "Unable to retrieve message.\n";
     }
+  }
 
-    return msg;
+  return msg;
 }
 
 /*
@@ -98,24 +100,26 @@ Stores client ID and path.
 */
 void sharedMemory::Socket::setClientIDAndPath(int id, std::string path)
 {
-    mMemoryClientId = id;
-    mClientPath = path;
+  mMemoryClientId = id;
+  mClientPath = path;
 }
 
 #if defined __linux__ || defined __APPLE__
+
 /*
 Generates POSIX struct for socket address.
 */
 sockaddr_un sharedMemory::Socket::getPOSIXSocketAddress()
 {
-    sockaddr_un address;
-    memset(&address, '\0', sizeof(address));
-    address.sun_family = AF_UNIX;
+  sockaddr_un address;
+  memset(&address, '\0', sizeof(address));
+  address.sun_family = AF_UNIX;
 
-    char path[108];    
-    sprintf (path, "%s%d", mClientPath.c_str(), mMemoryClientId);
-    strcpy(address.sun_path, path);
+  char path[108];
+  sprintf(path, "%s%d", mClientPath.c_str(), mMemoryClientId);
+  strcpy(address.sun_path, path);
 
-    return address;
+  return address;
 }
+
 #endif
