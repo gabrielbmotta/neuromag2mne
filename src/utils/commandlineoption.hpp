@@ -15,12 +15,12 @@ public:
         WITH_VALUE,
         WITHOUT_VALUE
     };
-    std::string name;
-    std::vector<std::string> flagsList;
-    std::vector<std::string> helpString;
-    commandlineOptionType type;
+    std::string mName;
+    std::vector<std::string> mFlagsList;
+    std::vector<std::string> mHelpString;
+    commandlineOptionType mType;
     bool isSet;
-    std::string value;
+    std::string mValue;
     
     CommandlineOption();
 

@@ -61,7 +61,7 @@ CommandlineOptionsParser::searchResult CommandlineOptionsParser::optionSearch(co
 {
   for (size_t i = 0; i < mOptions.size(); ++i)
   {
-    if(mOptions[i].name == optName)
+    if(mOptions[i].mName == optName)
     {
       return searchResult(true, i);
     }
@@ -101,7 +101,7 @@ std::string CommandlineOptionsParser::value(const std::string& optionName) const
   searchResult thisSearch(optionSearch(optionName));
   if(thisSearch.exists)
   {
-    return mOptions[thisSearch.position].value;
+    return mOptions[thisSearch.position].mValue;
   } else {
     return std::string();
   }
@@ -109,10 +109,10 @@ std::string CommandlineOptionsParser::value(const std::string& optionName) const
 
 std::string CommandlineOptionsParser::getFlagsAsString(const CommandlineOption& opt) const
 {
-  std::string concatFlags(opt.flagsList[0]);
-  for( unsigned long int i = 1; i < opt.flagsList.size(); ++i )
+  std::string concatFlags(opt.mFlagsList[0]);
+  for(unsigned long int i = 1; i < opt.mFlagsList.size(); ++i )
   {
-    concatFlags += ", " + opt.flagsList[i];
+    concatFlags += ", " + opt.mFlagsList[i];
   }
   return concatFlags;
 }
@@ -141,12 +141,12 @@ std::string CommandlineOptionsParser::getHelpDescription() const
   {
     std::string flags(getFlagsAsString(mOptions[i]));
     helpStr += flags + std::string(colWidth - flags.size(),' ');
-    if (mOptions[i].helpString.size() > 0 )
+    if (mOptions[i].mHelpString.size() > 0 )
     {
-      helpStr += mOptions[i].helpString[0] + "\n";
-      for (unsigned long int j = 1; j < mOptions[i].helpString.size(); ++j)
+      helpStr += mOptions[i].mHelpString[0] + "\n";
+      for (unsigned long int j = 1; j < mOptions[i].mHelpString.size(); ++j)
       {
-        helpStr += std::string(colWidth, ' ') + mOptions[i].helpString[j] + "\n";
+        helpStr += std::string(colWidth, ' ') + mOptions[i].mHelpString[j] + "\n";
       }
     }
 
@@ -167,15 +167,15 @@ int CommandlineOptionsParser::parse(int argc, char** argv)
     {
       CommandlineOption& opt = mOptions[optionSearch.position];
       opt.isSet = true;
-      if (opt.type == CommandlineOption::WITH_VALUE)
+      if (opt.mType == CommandlineOption::WITH_VALUE)
       {
         bool notLastInputArg(i < (argc -1));
         if( notLastInputArg )
         {
-          opt.value = std::string(argv[i + 1]);
+          opt.mValue = std::string(argv[i + 1]);
           ++i;
         } else {
-          std::cout << "Error parsing input arguments. Arg: " << opt.name << " requires a following value.\n";
+          std::cout << "Error parsing input arguments. Arg: " << opt.mName << " requires a following value.\n";
           errorsWhileParsing = true;
           if(mStopOnErrors)
           {
