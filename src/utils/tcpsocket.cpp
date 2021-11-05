@@ -32,7 +32,7 @@ Connects to an address and port given by the input parameters.
 
 Does nothing if the instance of TCPSocket is already connected.
 */
-void TCPSocket::connect(const char* addr, unsigned int port)
+void TCPSocket::connect(const char* addr, unsigned short int port)
 {
     if (isConnected())
     {

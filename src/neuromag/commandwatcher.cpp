@@ -58,7 +58,7 @@ Connects to collector server at the port and with the password given by paramete
 
 Does nothing if already connected to something.
 */
-void neuromag::CommandWatcher::connect(unsigned int port, const std::string& password)
+void neuromag::CommandWatcher::connect(unsigned short int port, const std::string& password)
 {
   std::cout << password;
   if(mState != DisconnectedNotWatching)

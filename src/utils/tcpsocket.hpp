@@ -15,7 +15,7 @@ class TCPSocket
 public:
     TCPSocket();
 
-    void connect(const char* addr, unsigned int port);
+    void connect(const char* addr, unsigned short int port);
     void disconnect();
     bool isConnected();
 

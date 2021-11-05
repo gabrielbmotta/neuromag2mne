@@ -38,7 +38,7 @@ public:
   ~CommandWatcher();
 
   void connect();
-  void connect(unsigned int port, const std::string& password);
+  void connect(unsigned short int port, const std::string& password);
   void disconnect();
 
   void registerCallback(const Callback& callback);
