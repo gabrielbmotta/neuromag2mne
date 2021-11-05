@@ -157,7 +157,7 @@ std::string TCPSocket::receive_blocking()
 /*
 Stores address and port information.
 */
-void TCPSocket::setAddressAndPort(const char* addr, unsigned int port)
+void TCPSocket::setAddressAndPort(const char* addr, unsigned short int port)
 {
     mAddress = addr;
     mPort = port;

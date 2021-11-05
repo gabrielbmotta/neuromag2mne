@@ -25,14 +25,14 @@ public:
     std::string receive_blocking();
 
 private:
-    void setAddressAndPort(const char* addr, unsigned int port);
+    void setAddressAndPort(const char* addr, unsigned short int port);
 #if defined __linux__ || defined __APPLE__
     void setPOSIXSocketAddress();
 #elif defined _WIN32
 #endif
 
     std::string mAddress;
-    unsigned int mPort;
+    unsigned short int mPort;
     int mSocketId;
     bool mIsConnected;
     const unsigned long int mReceivingBufferSize;
