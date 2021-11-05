@@ -15,6 +15,8 @@
 
 #endif
 
+#define SOCKET_MASK 0x000
+
 /*
 Constructs a Socket.
 */
@@ -35,6 +37,9 @@ void sharedMemory::Socket::connect(int sharedMemId, std::string clientPath)
   {
     return;
   }
+
+  unsigned short int old_mask = umask(SOCKET_MASK);
+
   setClientIDAndPath(sharedMemId, clientPath);
   sockaddr_un address = getPOSIXSocketAddress();
 
@@ -43,12 +48,14 @@ void sharedMemory::Socket::connect(int sharedMemId, std::string clientPath)
   if((mSocketId = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
   {
     std::cout << "Unable to create socket.\n";
+    umask(old_mask);
     return;
   }
 
   if(bind(mSocketId, (sockaddr *) (&address), sizeof(address)) < 0)
   {
     close(mSocketId);
+    umask(old_mask);
     std::cout << "Unable to bind socket " << address.sun_path << "\n";
   }
   mIsConnected = true;
