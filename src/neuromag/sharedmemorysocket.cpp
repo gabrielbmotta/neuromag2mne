@@ -38,7 +38,7 @@ void sharedMemory::Socket::connect(int sharedMemId, std::string clientPath)
     return;
   }
 
-  unsigned short int old_mask = umask(SOCKET_MASK);
+  mode_t old_mask = umask(SOCKET_MASK);
 
   setClientIDAndPath(sharedMemId, clientPath);
   sockaddr_un address = getPOSIXSocketAddress();
