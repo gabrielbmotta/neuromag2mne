@@ -70,6 +70,8 @@ else ifeq ($(UNAME),Linux)
 	CXX = g++
 	CXXFLAGS-RELEASE += -pthread
 	CXXFLAGS-DEBUG += -pthread
+	CXXFLAGS-TEST-RELEASE += -pthread
+	CXXFLAGS-TEST-DEBUG += -pthread
 else
 # todo we still need to do this.
 endif
