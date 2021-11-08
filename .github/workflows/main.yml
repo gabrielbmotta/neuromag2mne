@@ -30,7 +30,7 @@ jobs:
       - name: Get code stats
         run: |
           sudo apt-get install cloc 
-          cloc .
+          cloc src/
       - name: Run tests
         run: |
           ./out-test-release/run_tests
