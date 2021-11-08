@@ -23,11 +23,11 @@ struct Block{
 
 //todo fix signedness. see $>make debug;
 struct Message{
-  unsigned long int kind;
-  unsigned long int type;
-  unsigned long int size;
+  int kind;
+  int type;
+  int size;
   int loc;
-  unsigned long int shmem_buf;
+  int shmem_buf;
   int shmem_loc;
 };
 }//namespace

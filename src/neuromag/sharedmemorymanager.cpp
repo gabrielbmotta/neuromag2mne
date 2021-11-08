@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <sys/shm.h>
+#include "../fiff/fiff.hpp"
 
 namespace sharedMemory{
 
@@ -106,11 +107,19 @@ Gets data from shared memory.
 SharedPointer<Data> sharedMemory::Manager::getData()
 {
   sharedMemory::Message msg = mSocket.getSharedMemoryMessage();
+  fiff::Tag* tag = new fiff::Tag();
+  char* dataStorage;
 
   if(msg.size > 0 && msg.shmem_buf > 0)
   {
     sharedMemory::Block* pMemBlock = mpSharedMemoryBlock + msg.shmem_buf;
 
+    tag->kind = msg.kind;
+    tag->type = msg.type;
+    tag->next = 0;
+    dataStorage = new char [msg.size];
+    tag->data = static_cast<void*>(dataStorage);
+    memcpy(tag->data, pMemBlock->data, static_cast<size_t>(msg.size));
 
     //todo - get data and update client tally to say we read the data
     confirmClientReadData(pMemBlock);
