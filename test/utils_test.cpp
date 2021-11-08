@@ -10,6 +10,9 @@
 // Testing threads
 //===================================================================
 
+int threadTestVal = 5;
+int threadTestSleepTime = 10000;
+
 struct ThreadTestStruct{
   int value;
   bool state;
@@ -18,24 +21,24 @@ struct ThreadTestStruct{
 void* testThread(void* input)
 {
   ThreadTestStruct* ptr = static_cast<ThreadTestStruct*>(input);
-  ptr->value = 5;
+  ptr->value = threadTestVal;
   while(ptr->state)
   {
-    usleep(100);
+    usleep(threadTestSleepTime);
   }
-  ptr->value = 10;
+  ptr->value = threadTestVal + 2;
   return NULL;
 };
 
 TEST_CASE("Testing threads." , "[threads]")
 {
   ThreadTestStruct a;
-  a.value = 0;
+  a.value = threadTestVal + 1;
   a.state = true;
   Thread thread;
   thread.startThread(testThread, &a);
-  usleep(100);
-  REQUIRE(a.value == 5);
+  usleep(threadTestSleepTime);
+  REQUIRE(a.value == threadTestVal);
   thread.stopThread();
 };
 
@@ -45,6 +48,7 @@ TEST_CASE("Testing threads." , "[threads]")
 
 int mutexTestVal1 = 5;
 int mutexTestVal2 = 0;
+int mutexTestSleepTime = 10000;
 
 struct MutexTestStruct{
   int value;
@@ -61,7 +65,7 @@ void* testMutex(void* input)
 
   while(ptr->state)
   {
-    usleep(100);
+    usleep(mutexTestSleepTime);
   }
   return NULL;
 };
@@ -76,11 +80,11 @@ TEST_CASE("Testing mutex.", "[mutex]")
   {
     m.m.lock();
     thread.startThread(testMutex, &m);
-    usleep(100);
+    usleep(mutexTestSleepTime);
     REQUIRE(m.value == mutexTestVal2);
     m.m.unlock();
   }
-  usleep(100);
+  usleep(mutexTestSleepTime);
   REQUIRE(m.value == mutexTestVal1);
   m.state = false;
   thread.stopThread();
