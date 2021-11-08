@@ -67,6 +67,11 @@ public:
     return mPtr;
   }
 
+  T* data() const
+  {
+    return mPtr;
+  }
+
 private:
 
   inline bool isConfigured() const
