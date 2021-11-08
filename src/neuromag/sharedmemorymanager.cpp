@@ -121,6 +121,8 @@ SharedPointer<Data> sharedMemory::Manager::getData()
     tag->data = static_cast<void*>(dataStorage);
     memcpy(tag->data, pMemBlock->data, static_cast<size_t>(msg.size));
 
+    //std::cout << tag;
+
     //todo - get data and update client tally to say we read the data
     confirmClientReadData(pMemBlock);
   }
