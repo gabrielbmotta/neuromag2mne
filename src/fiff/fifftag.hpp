@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <iostream>
 
+#include "fiffdefines.hpp"
+
 namespace fiff {
 
 struct Tag {
