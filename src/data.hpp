@@ -1,7 +1,7 @@
 #ifndef NEUROMAG2MNE_DATA_HPP
 #define NEUROMAG2MNE_DATA_HPP
 
-#include "fiff/fiff.hpp"
+#include "fiff/fifftag.hpp"
 
 struct Data{
   //very temporary todo: change asap
