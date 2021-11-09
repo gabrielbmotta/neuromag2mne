@@ -1,9 +1,7 @@
 #ifndef NEUROMAG2MNE_DATA_HPP
 #define NEUROMAG2MNE_DATA_HPP
 
-
-class Data{
-
+struct Data{
 };
 
 #endif //NEUROMAG2MNE_DATA_HPP

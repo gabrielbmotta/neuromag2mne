@@ -5,7 +5,7 @@
 #include "neuromagshmeminfo.hpp"
 #include "sharedmemorysocket.hpp"
 #include "../utils/sharedpointer.hpp"
-#include "../utils/data.hpp"
+#include "../data.hpp"
 
 namespace sharedMemory{
 

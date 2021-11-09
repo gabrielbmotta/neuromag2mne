@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "../utils/tcpsocket.hpp"
-#include "../utils/data.hpp"
+#include "../data.hpp"
 #include "../utils/sharedpointer.hpp"
 
 namespace fieldtrip {

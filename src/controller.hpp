@@ -10,7 +10,7 @@
 #include "utils/sharedpointer.hpp"
 #include "inputargumentsparser.hpp"
 #include "utils/multithreadqueue.hpp"
-#include "utils/data.hpp"
+#include "data.hpp"
 
 class InputArgumentsParser;
 namespace neuromag { class NeuromagController; }
