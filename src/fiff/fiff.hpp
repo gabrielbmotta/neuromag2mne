@@ -24,6 +24,8 @@ struct Tag {
   int32_t size;   // Size of data.
   int32_t next;   // Next object. 0 is sequential, -1 if end of file.
   void*   data;   // Pointer to data.
+  //todo: decide what to do with data when copying and destructing objects of tag class;
+  //      shared pointer?
 
   friend std::ostream& operator<<(std::ostream& output, const Tag& tag)
   {

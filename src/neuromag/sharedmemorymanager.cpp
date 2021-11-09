@@ -107,19 +107,20 @@ Gets data from shared memory.
 SharedPointer<Data> sharedMemory::Manager::getData()
 {
   sharedMemory::Message msg = mSocket.getSharedMemoryMessage();
-  fiff::Tag* tag = new fiff::Tag();
+  SharedPointer<Data> dataPtr;
+
   char* dataStorage;
 
   if(msg.size > 0 && msg.shmem_buf > 0)
   {
     sharedMemory::Block* pMemBlock = mpSharedMemoryBlock + msg.shmem_buf;
 
-    tag->kind = msg.kind;
-    tag->type = msg.type;
-    tag->next = 0;
+    dataPtr->tag.kind = msg.kind;
+    dataPtr->tag.type = msg.type;
+    dataPtr->tag.next = 0;
     dataStorage = new char [msg.size];
-    tag->data = static_cast<void*>(dataStorage);
-    memcpy(tag->data, pMemBlock->data, static_cast<size_t>(msg.size));
+    dataPtr->tag.data = static_cast<void*>(dataStorage);
+    memcpy(dataPtr->tag.data, pMemBlock->data, static_cast<size_t>(msg.size));
 
     //std::cout << tag;
 
@@ -127,7 +128,7 @@ SharedPointer<Data> sharedMemory::Manager::getData()
     confirmClientReadData(pMemBlock);
   }
 
-  return SharedPointer<Data>();
+  return dataPtr;
 }
 
 /*

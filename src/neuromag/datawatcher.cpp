@@ -147,7 +147,7 @@ neuromag::DataWatcher::state neuromag::DataWatcher::getState()
 }
 
 /*
-
+Calls callback functions with data parameter
 */
 void neuromag::DataWatcher::sendDataToCallbacks(SharedPointer<Data> data)
 {
