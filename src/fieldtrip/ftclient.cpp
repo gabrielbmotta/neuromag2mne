@@ -1,4 +1,5 @@
 #include "ftclient.hpp"
+#include <cstring>
 
 
 fieldtrip::Client::Client()
@@ -36,6 +37,9 @@ void fieldtrip::Client::sendHeader(const BufferParameters& param)
   memcpy(msg, message->def, sizeof (messagedef_t));
   memcpy(msg + sizeof (messagedef_t), header->def, sizeof (headerdef_t));
 
+  mSocket.send(msg, totalMessageSize);
+
+  mSocket.receive_blocking();
 }
 
 void fieldtrip::Client::sendHeader(const BufferParameters& param, std::vector<HeaderChunk> chunkList)
