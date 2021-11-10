@@ -1,7 +1,7 @@
 #ifndef NEUROMAG2MNE_FIELDTRIPTYPES_HPP
 #define NEUROMAG2MNE_FIELDTRIPTYPES_HPP
 
-#define VERSION    static_cast<qint16>(0x0001)
+#define VERSION    static_cast<int32_t>(0x0001)
 
 #define PUT_HDR    static_cast<int32_t>(0x0101) /* decimal 257 */
 #define PUT_DAT    static_cast<int32_t>(0x0102) /* decimal 258 */
@@ -37,6 +37,11 @@ struct headerdef_t{
   float   fsample;
   int32_t  data_type;
   int32_t  bufsize;     /* size of the buffer in bytes */
+};
+
+struct header_t{
+  headerdef_t *def;
+  void        *buf;
 };
 
 struct messagedef_t{
