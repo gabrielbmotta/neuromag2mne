@@ -74,14 +74,16 @@ struct samples_events_t{
 // Convenient types
 //----------------------------------------------------
 
-struct HeaderChunk{
+namespace fieldtrip {
+struct HeaderChunk {
   std::string filePath;
 };
 
-struct BufferParameters{
+struct BufferParameters {
   int nChannels;
   float sampleFrequency;
   int dataType;
 };
+}
 
 #endif //NEUROMAG2MNE_FIELDTRIPTYPES_HPP
