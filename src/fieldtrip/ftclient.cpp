@@ -12,6 +12,10 @@ void fieldtrip::Client::connect(std::string address, unsigned short port)
 
 void fieldtrip::Client::sendHeader(const BufferParameters& param)
 {
+  if(!mSocket.isConnected()){
+    return;
+  }
+
   //to do: implement
   (void)param;
   header_t* header = NULL;
@@ -23,9 +27,14 @@ void fieldtrip::Client::sendHeader(const BufferParameters& param)
   message->def = new messagedef_t();
   message->buf = NULL;
   message->def->version = VERSION;
-  message->def->bufsize = 0;
+  message->def->bufsize = sizeof(header_t);
   message->def->command = PUT_HDR;
 
+  int const totalMessageSize = sizeof (messagedef_t) + sizeof (headerdef_t);
+
+  char* msg = new char[totalMessageSize];
+  memcpy(msg, message->def, sizeof (messagedef_t));
+  memcpy(msg + sizeof (messagedef_t), header->def, sizeof (headerdef_t));
 
 }
 
