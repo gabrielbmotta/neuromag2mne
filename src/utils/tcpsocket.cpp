@@ -100,16 +100,34 @@ bool TCPSocket::isConnected() const
 }
 
 /*
-Sends a message containing input paramter.
+Sends a string message containing input paramter.
 
 Does nothing if socket is not connected.
 */
 void TCPSocket::send(const std::string &msg)
 {
-  send(msg.c_str());
+  send(msg.c_str(), strlen(msg.c_str()));
 }
 
+/*
+Sends a string message containing input paramter.
+
+Input must be properly null terminated. Use overload with
+size parameter for non-string uses.
+
+Does nothing if socket is not connected.
+*/
 void TCPSocket::send(const char *msg)
+{
+  send(msg, strlen(msg));
+}
+
+/*
+Sends input message with given size.
+
+Does nothing if socket is not connected.
+*/
+void TCPSocket::send(const char *msg, size_t size)
 {
   if(!isConnected())
   {
@@ -118,7 +136,7 @@ void TCPSocket::send(const char *msg)
   }
 #if defined __linux__ || defined __APPLE__
 
-  if(::send(mSocketId, msg, strlen(msg), 0) < 0)
+  if(::send(mSocketId, msg, size, 0) < 0)
   {
     std::cout << "Failed to send message: " << msg << "\n";
   }

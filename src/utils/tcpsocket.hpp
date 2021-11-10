@@ -22,6 +22,7 @@ public:
 
   void send(const std::string& msg);
   void send(const char* msg);
+  void send(const char* msg, size_t size);
 
   std::string receive_blocking();
 
