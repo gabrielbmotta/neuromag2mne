@@ -26,6 +26,7 @@ void fieldtrip::Client::sendHeader(const BufferParameters& param)
   message->def->bufsize = 0;
   message->def->command = PUT_HDR;
 
+
 }
 
 void fieldtrip::Client::sendHeader(const BufferParameters& param, std::vector<HeaderChunk> chunkList)

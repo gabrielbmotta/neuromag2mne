@@ -1,6 +1,8 @@
 #ifndef NEUROMAG2MNE_FIELDTRIPTYPES_HPP
 #define NEUROMAG2MNE_FIELDTRIPTYPES_HPP
 
+#include <string>
+
 #define VERSION    static_cast<int32_t>(0x0001)
 
 #define PUT_HDR    static_cast<int32_t>(0x0101) /* decimal 257 */
@@ -23,6 +25,9 @@
 #define PUT_DAT_NORESPONSE static_cast<int32_t>(0x0502) /* decimal 1282 */
 #define PUT_EVT_NORESPONSE static_cast<int32_t>(0x0503) /* decimal 1283 */
 
+//----------------------------------------------------
+// Fieldtrip protocol types
+//----------------------------------------------------
 struct datadef_t{
   int32_t nchans;
   int32_t nsamples;
@@ -63,6 +68,20 @@ struct datasel_t{
 struct samples_events_t{
   int32_t nsamples;
   int32_t nevents;
+};
+
+//----------------------------------------------------
+// Convenient types
+//----------------------------------------------------
+
+struct HeaderChunk{
+  std::string filePath;
+};
+
+struct BufferParameters{
+  int nChannels;
+  float sampleFrequency;
+  int dataType;
 };
 
 #endif //NEUROMAG2MNE_FIELDTRIPTYPES_HPP

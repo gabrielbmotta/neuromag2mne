@@ -11,16 +11,6 @@
 
 namespace fieldtrip {
 
-struct HeaderChunk{
-  std::string filePath;
-};
-
-struct BufferParameters{
-  int nChannels;
-  float sampleFrequency;
-  int dataType;
-};
-
 class Client {
 public:
   Client();
