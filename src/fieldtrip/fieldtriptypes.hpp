@@ -1,7 +1,7 @@
 #ifndef NEUROMAG2MNE_FIELDTRIPTYPES_HPP
 #define NEUROMAG2MNE_FIELDTRIPTYPES_HPP
 
-#include <cstdint>
+#include <stdint.h>
 #include <string>
 
 #define VERSION    static_cast<int32_t>(0x0001)
