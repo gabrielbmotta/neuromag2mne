@@ -7,9 +7,9 @@
 
 namespace fieldtrip{
 
-//to do:  do this with smart pointers
-//        so we don't have to manually
-//        tag these as 'done'.
+//todo: do this with smart pointers
+//      so we don't have to manually
+//      tag these as 'done'.
 
 struct Message {
   Message();
@@ -27,8 +27,14 @@ public:
   static Message simpleHeader(fieldtrip::BufferParameters parameters);
 
   static Message neuromagHeader(fieldtrip::BufferParameters parameters,
-                                std::string neuromagHeaderPath,
-                                std::string isotrakHeaderPath);
+                                const std::string& neuromagHeaderPath,
+                                const std::string& isotrakHeaderPath);
+
+private:
+  static messagedef_t* putHeaderMessage();
+  static headerdef_t* defaultHeader();
+
+  MessageFormater();
 };
 
 }//namespace

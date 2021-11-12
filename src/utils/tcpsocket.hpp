@@ -25,6 +25,7 @@ public:
   void send(const char* msg, size_t size);
 
   std::string receive_blocking();
+  //todo: create non-blocking receive function
 
 private:
   void setAddressAndPort(const char* addr, unsigned short int port);

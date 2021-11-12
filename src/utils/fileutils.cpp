@@ -6,7 +6,7 @@
 
 #include <fstream>
 
-long int FileUtils::size(const std::string& filePath)
+long int FileUtils::qsize(const std::string& filePath)
 {
   std::ifstream file(filePath, std::ios::binary);
   file.seekg(0,std::ios::end);

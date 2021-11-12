@@ -134,6 +134,9 @@ void TCPSocket::send(const char *msg, size_t size)
     std::cout << "Message not sent, not connected.\n";
     return;
   }
+  if(msg == NULL || size == 0){
+    std::cout << "Message not sent, invalid message.\n";
+  }
 #if defined __linux__ || defined __APPLE__
 
   if(::send(mSocketId, msg, size, 0) < 0)
@@ -152,7 +155,6 @@ Does nothing if socket is not connected.
 */
 std::string TCPSocket::receive_blocking()
 {
-
   if(!isConnected())
   {
     std::cout << "Not connected, nothing to receive.\n";
@@ -168,9 +170,6 @@ std::string TCPSocket::receive_blocking()
     return std::string();
   } else
   {
-//  	  std::cout <<"\n==========START \n";
-//        std::cout << reply;
-//	  std::cout <<"==========END \n";
     return std::string(reply);
   }
 #elif defined _WIN32

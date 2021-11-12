@@ -3,6 +3,8 @@
 //
 
 #include "messageformater.hpp"
+#include <fstream>
+#include "../utils/fileutils.hpp"
 
 fieldtrip::Message::Message()
 : content(NULL)
@@ -26,29 +28,19 @@ void fieldtrip::Message::done()
   }
 }
 
-
 fieldtrip::Message fieldtrip::MessageFormater::simpleHeader(fieldtrip::BufferParameters parameters)
 {
-  messagedef_t* message = new messagedef_t();
-  message->version = VERSION;
+  messagedef_t* message = putHeaderMessage();
   message->bufsize = sizeof(headerdef_t);
-  message->command = PUT_HDR;
 
-  headerdef_t* header = new headerdef_t();
+  headerdef_t* header = defaultHeader();
   header->nchans = parameters.nChannels;
-  header->nsamples = 0;
-  header->nevents = 0;
   header->fsample = parameters.sampleFrequency;
   header->data_type = parameters.dataType;
-  header->bufsize = 0;
 
   size_t const totalSize = sizeof (messagedef_t) + sizeof (headerdef_t);
-
-//  std::cout << "Total size : " << totalSize << "\n";
-//  std::cout << "Message size : " << sizeof (messagedef_t) << "\n";
-//  std::cout << "Header size : " << sizeof (headerdef_t) << "\n";
-
   char* messageByteArray = new char[totalSize];
+
   memcpy(messageByteArray, message, sizeof (messagedef_t));
   memcpy(messageByteArray + sizeof (messagedef_t), header, sizeof (headerdef_t));
 
@@ -56,12 +48,44 @@ fieldtrip::Message fieldtrip::MessageFormater::simpleHeader(fieldtrip::BufferPar
 }
 
 fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferParameters parameters,
-                                                              std::string neuromagHeaderPath,
-                                                              std::string isotrakHeaderPath)
+                                                              const std::string& neuromagHeaderPath,
+                                                              const std::string& isotrakHeaderPath)
 {
+  long int neuromagHeaderFileSize = FileUtils::size(neuromagHeaderPath);
+  long int isotrakHeaderFileSize = FileUtils::size(isotrakHeaderPath);
+  if(neuromagHeaderFileSize == -1 || isotrakHeaderFileSize == -1)
+  {
+    return fieldtrip::Message();
+  }
+
   (void)parameters;
-  (void)neuromagHeaderPath;
-  (void)isotrakHeaderPath;
 
   return fieldtrip::Message();
+}
+
+messagedef_t* fieldtrip::MessageFormater::putHeaderMessage()
+{
+  messagedef_t* message = new messagedef_t();
+  message->version = VERSION;
+  message->bufsize = 0;
+  message->command = PUT_HDR;
+
+  return message;
+}
+
+headerdef_t* fieldtrip::MessageFormater::defaultHeader()
+{
+  headerdef_t* header = new headerdef_t();
+  header->nchans = 0;
+  header->nsamples = 0;
+  header->nevents = 0;
+  header->fsample = 0;
+  header->data_type = 0;
+  header->bufsize = 0;
+
+  return header;
+}
+
+fieldtrip::MessageFormater::MessageFormater()
+{
 }

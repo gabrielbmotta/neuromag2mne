@@ -16,17 +16,17 @@ public:
   Client();
 
   void connect(std::string address, unsigned short port);
+
   void sendHeader(const BufferParameters& parameters);
-  void sendHeader(const BufferParameters& parameters, std::vector<HeaderChunk> chunkList);
+  void sendHeader(const BufferParameters& parameters,
+                  std::vector<HeaderChunk> chunkList);
 
   void sendData(SharedPointer<Data> data);
 
   bool isConnected() const;
 
 private:
-  void sendHeaderChunk(HeaderChunk chunk);
-
-  void formatHeader(header_t* header, const BufferParameters& param) const;
+  messagedef_t getResponse();
 
   TCPSocket mSocket;
 };
