@@ -16,8 +16,8 @@ public:
   Client();
 
   void connect(std::string address, unsigned short port);
-  void sendHeader(const BufferParameters& param);
-  void sendHeader(const BufferParameters& param, std::vector<HeaderChunk> chunkList);
+  void sendHeader(const BufferParameters& parameters);
+  void sendHeader(const BufferParameters& parameters, std::vector<HeaderChunk> chunkList);
 
   void sendData(SharedPointer<Data> data);
 
