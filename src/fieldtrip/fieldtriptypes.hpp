@@ -51,8 +51,8 @@ struct header_t{
 };
 
 struct messagedef_t{
-  int32_t version;   /* see VERSION */
-  int32_t command;   /* see PUT_xxx, GET_xxx and FLUSH_xxx */
+  int16_t version;   /* see VERSION */
+  int16_t command;   /* see PUT_xxx, GET_xxx and FLUSH_xxx */
   int32_t bufsize;   /* size of the buffer in bytes */
 };
 
@@ -81,6 +81,12 @@ struct HeaderChunk {
 };
 
 struct BufferParameters {
+
+  BufferParameters(int channels, float frequency, int type)
+  : nChannels(channels)
+  , sampleFrequency(frequency)
+  , dataType(type) {};
+
   int nChannels;
   float sampleFrequency;
   int dataType;
