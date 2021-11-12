@@ -3,6 +3,7 @@
 
 #include "fieldtriptypes.hpp"
 #include <string>
+#include <cstring>
 
 namespace fieldtrip{
 
