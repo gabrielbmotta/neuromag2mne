@@ -6,6 +6,9 @@
 class FileUtils {
 public:
   static long int size(const std::string& filePath);
+  static void fileToBuffer(const std::string& filePath,
+                           char* buffer,
+                           size_t size);
 
 private:
   FileUtils();

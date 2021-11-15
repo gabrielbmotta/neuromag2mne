@@ -28,6 +28,11 @@ void fieldtrip::Client::sendHeader(const BufferParameters& parameters)
 
 void fieldtrip::Client::sendHeader(const BufferParameters& parameters, std::vector<HeaderChunk> chunkList)
 {
+//  fieldtrip::Message headerMessage = fieldtrip::MessageFormater::simpleHeader(parameters);
+//  mSocket.send(headerMessage.content, headerMessage.size);
+//
+//  messagedef_t response = getResponse();
+//  (void)response;
 
   (void)parameters;
   (void)chunkList;

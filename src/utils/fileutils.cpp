@@ -9,6 +9,20 @@ long int FileUtils::size(const std::string& filePath)
   return static_cast<long int>(file.tellg());
 }
 
+void FileUtils::fileToBuffer(const std::string &filePath,
+                             char *buffer,
+                             size_t size)
+{
+
+  std::ifstream in(filePath);
+  if (size > sizeof (buffer)){
+    return;
+  }
+  in.read(buffer, static_cast<std::streamsize>(size));
+}
+
 FileUtils::FileUtils()
 {
 }
+
+
