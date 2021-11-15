@@ -14,7 +14,7 @@ void FileUtils::fileToBuffer(const std::string &filePath,
                              size_t size)
 {
 
-  std::ifstream in(filePath);
+  std::ifstream in(filePath.c_str());
   if (size > sizeof (buffer)){
     return;
   }
