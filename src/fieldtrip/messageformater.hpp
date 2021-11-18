@@ -32,10 +32,14 @@ public:
                                 const std::string& isotrakHeaderPath);
 
 private:
-  static messagedef_t* putHeaderMessage();
-  static messagedef_t* putDataMessage();
-  static headerdef_t* defaultHeader();
-  static std::pair<char*, long> getDataFromFile(const std::string& path);
+  static messagedef_t putHeaderMessage();
+  static messagedef_t putDataMessage();
+  static headerdef_t headerFromParam(fieldtrip::BufferParameters parameters);
+  static std::pair<char*, size_t> getDataFromFile(const std::string& path);
+  static void appendHeaderChunk(char* messageByteArray,
+                                std::pair<char*, size_t>& chunk,
+                                int chunkID,
+                                size_t & offset);
 
   MessageFormater();
 };

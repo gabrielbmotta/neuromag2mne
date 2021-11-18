@@ -27,19 +27,16 @@ void fieldtrip::Message::done()
 
 fieldtrip::Message fieldtrip::MessageFormater::simpleHeader(fieldtrip::BufferParameters parameters)
 {
-  messagedef_t* message = putHeaderMessage();
-  message->bufsize = sizeof(headerdef_t);
+  messagedef_t message = putHeaderMessage();
+  message.bufsize = sizeof(headerdef_t);
 
-  headerdef_t* header = defaultHeader();
-  header->nchans = parameters.nChannels;
-  header->fsample = parameters.sampleFrequency;
-  header->data_type = parameters.dataType;
+  headerdef_t header = headerFromParam(parameters);
 
   size_t const totalSize = sizeof (messagedef_t) + sizeof (headerdef_t);
   char* messageByteArray = new char[totalSize];
 
-  memcpy(messageByteArray, message, sizeof (messagedef_t));
-  memcpy(messageByteArray + sizeof (messagedef_t), header, sizeof (headerdef_t));
+  memcpy(messageByteArray, &message, sizeof (messagedef_t));
+  memcpy(messageByteArray + sizeof (messagedef_t), &header, sizeof (headerdef_t));
 
   return fieldtrip::Message(messageByteArray, totalSize);
 }
@@ -48,98 +45,85 @@ fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferP
                                                               const std::string& neuromagHeaderPath,
                                                               const std::string& isotrakHeaderPath)
 {
-  std::pair<char*, long> neuromagByteArray = getDataFromFile(neuromagHeaderPath);
-  std::pair<char*, long> isotrakByteArray = getDataFromFile(isotrakHeaderPath);
+  std::pair<char*, size_t> neuromagByteArray = getDataFromFile(neuromagHeaderPath);
+  std::pair<char*, size_t> isotrakByteArray = getDataFromFile(isotrakHeaderPath);
   if(neuromagByteArray.first == NULL || isotrakByteArray.first == NULL){
-    std::cout << "Unable to attatch files as headers.\n";
-    return fieldtrip::Message();
+    std::cout << "Unable to attach files as headers. Returning simple header.\n";
+    return simpleHeader(parameters);
   }
-  size_t totalChunkSize = neuromagByteArray.second + isotrakByteArray.second + 2 * sizeof (chunkdef_t);
+  size_t totalChunkSize = static_cast<size_t>(neuromagByteArray.second + isotrakByteArray.second + 2 * sizeof (chunkdef_t));
 
-  std::cout << "Total size of chunks: " << totalChunkSize << "\n";
-  messagedef_t* message = putHeaderMessage();
-  headerdef_t* header = defaultHeader();
+  messagedef_t message = putHeaderMessage();
+  message.bufsize = static_cast<int>(sizeof (headerdef_t) + totalChunkSize);
 
-  header->nchans = parameters.nChannels;
-  header->fsample = parameters.sampleFrequency;
-  header->data_type = parameters.dataType;
-  header->bufsize = static_cast<int>(totalChunkSize);
-
-  message->bufsize = static_cast<int>(sizeof (headerdef_t) + totalChunkSize);
+  headerdef_t header = headerFromParam(parameters);
+  header.bufsize = static_cast<int>(totalChunkSize);
 
   size_t const totalSize = sizeof (messagedef_t) + sizeof (headerdef_t) + totalChunkSize;
   char* messageByteArray = new char[totalSize];
 
   size_t offset = 0;
-  //Standard message and header
-  memcpy(messageByteArray + offset, message, sizeof (messagedef_t));
+  memcpy(messageByteArray + offset, &message, sizeof (messagedef_t));
   offset += sizeof (messagedef_t);
-  memcpy(messageByteArray + offset, header, sizeof (headerdef_t));
+  memcpy(messageByteArray + offset, &header, sizeof (headerdef_t));
   offset += sizeof (headerdef_t);
-  
-  //Neuromag header chunk
-  chunkdef_t neuromagdef;
-  neuromagdef.type = 8;
-  neuromagdef.size = static_cast<int>(neuromagByteArray.second);
-  memcpy(messageByteArray + offset, &neuromagdef, sizeof(chunkdef_t));
-  offset += sizeof(chunkdef_t); 
-  memcpy(messageByteArray + offset, neuromagByteArray.first, neuromagByteArray.second);
-  offset += neuromagByteArray.second;
 
-  //Isotrak header chunk
-  chunkdef_t isotrakdef;
-  isotrakdef.type = 9;
-  isotrakdef.size = static_cast<int>(isotrakByteArray.second);
-  memcpy(messageByteArray + offset, &isotrakdef, sizeof(chunkdef_t));
-  offset += sizeof(chunkdef_t); 
-  memcpy(messageByteArray + offset, isotrakByteArray.first, isotrakByteArray.second);
-  offset += isotrakByteArray.second;
+  appendHeaderChunk(messageByteArray, neuromagByteArray, 8, offset);
+  appendHeaderChunk(messageByteArray, isotrakByteArray, 9, offset);
 
   return fieldtrip::Message(messageByteArray, totalSize);
 }
 
-messagedef_t* fieldtrip::MessageFormater::putHeaderMessage()
+messagedef_t fieldtrip::MessageFormater::putHeaderMessage()
 {
-  messagedef_t* message = new messagedef_t();
-  message->version = VERSION;
-  message->bufsize = 0;
-  message->command = PUT_HDR;
+  messagedef_t message;
+  message.command = PUT_HDR;
 
   return message;
 }
 
-messagedef_t* fieldtrip::MessageFormater::putDataMessage()
+messagedef_t fieldtrip::MessageFormater::putDataMessage()
 {
-  messagedef_t* message = new messagedef_t();
-  message->version = VERSION;
-  message->bufsize = 0;
-  message->command = PUT_DAT;
+  messagedef_t message;
+  message.command = PUT_DAT;
 
   return message;
 }
 
-headerdef_t* fieldtrip::MessageFormater::defaultHeader()
+headerdef_t fieldtrip::MessageFormater::headerFromParam(fieldtrip::BufferParameters parameters)
 {
-  headerdef_t* header = new headerdef_t();
-  header->nchans = 0;
-  header->nsamples = 0;
-  header->nevents = 0;
-  header->fsample = 0;
-  header->data_type = 0;
-  header->bufsize = 0;
+  headerdef_t header;
+
+  header.nchans = parameters.nChannels;
+  header.fsample = parameters.sampleFrequency;
+  header.data_type = parameters.dataType;
 
   return header;
 }
 
-std::pair<char*, long> fieldtrip::MessageFormater::getDataFromFile(const std::string& path)
+std::pair<char*, size_t> fieldtrip::MessageFormater::getDataFromFile(const std::string& path)
 {
   long int fileSize = FileUtils::size(path);
   if (fileSize < 0){
-    return std::pair<char*, long>(NULL,0);
+    return std::pair<char*, size_t>(NULL,0);
   }
   char* buffer = new char[fileSize];
-  FileUtils::fileToBuffer(path,buffer,static_cast<size_t>(fileSize));
-  return std::pair<char*, long>(buffer, fileSize);
+  FileUtils::fileToBuffer(path,buffer, static_cast<size_t>(fileSize));
+  return std::pair<char*, size_t>(buffer, static_cast<size_t>(fileSize));
+}
+
+void fieldtrip::MessageFormater::appendHeaderChunk(char *messageByteArray,
+                                                   std::pair<char *, size_t> &chunk,
+                                                   int chunkID,
+                                                   size_t &offset)
+{
+  chunkdef_t chunkdef;
+  chunkdef.type = chunkID;
+  chunkdef.size = static_cast<int>(chunk.second);
+  memcpy(messageByteArray + offset, &chunkdef, sizeof(chunkdef_t));
+  offset += sizeof(chunkdef_t);
+  memcpy(messageByteArray + offset, chunk.first, chunk.second);
+  offset += chunk.second;
 }
 
 fieldtrip::MessageFormater::MessageFormater()
