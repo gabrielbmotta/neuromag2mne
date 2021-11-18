@@ -1,6 +1,7 @@
 #include "fileutils.hpp"
 
 #include <fstream>
+#include <iostream>
 
 long int FileUtils::size(const std::string& filePath)
 {
@@ -15,9 +16,6 @@ void FileUtils::fileToBuffer(const std::string &filePath,
 {
 
   std::ifstream in(filePath.c_str());
-  if (size > sizeof (buffer)){
-    return;
-  }
   in.read(buffer, static_cast<std::streamsize>(size));
 }
 
