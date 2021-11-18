@@ -25,6 +25,9 @@ void fieldtrip::Message::done()
   }
 }
 
+/*
+Returns a messsage for setting a fieldtrip buffer header based on input buffer parameters.
+*/
 fieldtrip::Message fieldtrip::MessageFormater::simpleHeader(fieldtrip::BufferParameters parameters)
 {
   messagedef_t message = putHeaderMessage();
@@ -41,12 +44,16 @@ fieldtrip::Message fieldtrip::MessageFormater::simpleHeader(fieldtrip::BufferPar
   return fieldtrip::Message(messageByteArray, totalSize);
 }
 
+/*
+Returns a messsage for setting a fieldtrip buffer header based on input buffer parameters
+and header chunk files.
+*/
 fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferParameters parameters,
                                                               const std::string& neuromagHeaderPath,
                                                               const std::string& isotrakHeaderPath)
 {
-  std::pair<char*, size_t> neuromagByteArray = getDataFromFile(neuromagHeaderPath);
-  std::pair<char*, size_t> isotrakByteArray = getDataFromFile(isotrakHeaderPath);
+  std::pair<char*, size_t> neuromagByteArray = getByteArrayFromFile(neuromagHeaderPath);
+  std::pair<char*, size_t> isotrakByteArray = getByteArrayFromFile(isotrakHeaderPath);
   if(neuromagByteArray.first == NULL || isotrakByteArray.first == NULL){
     std::cout << "Unable to attach files as headers. Returning simple header.\n";
     return simpleHeader(parameters);
@@ -74,6 +81,9 @@ fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferP
   return fieldtrip::Message(messageByteArray, totalSize);
 }
 
+/*
+Creates a messagedef for putting a header in a buffer.
+*/
 messagedef_t fieldtrip::MessageFormater::putHeaderMessage()
 {
   messagedef_t message;
@@ -82,6 +92,9 @@ messagedef_t fieldtrip::MessageFormater::putHeaderMessage()
   return message;
 }
 
+/*
+Creates a messagedef for putting data in a buffer.
+*/
 messagedef_t fieldtrip::MessageFormater::putDataMessage()
 {
   messagedef_t message;
@@ -90,6 +103,9 @@ messagedef_t fieldtrip::MessageFormater::putDataMessage()
   return message;
 }
 
+/*
+Creates a headerdef from a BufferParameters object.
+*/
 headerdef_t fieldtrip::MessageFormater::headerFromParam(fieldtrip::BufferParameters parameters)
 {
   headerdef_t header;
@@ -101,7 +117,10 @@ headerdef_t fieldtrip::MessageFormater::headerFromParam(fieldtrip::BufferParamet
   return header;
 }
 
-std::pair<char*, size_t> fieldtrip::MessageFormater::getDataFromFile(const std::string& path)
+/*
+Gets data from a file and returns ina a pair of char* (array of data) and size_t (size of array)
+*/
+std::pair<char*, size_t> fieldtrip::MessageFormater::getByteArrayFromFile(const std::string& path)
 {
   long int fileSize = FileUtils::size(path);
   if (fileSize < 0){
@@ -112,6 +131,9 @@ std::pair<char*, size_t> fieldtrip::MessageFormater::getDataFromFile(const std::
   return std::pair<char*, size_t>(buffer, static_cast<size_t>(fileSize));
 }
 
+/*
+Appends a byte array chunk with while keeping track of the size of data appended.
+*/
 void fieldtrip::MessageFormater::appendHeaderChunk(char *messageByteArray,
                                                    std::pair<char *, size_t> &chunk,
                                                    int chunkID,
@@ -126,6 +148,9 @@ void fieldtrip::MessageFormater::appendHeaderChunk(char *messageByteArray,
   offset += chunk.second;
 }
 
+/*
+Set to private - not intended to be used and '= delete' is c++11.
+*/
 fieldtrip::MessageFormater::MessageFormater()
 {
 }

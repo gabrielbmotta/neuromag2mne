@@ -8,11 +8,17 @@ fieldtrip::Client::Client()
 {
 }
 
+/*
+Attempts to connect to a fieldtrip buffer at the given address and port.
+*/
 void fieldtrip::Client::connect(std::string address, unsigned short port)
 {
   mSocket.connect(address, port);
 }
 
+/*
+Attempts to send a header to the connected buffer based on the given buffer parameters.
+*/
 void fieldtrip::Client::sendHeader(const BufferParameters& parameters)
 {
   if(!mSocket.isConnected()){
@@ -26,6 +32,9 @@ void fieldtrip::Client::sendHeader(const BufferParameters& parameters)
   (void)response;
 }
 
+/*
+Attempts to send a header to the connected buffer based on the given buffer parameters and files.
+*/
 void fieldtrip::Client::sendNeuromagHeader(const BufferParameters& parameters,
                                            std::string neuromagHeaderChunkFile,
                                            std::string isotrakHeaderChunkFile)
@@ -46,11 +55,17 @@ void fieldtrip::Client::sendData(SharedPointer<Data> data)
   (void)data;
 }
 
+/*
+Returns whether client is conected to a fieldtrip buffer.
+*/
 bool fieldtrip::Client::isConnected() const
 {
   return mSocket.isConnected();
 }
 
+/*
+Gets response from buffer.
+ */
 messagedef_t fieldtrip::Client::getResponse()
 {
   std::string bufferResponseString = mSocket.receive_blocking();

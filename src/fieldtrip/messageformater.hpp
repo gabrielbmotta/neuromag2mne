@@ -12,6 +12,9 @@ namespace fieldtrip{
 //      so we don't have to manually
 //      tag these as 'done'.
 
+/*
+Container for a byte array to be sent to an instance of fieldtrip buffer.
+*/
 struct Message {
   Message();
   Message(char* message_ptr,
@@ -35,7 +38,7 @@ private:
   static messagedef_t putHeaderMessage();
   static messagedef_t putDataMessage();
   static headerdef_t headerFromParam(fieldtrip::BufferParameters parameters);
-  static std::pair<char*, size_t> getDataFromFile(const std::string& path);
+  static std::pair<char*, size_t> getByteArrayFromFile(const std::string& path);
   static void appendHeaderChunk(char* messageByteArray,
                                 std::pair<char*, size_t>& chunk,
                                 int chunkID,
