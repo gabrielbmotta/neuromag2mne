@@ -45,6 +45,11 @@ struct headerdef_t{
   int32_t  bufsize;     /* size of the buffer in bytes */
 };
 
+struct chunkdef_t{
+  int32_t type;
+  int32_t size;
+};
+
 struct header_t{
   headerdef_t *def;
   void        *buf;

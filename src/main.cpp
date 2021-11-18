@@ -7,7 +7,7 @@ int main (int argc, char* argv[])
 {
   fieldtrip::Client ftClient;
   ftClient.connect("127.0.0.1", 1972);
-  ftClient.sendHeader(fieldtrip::BufferParameters(8,300,9));
+  ftClient.sendNeuromagHeader(fieldtrip::BufferParameters(8,300,9), std::string("/autofs/cluster/fusion/gbm6/hpi_coil_order_test/test1/neuromag2ft.fif"), std::string("/autofs/cluster/fusion/gbm6/hpi_coil_order_test/test1/isotrak"));
 
   (void)argc;
   (void)argv;

@@ -18,8 +18,9 @@ public:
   void connect(std::string address, unsigned short port);
 
   void sendHeader(const BufferParameters& parameters);
-  void sendHeader(const BufferParameters& parameters,
-                  std::vector<HeaderChunk> chunkList);
+  void sendNeuromagHeader(const BufferParameters& parameters,
+                          std::string neuromagHeaderChunkFile,
+                          std::string isotrakHeaderChunkFile);
 
   void sendData(SharedPointer<Data> data);
 

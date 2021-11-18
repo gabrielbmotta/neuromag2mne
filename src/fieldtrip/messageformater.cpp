@@ -1,10 +1,7 @@
-//
-// Created by Gabriel Motta on 11/12/21.
-//
-
 #include "messageformater.hpp"
 #include <fstream>
 #include "../utils/fileutils.hpp"
+#include <iostream>
 
 fieldtrip::Message::Message()
 : content(NULL)
@@ -51,13 +48,15 @@ fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferP
                                                               const std::string& neuromagHeaderPath,
                                                               const std::string& isotrakHeaderPath)
 {
-  char* neuromagByteArray = getDataFromFile(neuromagHeaderPath);
-  char* isotrakByteArray = getDataFromFile(isotrakHeaderPath);
-  if(neuromagByteArray == NULL || isotrakByteArray == NULL){
+  std::pair<char*, long> neuromagByteArray = getDataFromFile(neuromagHeaderPath);
+  std::pair<char*, long> isotrakByteArray = getDataFromFile(isotrakHeaderPath);
+  if(neuromagByteArray.first == NULL || isotrakByteArray.first == NULL){
+    std::cout << "Unable to attatch files as headers.\n";
     return fieldtrip::Message();
   }
-  size_t totalChunkSize = sizeof (neuromagByteArray) + sizeof (isotrakByteArray);
+  size_t totalChunkSize = neuromagByteArray.second + isotrakByteArray.second + 2 * sizeof (chunkdef_t);
 
+  std::cout << "Total size of chunks: " << totalChunkSize << "\n";
   messagedef_t* message = putHeaderMessage();
   headerdef_t* header = defaultHeader();
 
@@ -71,6 +70,30 @@ fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferP
   size_t const totalSize = sizeof (messagedef_t) + sizeof (headerdef_t) + totalChunkSize;
   char* messageByteArray = new char[totalSize];
 
+  size_t offset = 0;
+  //Standard message and header
+  memcpy(messageByteArray + offset, message, sizeof (messagedef_t));
+  offset += sizeof (messagedef_t);
+  memcpy(messageByteArray + offset, header, sizeof (headerdef_t));
+  offset += sizeof (headerdef_t);
+  
+  //Neuromag header chunk
+  chunkdef_t neuromagdef;
+  neuromagdef.type = 8;
+  neuromagdef.size = static_cast<int>(neuromagByteArray.second);
+  memcpy(messageByteArray + offset, &neuromagdef, sizeof(chunkdef_t));
+  offset += sizeof(chunkdef_t); 
+  memcpy(messageByteArray + offset, neuromagByteArray.first, neuromagByteArray.second);
+  offset += neuromagByteArray.second;
+
+  //Isotrak header chunk
+  chunkdef_t isotrakdef;
+  isotrakdef.type = 9;
+  isotrakdef.size = static_cast<int>(isotrakByteArray.second);
+  memcpy(messageByteArray + offset, &isotrakdef, sizeof(chunkdef_t));
+  offset += sizeof(chunkdef_t); 
+  memcpy(messageByteArray + offset, isotrakByteArray.first, isotrakByteArray.second);
+  offset += isotrakByteArray.second;
 
   return fieldtrip::Message(messageByteArray, totalSize);
 }
@@ -108,15 +131,15 @@ headerdef_t* fieldtrip::MessageFormater::defaultHeader()
   return header;
 }
 
-char* fieldtrip::MessageFormater::getDataFromFile(const std::string& path)
+std::pair<char*, long> fieldtrip::MessageFormater::getDataFromFile(const std::string& path)
 {
   long int fileSize = FileUtils::size(path);
   if (fileSize < 0){
-    return NULL;
+    return std::pair<char*, long>(NULL,0);
   }
   char* buffer = new char[fileSize];
   FileUtils::fileToBuffer(path,buffer,static_cast<size_t>(fileSize));
-  return buffer;
+  return std::pair<char*, long>(buffer, fileSize);
 }
 
 fieldtrip::MessageFormater::MessageFormater()

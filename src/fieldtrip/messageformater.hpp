@@ -4,6 +4,7 @@
 #include "fieldtriptypes.hpp"
 #include <string>
 #include <cstring>
+#include <utility>
 
 namespace fieldtrip{
 
@@ -34,7 +35,7 @@ private:
   static messagedef_t* putHeaderMessage();
   static messagedef_t* putDataMessage();
   static headerdef_t* defaultHeader();
-  static char* getDataFromFile(const std::string& path);
+  static std::pair<char*, long> getDataFromFile(const std::string& path);
 
   MessageFormater();
 };

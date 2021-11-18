@@ -26,16 +26,18 @@ void fieldtrip::Client::sendHeader(const BufferParameters& parameters)
   (void)response;
 }
 
-void fieldtrip::Client::sendHeader(const BufferParameters& parameters, std::vector<HeaderChunk> chunkList)
+void fieldtrip::Client::sendNeuromagHeader(const BufferParameters& parameters,
+                                           std::string neuromagHeaderChunkFile,
+                                           std::string isotrakHeaderChunkFile)
 {
-//  fieldtrip::Message headerMessage = fieldtrip::MessageFormater::simpleHeader(parameters);
-//  mSocket.send(headerMessage.content, headerMessage.size);
-//
-//  messagedef_t response = getResponse();
-//  (void)response;
+  fieldtrip::Message headerMessage = fieldtrip::MessageFormater::neuromagHeader(parameters, 
+                                                                                neuromagHeaderChunkFile, 
+                                                                                isotrakHeaderChunkFile);
 
-  (void)parameters;
-  (void)chunkList;
+  mSocket.send(headerMessage.content, headerMessage.size);
+  
+  messagedef_t response = getResponse();
+  (void)response;
 }
 
 void fieldtrip::Client::sendData(SharedPointer<Data> data)
