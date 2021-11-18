@@ -1,12 +1,19 @@
 // neuromag2mne application
 
 #include "neuromag2mne.hpp"
+#include "fieldtrip/ftclient.hpp"
 
 int main (int argc, char* argv[])
 {
-  ScopedPointer<Controller> controller;
-  controller->parseInputArguments(argc, argv);
-  controller->start();
+  fieldtrip::Client ftClient;
+  ftClient.connect("127.0.0.1", 1972);
+  ftClient.sendHeader(fieldtrip::BufferParameters(8,300,9));
+
+  (void)argc;
+  (void)argv;
+//  ScopedPointer<Controller> controller;
+//  controller->parseInputArguments(argc, argv);
+//  controller->start();
   return 0;
 }
 

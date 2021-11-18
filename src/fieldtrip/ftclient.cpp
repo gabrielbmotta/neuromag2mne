@@ -53,9 +53,8 @@ messagedef_t fieldtrip::Client::getResponse()
 {
   std::string bufferResponseString = mSocket.receive_blocking();
 
-  char* response_byte_array = new char[bufferResponseString.size()];
-  memcpy(response_byte_array, bufferResponseString.c_str(), bufferResponseString.size());
-  messagedef_t* bufferResponse = reinterpret_cast<messagedef_t*>(response_byte_array);
+  messagedef_t resp;
+  memcpy(&resp, bufferResponseString.c_str(), sizeof(messagedef_t));
 
-  return *bufferResponse;
+  return resp;
 }

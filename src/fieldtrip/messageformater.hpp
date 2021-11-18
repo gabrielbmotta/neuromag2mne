@@ -32,6 +32,7 @@ public:
 
 private:
   static messagedef_t* putHeaderMessage();
+  static messagedef_t* putDataMessage();
   static headerdef_t* defaultHeader();
   static char* getDataFromFile(const std::string& path);
 

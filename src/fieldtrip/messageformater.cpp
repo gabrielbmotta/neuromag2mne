@@ -85,6 +85,16 @@ messagedef_t* fieldtrip::MessageFormater::putHeaderMessage()
   return message;
 }
 
+messagedef_t* fieldtrip::MessageFormater::putDataMessage()
+{
+  messagedef_t* message = new messagedef_t();
+  message->version = VERSION;
+  message->bufsize = 0;
+  message->command = PUT_DAT;
+
+  return message;
+}
+
 headerdef_t* fieldtrip::MessageFormater::defaultHeader()
 {
   headerdef_t* header = new headerdef_t();
