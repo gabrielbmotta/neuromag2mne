@@ -28,12 +28,12 @@ void fieldtrip::Message::done()
 /*
 Returns a messsage for setting a fieldtrip buffer header based on input buffer parameters.
 */
-fieldtrip::Message fieldtrip::MessageFormater::simpleHeader(fieldtrip::BufferParameters parameters)
+fieldtrip::Message fieldtrip::MessageFormater::simpleHeader(const fieldtrip::BufferParameters& parameters)
 {
-  messagedef_t message = putHeaderMessage();
+  messagedef_t message = putHeaderMessagedef();
   message.bufsize = sizeof(headerdef_t);
 
-  headerdef_t header = headerFromParam(parameters);
+  headerdef_t header = headerdefFromParam(parameters);
 
   size_t const totalSize = sizeof (messagedef_t) + sizeof (headerdef_t);
   char* messageByteArray = new char[totalSize];
@@ -48,7 +48,7 @@ fieldtrip::Message fieldtrip::MessageFormater::simpleHeader(fieldtrip::BufferPar
 Returns a messsage for setting a fieldtrip buffer header based on input buffer parameters
 and header chunk files.
 */
-fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferParameters parameters,
+fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(const fieldtrip::BufferParameters& parameters,
                                                               const std::string& neuromagHeaderPath,
                                                               const std::string& isotrakHeaderPath)
 {
@@ -60,10 +60,10 @@ fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferP
   }
   size_t totalChunkSize = static_cast<size_t>(neuromagByteArray.second + isotrakByteArray.second + 2 * sizeof (chunkdef_t));
 
-  messagedef_t message = putHeaderMessage();
+  messagedef_t message = putHeaderMessagedef();
   message.bufsize = static_cast<int>(sizeof (headerdef_t) + totalChunkSize);
 
-  headerdef_t header = headerFromParam(parameters);
+  headerdef_t header = headerdefFromParam(parameters);
   header.bufsize = static_cast<int>(totalChunkSize);
 
   size_t const totalSize = sizeof (messagedef_t) + sizeof (headerdef_t) + totalChunkSize;
@@ -81,10 +81,29 @@ fieldtrip::Message fieldtrip::MessageFormater::neuromagHeader(fieldtrip::BufferP
   return fieldtrip::Message(messageByteArray, totalSize);
 }
 
+fieldtrip::Message fieldtrip::MessageFormater::rawDataMessage(const fieldtrip::BufferParameters& parameters,
+                                                          char* data,
+                                                          size_t dataSize)
+{
+  messagedef_t messagedef = putDataMessagedef();
+  messagedef.bufsize = static_cast<int>(dataSize + sizeof(datadef_t));
+
+  datadef_t datadef = datadefFromParam(parameters);
+  datadef.bufsize = static_cast<int>(dataSize);
+
+  size_t totalSize = dataSize + sizeof(datadef_t) + sizeof(messagedef_t);
+  char* messageByteArray = new char[totalSize];
+
+  (void)data;
+  (void)messageByteArray;
+
+  return Message();
+}
+
 /*
 Creates a messagedef for putting a header in a buffer.
 */
-messagedef_t fieldtrip::MessageFormater::putHeaderMessage()
+messagedef_t fieldtrip::MessageFormater::putHeaderMessagedef()
 {
   messagedef_t message;
   message.command = PUT_HDR;
@@ -95,7 +114,7 @@ messagedef_t fieldtrip::MessageFormater::putHeaderMessage()
 /*
 Creates a messagedef for putting data in a buffer.
 */
-messagedef_t fieldtrip::MessageFormater::putDataMessage()
+messagedef_t fieldtrip::MessageFormater::putDataMessagedef()
 {
   messagedef_t message;
   message.command = PUT_DAT;
@@ -106,7 +125,7 @@ messagedef_t fieldtrip::MessageFormater::putDataMessage()
 /*
 Creates a headerdef from a BufferParameters object.
 */
-headerdef_t fieldtrip::MessageFormater::headerFromParam(fieldtrip::BufferParameters parameters)
+headerdef_t fieldtrip::MessageFormater::headerdefFromParam(const fieldtrip::BufferParameters& parameters)
 {
   headerdef_t header;
 
@@ -115,6 +134,16 @@ headerdef_t fieldtrip::MessageFormater::headerFromParam(fieldtrip::BufferParamet
   header.data_type = parameters.dataType;
 
   return header;
+}
+
+datadef_t fieldtrip::MessageFormater::datadefFromParam(fieldtrip::BufferParameters parameters)
+{
+  datadef_t data;
+
+  data.nchans = parameters.nChannels;
+  data.data_type = parameters.dataType;
+
+  return data;
 }
 
 /*
