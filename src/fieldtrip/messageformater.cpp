@@ -94,6 +94,9 @@ fieldtrip::Message fieldtrip::MessageFormater::rawDataMessage(const fieldtrip::B
   size_t totalSize = dataSize + sizeof(datadef_t) + sizeof(messagedef_t);
   char* messageByteArray = new char[totalSize];
 
+
+  (void)messagedef;
+  (void)datadef;
   (void)data;
   (void)messageByteArray;
 
