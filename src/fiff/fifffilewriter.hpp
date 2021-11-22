@@ -9,15 +9,17 @@ namespace fiff {
 
 class FileWriter {
 public:
-  FileWriter(std::string filePath);
+  FileWriter();
 
-  void open(std::string filePath);
+  FileWriter(const std::string& filePath);
+
+  void open(const std::string& filePath);
 
   void close();
 
-  bool isOpen();
+  bool isOpen() const;
 
-  void writeTag(fiff::Tag tag);
+  void writeTag(const fiff::Tag& tag);
 
 private:
   std::ofstream mFileOut;

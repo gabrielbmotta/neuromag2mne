@@ -2,12 +2,26 @@
 
 #include "neuromag2mne.hpp"
 #include "fieldtrip/ftclient.hpp"
+#include "fiff/fifffilewriter.hpp"
 
 int main (int argc, char* argv[])
 {
-  fieldtrip::Client ftClient;
-  ftClient.connect("127.0.0.1", 1972);
-  ftClient.sendNeuromagHeader(fieldtrip::BufferParameters(8,300,9), std::string("/autofs/cluster/fusion/gbm6/hpi_coil_order_test/test1/neuromag2ft.fif"), std::string("/autofs/cluster/fusion/gbm6/hpi_coil_order_test/test1/isotrak"));
+//  fieldtrip::Client ftClient;
+//  ftClient.connect("127.0.0.1", 1972);
+//  ftClient.sendNeuromagHeader(fieldtrip::BufferParameters(8,300,9), std::string("/autofs/cluster/fusion/gbm6/hpi_coil_order_test/test1/neuromag2ft.fif"), std::string("/autofs/cluster/fusion/gbm6/hpi_coil_order_test/test1/isotrak"));
+//
+//
+  fiff::Tag testTag;
+  testTag.kind = 1;
+  testTag.type = 2;
+  testTag.size = 4;
+  testTag.next = -1;
+  testTag.data = new int(123456);
+
+  fiff::FileWriter writer;
+  writer.open("fiff_test_file.fif");
+  writer.writeTag(testTag);
+  writer.close();
 
   (void)argc;
   (void)argv;
