@@ -15,1537 +15,1537 @@ Size: 26
 Kind: 104 - Block Start
 Type: 3 - int32
 Size: 4
-=====================
-Kind: 103 - Block ID
-Type: 3 - int321
-Size: 20
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 200 - Number of channels
-Type: 3 - int32
-Size: 4
-=====================
-Kind 3417 - Names of the channels of the projection vectors
-Type: 10 - ascii byte
-Size: 815
-=====================
-Kind: 233 - name
-Type: 10 - ascii byte
-Size: 23
-=====================
-Kind: 3411 - Type of the projection defintion.
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3412 - Time of the field sample
-Type: 4 - float
-Size: 4
-=====================
-Kind: 3414 - Number of projection vectors.
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3560 - Not in fiff spec
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3415 - Projection vectors
-Type: 1073741828
-Size: 420
-=====================
-Kind: 105 - Block End 
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 200 - Number of channels
-Type: 3 - int32
-Size: 4
-=====================
-Kind 3417 - Names of the channels of the projection vectors
-Type: 10 - ascii byte
-Size: 815
-=====================
-Kind: 233 - name
-Type: 10 - ascii byte
-Size: 23
-=====================
-Kind: 3411 - Type of the projection defintion.
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3412 - Time of the field sample
-Type: 4 - float
-Size: 4
-=====================
-Kind: 3414 - Number of projection vectors.
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3560 - Not in fiff spec
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3415 - Projection vectors
-Type: 1073741828
-Size: 420
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 200 - Number of channels
-Type: 3 - int32
-Size: 4
-=====================
-Kind 3417 - Names of the channels of the projection vectors
-Type: 10 - ascii byte
-Size: 815
-=====================
-Kind: 233 - name
-Type: 10 - ascii byte
-Size: 23
-=====================
-Kind: 3411 - Type of the projection defintion.
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3412 - Time of the field sample
-Type: 4 - float
-Size: 4
-=====================
-Kind: 3414 - Number of projection vectors.
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3560 - Not in fiff spec
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3415 - Projection vectors
-Type: 1073741828
-Size: 420
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 200 - Number of channels
-Type: 3 - int32
-Size: 4
-=====================
-Kind 3417 - Names of the channels of the projection vectors
-Type: 10 - ascii byte
-Size: 815
-=====================
-Kind: 233 - name
-Type: 10 - ascii byte
-Size: 23
-=====================
-Kind: 3411 - Type of the projection defintion.
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3412 - Time of the field sample
-Type: 4 - float
-Size: 4
-=====================
-Kind: 3414 - Number of projection vectors.
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3560 - Not in fiff spec
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 3415 - Projection vectors
-Type: 1073741828
-Size: 420
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 204 - Measurement date (in Unix time encod- ing)
-Type: 3 - int32
-Size: 8
-=====================
-Kind: 200 - Number of channels
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 201 - Sampling frequency
-Type: 4 - float
-Size: 4
-=====================
-Kind: 219 - Lowpass
-Type: 4 - float
-Size: 4
-=====================
-Kind: 223 - highpass
-Type: 4 - float
-Size: 4
-=====================
-Kind: 235 - line frequency
-Type: 4 - float
-Size: 4
-=====================
-Kind: 202 - data_pack (how the raw data is packed)
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 203 - channel info
-Type: 3 - int320
-Size: 96
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 216 - Number of HPI Coils
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 602 - Event channel name
-Type: 10 - ascii byte
-Size: 6
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
-Type: 3 - int32
-Size: 16
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
-Type: 3 - int32
-Size: 16
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
-Type: 3 - int32
-Size: 16
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
-Type: 3 - int32
-Size: 16
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4 - 
-=====================
-Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
-Type: 3 - int32
-Size: 16
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 105 - Block End
-Type: 3 - int32
-Size: 4
-=====================
-Kind: 104 - Block Start
-Type: 3 - int32
-Size: 4
-=====================
+    =====================
+    Kind: 103 - Block ID
+    Type: 3 - int321
+    Size: 20
+    =====================
+    Kind: 104 - Block Start
+    Type: 3 - int32
+    Size: 4
+        =====================
+        Kind: 104 - Block Start
+        Type: 3 - int32
+        Size: 4
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4
+                =====================
+                Kind: 200 - Number of channels
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind 3417 - Names of the channels of the projection vectors
+                Type: 10 - ascii byte
+                Size: 815
+                =====================
+                Kind: 233 - name
+                Type: 10 - ascii byte
+                Size: 23
+                =====================
+                Kind: 3411 - Type of the projection defintion.
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3412 - Time of the field sample
+                Type: 4 - float
+                Size: 4
+                =====================
+                Kind: 3414 - Number of projection vectors.
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3560 - Not in fiff spec
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3415 - Projection vectors
+                Type: float matrix
+                Size: 420
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4
+                =====================
+                Kind: 200 - Number of channels
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind 3417 - Names of the channels of the projection vectors
+                Type: 10 - ascii byte
+                Size: 815
+                =====================
+                Kind: 233 - name
+                Type: 10 - ascii byte
+                Size: 23
+                =====================
+                Kind: 3411 - Type of the projection defintion.
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3412 - Time of the field sample
+                Type: 4 - float
+                Size: 4
+                =====================
+                Kind: 3414 - Number of projection vectors.
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3560 - Not in fiff spec
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3415 - Projection vectors
+                Type: float matrix
+                Size: 420
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4
+                =====================
+                Kind: 200 - Number of channels
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind 3417 - Names of the channels of the projection vectors
+                Type: 10 - ascii byte
+                Size: 815
+                =====================
+                Kind: 233 - name
+                Type: 10 - ascii byte
+                Size: 23
+                =====================
+                Kind: 3411 - Type of the projection defintion.
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3412 - Time of the field sample
+                Type: 4 - float
+                Size: 4
+                =====================
+                Kind: 3414 - Number of projection vectors.
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3560 - Not in fiff spec
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3415 - Projection vectors
+                Type: float matrix
+                Size: 420
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4
+                =====================
+                Kind: 200 - Number of channels
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind 3417 - Names of the channels of the projection vectors
+                Type: 10 - ascii byte
+                Size: 815
+                =====================
+                Kind: 233 - name
+                Type: 10 - ascii byte
+                Size: 23
+                =====================
+                Kind: 3411 - Type of the projection defintion.
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3412 - Time of the field sample
+                Type: 4 - float
+                Size: 4
+                =====================
+                Kind: 3414 - Number of projection vectors.
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3560 - Not in fiff spec
+                Type: 3 - int32
+                Size: 4
+                =====================
+                Kind: 3415 - Projection vectors
+                Type: float matrix
+                Size: 420
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+        =====================
+        Kind: 105 - Block End
+        Type: 3 - int32
+        Size: 4
+        =====================
+        Kind: 204 - Measurement date (in Unix time encod- ing)
+        Type: 3 - int32
+        Size: 8
+        =====================
+        Kind: 200 - Number of channels
+        Type: 3 - int32
+        Size: 4
+        =====================
+        Kind: 201 - Sampling frequency
+        Type: 4 - float
+        Size: 4
+        =====================
+        Kind: 219 - Lowpass
+        Type: 4 - float
+        Size: 4
+        =====================
+        Kind: 223 - highpass
+        Type: 4 - float
+        Size: 4
+        =====================
+        Kind: 235 - line frequency
+        Type: 4 - float
+        Size: 4
+        =====================
+        Kind: 202 - data_pack (how the raw data is packed)
+        Type: 3 - int32
+        Size: 4
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 203 - channel info
+        Type: ch_info_rec
+        Size: 96
+        =====================
+        Kind: 104 - Block Start
+        Type: 3 - int32
+        Size: 4
+            =====================
+            Kind: 216 - Number of HPI Coils
+            Type: 3 - int32
+            Size: 4
+            =====================
+            Kind: 602 - Event channel name
+            Type: 10 - ascii byte
+            Size: 6
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4
+                =====================
+                Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
+                Type: 3 - int32
+                Size: 16
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4
+                =====================
+                Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
+                Type: 3 - int32
+                Size: 16
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4
+                =====================
+                Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
+                Type: 3 - int32
+                Size: 16
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4
+                =====================
+                Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
+                Type: 3 - int32
+                Size: 16
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+            =====================
+            Kind: 104 - Block Start
+            Type: 3 - int32
+            Size: 4 -
+                =====================
+                Kind: 603 - Event bits array describing transition, 4 integers: [from_mask, from_state, to_mask, to_state
+                Type: 3 - int32
+                Size: 16
+            =====================
+            Kind: 105 - Block End
+            Type: 3 - int32
+            Size: 4
+        =====================
+        Kind: 105 - Block End
+        Type: 3 - int32
+        Size: 4
+    =====================
+    Kind: 105 - Block End
+    Type: 3 - int32
+    Size: 4
+    =====================
+    Kind: 104 - Block Start
+    Type: 3 - int32
+    Size: 4
+    =====================
+    Kind: 105 - Block End
+    Type: 3 - int32
+    Size: 4
+    =====================
+    Kind: 104 - Block Start
+    Type: 3 - int32
+    Size: 4
+    =====================
 

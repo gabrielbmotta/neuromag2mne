@@ -75,6 +75,8 @@
 
 #define FIFFC_HPI_MAX_NCOIL             1000
 
+#define FIFF_MNE_PROJ_ITEM_ACTIVE       3560       /**< Is this projection item active?*/
+
 // Block Types
 #define FIFFB_ROOT                      999
 #define FIFFB_MEAS                      100
