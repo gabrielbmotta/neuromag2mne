@@ -113,6 +113,65 @@
 #define FIFFT_STREAM_SEGMENT_STRUCT     37
 #define FIFFT_DATA_REF_STRUCT           38
 
+// Channel kinds
+
+#define FIFFV_MAGN_CH                   1
+#define FIFFV_EL_CH                     2
+#define FIFFV_MEG_CH                    FIFFV_MAGN_CH
+#define FIFFV_MCG_CH                    201
+#define FIFFV_REF_MEG_CH                301    /**< CTF coil and channel type. */
+#define FIFFV_EEG_CH                    FIFFV_EL_CH
+#define FIFFV_STIM_CH                   3
+
+#define FIFFV_EOG_CH                    202
+#define FIFFV_EMG_CH                    302
+#define FIFFV_ECG_CH                    402
+#define FIFFV_MISC_CH                   502
+#define FIFFV_RESP_CH                   602
+
+// Units
+
+#define FIFF_UNIT_HZ                    101
+#define FIFF_UNIT_N                     102
+#define FIFF_UNIT_PA                    103
+#define FIFF_UNIT_J                     104
+#define FIFF_UNIT_W                     105
+#define FIFF_UNIT_C                     106
+#define FIFF_UNIT_V                     107
+#define FIFF_UNIT_F                     108
+#define FIFF_UNIT_OHM                   109
+#define FIFF_UNIT_MHO                   110
+#define FIFF_UNIT_WB                    111
+#define FIFF_UNIT_T                     112
+#define FIFF_UNIT_H                     113
+#define FIFF_UNIT_CEL                   114
+#define FIFF_UNIT_LM                    115
+#define FIFF_UNIT_LX                    116
+
+#define FIFF_UNIT_T_M                   201   /* T/m */
+#define FIFF_UNIT_AM                    202   /* Am  */
+#define FIFF_UNIT_AM_M2                 203   /* Am/m^2  */
+#define FIFF_UNIT_AM_M3                 204   /* Am/m^3  */
+
+// Multipliers
+#define FIFF_UNITM_E                    18
+#define FIFF_UNITM_PET                  15
+#define FIFF_UNITM_T                    12
+#define FIFF_UNITM_MEG                  6
+#define FIFF_UNITM_K                    3
+#define FIFF_UNITM_H                    2
+#define FIFF_UNITM_DA                   1
+#define FIFF_UNITM_NONE                 0
+#define FIFF_UNITM_D                    -1
+#define FIFF_UNITM_C                    -2
+#define FIFF_UNITM_M                    -3
+#define FIFF_UNITM_MU                   -6
+#define FIFF_UNITM_N                    -9
+#define FIFF_UNITM_P                    -12
+#define FIFF_UNITM_F                    -15
+#define FIFF_UNITM_A                    -18
+
+// Type Structs
 struct ch_info_t{
   int32_t scanNo;       // Position of this channel in scanning order.
   int32_t logNo;        // Logical channel number. These must be unique within channels of the same kind.
