@@ -189,5 +189,24 @@ struct ch_info_t{
   int32_t unit_mul;     // The unit multiplier. The result given by range*cal*data is in units unit*10^unit_mul.
 }; //size is 80 bytes
 
+struct fiff_ch_pos_t{
+  int32_t coil_type;
+  float r0[3];
+  float ex[3];
+  float ey[3];
+  float ez[3];
+}; //size is 48 bytes
+
+struct fiff_ch_info_rec{
+  int32_t scanNo;       // Position of this channel in scanning order.
+  int32_t logNo;        // Logical channel number. These must be unique within channels of the same kind.
+  int32_t kind;         // Kind of the channel described (MEG, EEG, EOG, etc.)
+  float range;          // The raw data values must be multiplied by this to get into volts at the electronics output.
+  float cal;            // Calibration of the channel. If the raw data values are multiplied by range*cal, the result is in units given by unit and unit_mul.
+  fiff_ch_pos_t chpos;  // Channel position.
+  int32_t unit;         // The real-world unit-of measure.
+  int32_t unit_mul;     // The unit multiplier. The result given by range*cal*data is in units unit*10^unit_mul.
+  char ch_name[16];     // Descriptive name for the channel.
+}; //size is 96 bytes
 
 #endif //NEUROMAG2MNE_FIFFDEFINES_HPP
