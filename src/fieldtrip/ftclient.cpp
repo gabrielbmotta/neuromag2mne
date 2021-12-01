@@ -2,7 +2,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "messageformater.hpp"
+#include "ftmessage.hpp"
 
 fieldtrip::Client::Client()
 {

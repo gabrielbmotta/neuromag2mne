@@ -8,6 +8,7 @@
 #include "../data.hpp"
 #include "../utils/sharedpointer.hpp"
 #include "fieldtriptypes.hpp"
+#include "ftheader.hpp"
 
 namespace fieldtrip {
 
@@ -23,6 +24,9 @@ public:
                           std::string isotrakHeaderChunkFile);
 
   void sendData(SharedPointer<Data> data);
+
+  void sendHeader(const Header& header);
+  void sendData(const Data& data);
 
   bool isConnected() const;
 

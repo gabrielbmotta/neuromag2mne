@@ -1,5 +1,5 @@
-#ifndef NEUROMAG2MNE_MESSAGEFORMATER_HPP
-#define NEUROMAG2MNE_MESSAGEFORMATER_HPP
+#ifndef NEUROMAG2MNE_FTMESSAGE_HPP
+#define NEUROMAG2MNE_FTMESSAGE_HPP
 
 #include "fieldtriptypes.hpp"
 #include <string>
@@ -53,4 +53,4 @@ private:
 };
 
 }//namespace
-#endif //NEUROMAG2MNE_MESSAGEFORMATER_HPP
+#endif //NEUROMAG2MNE_FTMESSAGE_HPP
