@@ -209,4 +209,11 @@ struct fiff_ch_info_rec{
   char ch_name[16];     // Descriptive name for the channel.
 }; //size is 96 bytes
 
+struct fiff_id_t{
+  int32_t version;
+  int32_t machid[2];
+  int32_t time_sec;
+  int32_t time_usec;
+};//total size is 20 bytes
+
 #endif //NEUROMAG2MNE_FIFFDEFINES_HPP

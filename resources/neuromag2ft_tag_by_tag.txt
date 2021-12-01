@@ -12,12 +12,12 @@ Kind: 1 - New file (used for acq, should not be in file)
 Type: 10 - ascii byte
 Size: 26
 =====================
-Kind: 104 - Block Start
+Kind: 104 - Block Start (100 - FIFFB_MEAS)
 Type: 3 - int32
 Size: 4
     =====================
     Kind: 103 - Block ID
-    Type: 3 - int321
+    Type: 31 - id_t
     Size: 20
     =====================
     Kind: 104 - Block Start
