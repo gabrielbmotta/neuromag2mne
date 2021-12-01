@@ -2,10 +2,11 @@
 #define NEUROMAG2MNE_DATA_HPP
 
 #include "fiff/fifftag.hpp"
+#include "utils/sharedpointer.hpp"
 
 struct Data{
   //very temporary todo: change asap
-  fiff::Tag tag;
+  SharedPointer<fiff::Tag> tag;
 };
 
 #endif //NEUROMAG2MNE_DATA_HPP

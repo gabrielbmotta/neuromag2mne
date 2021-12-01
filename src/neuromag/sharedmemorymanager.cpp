@@ -115,12 +115,12 @@ SharedPointer<Data> sharedMemory::Manager::getData()
   {
     sharedMemory::Block* pMemBlock = mpSharedMemoryBlock + msg.shmem_buf;
 
-    dataPtr->tag.kind = msg.kind;
-    dataPtr->tag.type = msg.type;
-    dataPtr->tag.next = 0;
+    dataPtr->tag->kind = msg.kind;
+    dataPtr->tag->type = msg.type;
+    dataPtr->tag->next = 0;
     dataStorage = new char [msg.size];
-    dataPtr->tag.data = static_cast<void*>(dataStorage);
-    memcpy(dataPtr->tag.data, pMemBlock->data, static_cast<size_t>(msg.size));
+    dataPtr->tag->data = static_cast<void*>(dataStorage);
+    memcpy(dataPtr->tag->data, pMemBlock->data, static_cast<size_t>(msg.size));
 
     //std::cout << tag;
 
