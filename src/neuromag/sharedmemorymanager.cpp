@@ -89,7 +89,7 @@ Disconnects Manager from shared memory.
 */
 void sharedMemory::Manager::disconnect()
 {
-
+  mSocket.disconnect();
 }
 
 /*

@@ -44,8 +44,8 @@ Connects DataWatcher to shared memory.
 */
 void neuromag::DataWatcher::connect()
 {
-    mMemManager.setParameters(sharedMemory::Parameters::neuromagDefault());
-    mMemManager.connect();
+  mMemManager.setParameters(sharedMemory::Parameters::neuromagDefault());
+  mMemManager.connect();
 }
 
 /*
@@ -53,7 +53,7 @@ Disconnects DataWatcher.
 */
 void neuromag::DataWatcher::disconnect()
 {
-    
+  mMemManager.disconnect();
 }
 
 /*

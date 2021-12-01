@@ -72,6 +72,14 @@ void sharedMemory::Socket::disconnect()
   {
     return;
   }
+
+  char path[108];
+  sprintf(path, "%s%d", mClientPath.c_str(), mMemoryClientId);
+
+  unlink(path);
+  close(mSocketId);
+
+  mIsConnected = false;
 }
 
 /*
