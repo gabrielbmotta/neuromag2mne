@@ -3,6 +3,7 @@
 //
 
 #include "bytearray.hpp"
+#include <iostream>
 
 ByteArray::ByteArray()
 : mData(NULL)
@@ -10,7 +11,7 @@ ByteArray::ByteArray()
 {
 }
 
-explicit ByteArray::ByteArray(size_t size)
+ByteArray::ByteArray(size_t size)
 : mData(new char[size])
 , mSize(size)
 {
@@ -52,7 +53,7 @@ void ByteArray::clear()
 
 void *ByteArray::data() const
 {
-  return static_cast<void*>mData;
+  return static_cast<void*>(mData);
 }
 
 size_t ByteArray::size() const

@@ -35,7 +35,7 @@ ByteArray FileUtils::getByteArrayFromFile(const std::string &path)
     return ByteArray();
   }
   ByteArray byteArray(fileSize);
-  FileUtils::fileToBuffer(path, byteArray.data(), fileSize);
+  FileUtils::fileToBuffer(path, static_cast<char*>(byteArray.data()), fileSize);
 
   return byteArray;
 }

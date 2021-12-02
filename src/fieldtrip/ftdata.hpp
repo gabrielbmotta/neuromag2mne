@@ -2,13 +2,9 @@
 #define NEUROMAG2MNE_FTDATA_HPP
 
 
-//class FtData {
-//
-//
-//private:
-//  char* mDataByteArray;
-//  int mSize;
-//};
+class FtData {
+//todo: create class
+};
 
 
 #endif //NEUROMAG2MNE_FTDATA_HPP

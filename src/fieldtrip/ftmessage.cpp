@@ -4,8 +4,7 @@
 #include <iostream>
 
 fieldtrip::FtMessage::FtMessage()
-: mMessageByteArray(NULL)
-, mSize(0)
+: mByteArray()
 {
 }
 
@@ -19,20 +18,20 @@ void *fieldtrip::FtMessage::data() const
   return mByteArray.data();
 }
 
-static fieldtrip::FtMessage fieldtrip::FtMessageFormater::headerMessage(const Header& header)
+fieldtrip::FtMessage fieldtrip::FtMessageFormater::headerMessage(const fieldtrip::FtHeader& header)
 {
   fieldtrip::FtMessage message;
-  message.mByteArray.resize(header.mSize() + sizeof (messagedef_t))
+  message.mByteArray.resize(header.size() + sizeof (messagedef_t));
 
   messagedef_t message_def = putHeaderMessagedef();
 
   memcpy(message.data(), &message_def, sizeof (messagedef_t));
-  memcpy(message.data() + (sizeof message_def), &header, header.mSize());
+  memcpy(static_cast<char*>(message.data()) + sizeof (messagedef_t), &header, header.size());
 
   return message;
 }
 
-static fieldtrip::FtMessage fieldtrip::FtMessageFormater::dataMessage(const Data& data)
+fieldtrip::FtMessage fieldtrip::FtMessageFormater::dataMessage(const FtData& data)
 {
   (void)data;
   return fieldtrip::FtMessage();
@@ -68,23 +67,6 @@ datadef_t fieldtrip::FtMessageFormater::datadefFromParam(fieldtrip::BufferParame
   data.data_type = parameters.dataType;
 
   return data;
-}
-
-/*
-Appends a byte array chunk with while keeping track of the mSize of data appended.
-*/
-void fieldtrip::FtMessageFormater::appendHeaderChunk(void *messageByteArray,
-                                                     std::pair<char *, size_t> &chunk,
-                                                     int chunkID,
-                                                     size_t &offset)
-{
-  chunkdef_t chunkdef;
-  chunkdef.type = chunkID;
-  chunkdef.size = static_cast<int>(chunk.second);
-  memcpy(messageByteArray + offset, &chunkdef, sizeof(chunkdef_t));
-  offset += sizeof(chunkdef_t);
-  memcpy(messageByteArray + offset, chunk.first, chunk.second);
-  offset += chunk.second;
 }
 
 //==============================================================================
