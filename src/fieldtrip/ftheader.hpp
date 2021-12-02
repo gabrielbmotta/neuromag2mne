@@ -4,6 +4,7 @@
 #include "fieldtriptypes.hpp"
 #include "../utils/bytearray.hpp"
 #include <list>
+#include <cstring>
 
 namespace fieldtrip {
 

@@ -3,6 +3,7 @@
 #define NEUROMAG2MNE_FIFF_HPP
 #include <stdint.h>
 #include <iostream>
+#include <cstring>
 
 #include "fiffdefines.hpp"
 

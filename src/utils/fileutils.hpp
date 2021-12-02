@@ -2,6 +2,7 @@
 #define NEUROMAG2MNE_FILEUTILS_HPP
 
 #include <string>
+#include <cstring>
 #include "bytearray.hpp"
 
 class FileUtils {

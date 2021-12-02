@@ -2,6 +2,7 @@
 #include <fstream>
 #include "../utils/fileutils.hpp"
 #include <iostream>
+#include <cstring>
 
 fieldtrip::FtMessage::FtMessage()
 : mByteArray()
