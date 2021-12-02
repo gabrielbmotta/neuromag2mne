@@ -13,7 +13,7 @@ ByteArray::ByteArray()
 }
 
 ByteArray::ByteArray(size_t size)
-: mData(new char[size])
+: mData(new uint8_t[size])
 , mSize(size)
 {
 }
@@ -21,7 +21,7 @@ ByteArray::ByteArray(size_t size)
 ByteArray::ByteArray(const ByteArray &other)
 {
     mSize = other.mSize;
-    mData = new char[mSize];
+    mData = new uint8_t[mSize];
     memcpy(mData, other.mData, mSize);
 }
 
@@ -35,7 +35,7 @@ ByteArray &ByteArray::operator=(const ByteArray &rhs)
     if (this != &rhs){
       clear();
       if(rhs.mData){
-        mData = new char[rhs.mSize];
+        mData = new uint8_t[rhs.mSize];
         memcpy(mData, rhs.mData, rhs.mSize);
         mSize = rhs.mSize;
       }
@@ -52,9 +52,9 @@ void ByteArray::clear()
   }
 }
 
-void *ByteArray::data() const
+uint8_t *ByteArray::data() const
 {
-  return static_cast<void*>(mData);
+  return mData;
 }
 
 size_t ByteArray::size() const
@@ -65,7 +65,7 @@ size_t ByteArray::size() const
 void ByteArray::resize(size_t size)
 {
   clear();
-  mData = new char[size];
+  mData = new uint8_t[size];
   mSize = size;
 }
 

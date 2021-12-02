@@ -2,6 +2,7 @@
 #define NEUROMAG2MNE_BYTEARRAY_HPP
 
 #include <stddef.h>
+#include <stdint.h>
 
 class ByteArray {
 public:
@@ -14,11 +15,10 @@ public:
   void clear();
   void resize(size_t size);
 
-  void* data() const;
+  uint8_t* data() const;
   size_t size() const;
-
 private:
-  char* mData;
+  uint8_t* mData;
   size_t mSize;
 };
 
