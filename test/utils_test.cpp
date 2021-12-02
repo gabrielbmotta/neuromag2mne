@@ -3,6 +3,7 @@
 #include "../src/utils/mutex.hpp"
 #include "../src/utils/scopedpointer.hpp"
 #include "../src/utils/sharedpointer.hpp"
+#include "../src/utils/bytearray.hpp"
 
 #include <unistd.h>
 
@@ -149,4 +150,55 @@ TEST_CASE("Testing shared pointer", "[shared_pointer]")
   }
   SharedPointerTestObj test3;
   REQUIRE(test3.destroyed != 0);
+}
+
+//===================================================================
+// Testing byte array
+//===================================================================
+
+int byteArrayTestVal = 5;
+
+TEST_CASE("Testing byte array", "[byte_array]")
+{
+  // Are we initiliazing to zero/null?
+  ByteArray a;
+  REQUIRE(a.size() ==0);
+  REQUIRE(a.data() == NULL);
+
+  // Are we resizing properly?
+  a.resize(sizeof (int));
+  REQUIRE(a.size() == sizeof(int));
+  REQUIRE(a.data() != NULL);
+  int* value = static_cast<int*>(a.data());
+  *value = byteArrayTestVal;
+  REQUIRE(*(static_cast<int*>(a.data())) == byteArrayTestVal);
+
+  // Are we copying properly? (Part 1 - Both have same values)
+  ByteArray b(a);
+  REQUIRE(b.size() == sizeof(int));
+  REQUIRE(b.data() != NULL);
+  REQUIRE(*(static_cast<int*>(b.data())) == byteArrayTestVal);
+
+  // Are we clearing properly?
+  b.clear();
+  REQUIRE(b.size() == 0);
+  REQUIRE(b.data() == NULL);
+
+  // Are we copying properly? (Part 2 - We copy values, not sharing pointers)
+  REQUIRE(a.size() == sizeof(int));
+  REQUIRE(a.data() != NULL);
+  REQUIRE(*(static_cast<int*>(a.data())) == byteArrayTestVal);
+
+  // Are we assigning properly?
+  ByteArray c;
+  c = a;
+  REQUIRE(c.size() == sizeof(int));
+  REQUIRE(c.data() != NULL);
+  REQUIRE(*(static_cast<int*>(c.data())) == byteArrayTestVal);
+
+  // Are we copying properly? (Part 3 - We assign values, not sharing pointers)
+  c.clear();
+  REQUIRE(a.size() == sizeof(int));
+  REQUIRE(a.data() != NULL);
+  REQUIRE(*(static_cast<int*>(a.data())) == byteArrayTestVal);
 }
