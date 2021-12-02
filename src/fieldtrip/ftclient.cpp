@@ -48,7 +48,7 @@ void fieldtrip::FtClient::sendHeader(const fieldtrip::FtHeader &header)
     return;
   }
 
-  fieldtrip::FtMessage headerMessage = fieldtrip::MessageFormater::headerMessage(header);
+  fieldtrip::FtMessage headerMessage = fieldtrip::FtMessageFormater::headerMessage(header);
   sendMessage(headerMessage);
 
   messagedef_t response = getResponse();
@@ -66,6 +66,5 @@ void fieldtrip::FtClient::sendMessage(const fieldtrip::FtMessage &message)
   if(!mSocket.isConnected()){
     return;
   }
-
-  mSocket.send(headerMessage.mMessageByteArray, headerMessage.mSize);
+  mSocket.send(message.data(), message.size());
 }

@@ -148,6 +148,11 @@ void TCPSocket::send(const char *msg, size_t size)
 #endif
 }
 
+void TCPSocket::send(const void *msg, size_t size)
+{
+  send(static_cast<const char*>(msg), size);
+}
+
 /*
 Reads available data from socket.
 

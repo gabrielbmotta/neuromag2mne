@@ -1,20 +1,21 @@
-//
-// Created by Gabriel Motta on 12/2/21.
-//
-
 #ifndef NEUROMAG2MNE_BYTEARRAY_HPP
 #define NEUROMAG2MNE_BYTEARRAY_HPP
 
+#include <stddef.h>
 
 class ByteArray {
 public:
   ByteArray();
+  explicit ByteArray(size_t size);
   ByteArray(const ByteArray&);
   ~ByteArray();
   ByteArray& operator=(const ByteArray&);
 
-  void* data();
-  size_t size();
+  void clear();
+  void resize(size_t size);
+
+  void* data() const;
+  size_t size() const;
 
 private:
   char* mData;

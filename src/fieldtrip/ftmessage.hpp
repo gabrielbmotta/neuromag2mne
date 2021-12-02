@@ -2,6 +2,7 @@
 #define NEUROMAG2MNE_FTMESSAGE_HPP
 
 #include "fieldtriptypes.hpp"
+#include "../utils/bytearray.hpp"
 #include <string>
 #include <cstring>
 #include <utility>
@@ -15,39 +16,32 @@ namespace fieldtrip{
 /*
 Container for a byte array to be sent to an instance of fieldtrip buffer.
 */
-struct FtMessage {
+class FtMessage {
+public:
   FtMessage();
-  FtMessage(char* message_ptr,
-            size_t message_size);
-  FtMessage(const FtMessage& other);
-  ~FtMessage();
 
-  FtMessage& operator=(const FtMessage& other);
+  size_t size() const;
+  void* data() const;
 
-  char*   mMessageByteArray;
-  size_t  mSize;
+private:
+  ByteArray mByteArray;
 };
 
-class MessageFormater {
+class FtMessageFormater {
 public:
   static FtMessage headerMessage(const FtHeader& header);
   static FtMessage dataMessage(const Data& data);
 
-  static FtMessage rawDataMessage(const fieldtrip::BufferParameters& parameters,
-                                  char* data,
-                                  size_t dataSize);
-
 private:
   static messagedef_t putHeaderMessagedef();
   static messagedef_t putDataMessagedef();
-  static datadef_t datadefFromParam(fieldtrip::BufferParameters parameters);
-  static std::pair<char*, size_t> getByteArrayFromFile(const std::string& path);
+  static datadef_t datadefFromParam(BufferParameters parameters);
   static void appendHeaderChunk(char* messageByteArray,
                                 std::pair<char*, size_t>& chunk,
                                 int chunkID,
                                 size_t & offset);
 
-  MessageFormater();
+  FtMessageFormater();
 };
 
 }//namespace
