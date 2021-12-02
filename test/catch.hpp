@@ -4192,7 +4192,7 @@ namespace Tbc {
 
             while( !remainder.empty() ) {
                 if( lines.size() >= 1000 ) {
-                    lines.push_back( "... message truncated due to excessive size" );
+                    lines.push_back( "... message truncated due to excessive mSize" );
                     return;
                 }
                 std::size_t tabPos = std::string::npos;
@@ -5441,7 +5441,7 @@ namespace Tbc {
             while( it != strEnd ) {
 
                 if( lines.size() >= 1000 ) {
-                    lines.push_back( "... message truncated due to excessive size" );
+                    lines.push_back( "... message truncated due to excessive mSize" );
                     return;
                 }
 
@@ -6474,7 +6474,7 @@ namespace Catch {
             exceptionHandlerHandle = CATCH_NULL;
             // Register as first handler in current chain
             exceptionHandlerHandle = AddVectoredExceptionHandler(1, handleVectoredException);
-            // Pass in guarantee size to be filled
+            // Pass in guarantee mSize to be filled
             SetThreadStackGuarantee(&guaranteeSize);
         }
 

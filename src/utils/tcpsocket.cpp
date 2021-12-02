@@ -113,7 +113,7 @@ void TCPSocket::send(const std::string &msg)
 Sends a string message containing input paramter.
 
 Input must be properly null terminated. Use overload with
-size parameter for non-string uses.
+mSize parameter for non-string uses.
 
 Does nothing if socket is not connected.
 */
@@ -123,7 +123,7 @@ void TCPSocket::send(const char *msg)
 }
 
 /*
-Sends input message with given size.
+Sends input message with given mSize.
 
 Does nothing if socket is not connected.
 */
@@ -131,11 +131,11 @@ void TCPSocket::send(const char *msg, size_t size)
 {
   if(!isConnected())
   {
-    std::cout << "Message not sent, not connected.\n";
+    std::cout << "FtMessage not sent, not connected.\n";
     return;
   }
   if(msg == NULL || size == 0){
-    std::cout << "Message not sent, invalid message.\n";
+    std::cout << "FtMessage not sent, invalid message.\n";
   }
 #if defined __linux__ || defined __APPLE__
 

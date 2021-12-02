@@ -52,7 +52,7 @@ public:
 //  Item front()
 //  {
 //    MutexLocker locker(mMutex);
-//    if(mQueue.size() > 0)
+//    if(mQueue.mSize() > 0)
 //    {
 //      return Item(true, mQueue.front());
 //    }
@@ -64,7 +64,7 @@ public:
 //  void pop()
 //  {
 //    MutexLocker locker(mMutex);
-//    if(mQueue.size() > 0)
+//    if(mQueue.mSize() > 0)
 //    {
 //      mQueue.pop();
 //    }
@@ -89,7 +89,7 @@ public:
   };
 
   /*
-   Returns size of queue
+   Returns mSize of queue
    */
   size_t size()
   {

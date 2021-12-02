@@ -33,7 +33,7 @@ struct datadef_t{
   int32_t nchans;
   int32_t nsamples;
   int32_t data_type;
-  int32_t bufsize;     /* size of the buffer in bytes */
+  int32_t bufsize;     /* mSize of the buffer in bytes */
   datadef_t():nchans(0)
              ,nsamples(0)
              ,data_type(0)
@@ -47,7 +47,7 @@ struct headerdef_t{
   int32_t nevents;
   float   fsample;
   int32_t data_type;
-  int32_t bufsize;     /* size of the buffer in bytes */
+  int32_t bufsize;     /* mSize of the buffer in bytes */
   headerdef_t():nchans(0)
                ,nsamples(0)
                ,nevents(0)
@@ -70,7 +70,7 @@ struct header_t{
 struct messagedef_t{
   int16_t version;   /* see VERSION */
   int16_t command;   /* see PUT_xxx, GET_xxx and FLUSH_xxx */
-  int32_t bufsize;   /* size of the buffer in bytes */
+  int32_t bufsize;   /* mSize of the buffer in bytes */
   messagedef_t():version(VERSION)
                 ,command(0)
                 ,bufsize(0)

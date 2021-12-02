@@ -7,30 +7,26 @@
 #include "../utils/tcpsocket.hpp"
 #include "../data.hpp"
 #include "../utils/sharedpointer.hpp"
+
 #include "fieldtriptypes.hpp"
 #include "ftheader.hpp"
+#include "ftmessage.hpp"
 
 namespace fieldtrip {
 
-class Client {
+class FtClient {
 public:
-  Client();
+  FtClient();
 
   void connect(std::string address, unsigned short port);
-
-  void sendHeader(const BufferParameters& parameters);
-  void sendNeuromagHeader(const BufferParameters& parameters,
-                          std::string neuromagHeaderChunkFile,
-                          std::string isotrakHeaderChunkFile);
-
-  void sendData(SharedPointer<Data> data);
-
-  void sendHeader(const Header& header);
-  void sendData(const Data& data);
-
+  void disconnect();
   bool isConnected() const;
 
+  void sendHeader(const FtHeader& header);
+  void sendData(const Data& data);
+
 private:
+  void sendMessage(const FtMessage& message);
   messagedef_t getResponse();
 
   TCPSocket mSocket;

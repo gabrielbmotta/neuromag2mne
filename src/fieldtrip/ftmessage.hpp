@@ -15,33 +15,31 @@ namespace fieldtrip{
 /*
 Container for a byte array to be sent to an instance of fieldtrip buffer.
 */
-struct Message {
-  Message();
-  Message(char* message_ptr,
-          size_t message_size);
+struct FtMessage {
+  FtMessage();
+  FtMessage(char* message_ptr,
+            size_t message_size);
+  FtMessage(const FtMessage& other);
+  ~FtMessage();
 
-  char*   content;
-  size_t  size;
+  FtMessage& operator=(const FtMessage& other);
 
-  void done();
+  char*   mMessageByteArray;
+  size_t  mSize;
 };
 
 class MessageFormater {
 public:
-  static Message simpleHeader(const fieldtrip::BufferParameters& parameters);
+  static FtMessage headerMessage(const FtHeader& header);
+  static FtMessage dataMessage(const Data& data);
 
-  static Message neuromagHeader(const fieldtrip::BufferParameters& parameters,
-                                const std::string& neuromagHeaderPath,
-                                const std::string& isotrakHeaderPath);
-
-  static Message rawDataMessage(const fieldtrip::BufferParameters& parameters,
-                                char* data,
-                                size_t dataSize);
+  static FtMessage rawDataMessage(const fieldtrip::BufferParameters& parameters,
+                                  char* data,
+                                  size_t dataSize);
 
 private:
   static messagedef_t putHeaderMessagedef();
   static messagedef_t putDataMessagedef();
-  static headerdef_t headerdefFromParam(const fieldtrip::BufferParameters& parameters);
   static datadef_t datadefFromParam(fieldtrip::BufferParameters parameters);
   static std::pair<char*, size_t> getByteArrayFromFile(const std::string& path);
   static void appendHeaderChunk(char* messageByteArray,

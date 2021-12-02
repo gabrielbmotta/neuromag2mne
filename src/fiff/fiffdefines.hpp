@@ -187,7 +187,7 @@ struct ch_info_t{
   float ez[3];          // Coil coordinate system unit vector ez . This is ignored for EEG electrodes.
   int32_t unit;         // The real-world unit-of measure.
   int32_t unit_mul;     // The unit multiplier. The result given by range*cal*data is in units unit*10^unit_mul.
-}; //size is 80 bytes
+}; //mSize is 80 bytes
 
 struct fiff_ch_pos_t{
   int32_t coil_type;
@@ -195,7 +195,7 @@ struct fiff_ch_pos_t{
   float ex[3];
   float ey[3];
   float ez[3];
-}; //size is 48 bytes
+}; //mSize is 48 bytes
 
 struct fiff_ch_info_rec{
   int32_t scanNo;       // Position of this channel in scanning order.
@@ -207,13 +207,13 @@ struct fiff_ch_info_rec{
   int32_t unit;         // The real-world unit-of measure.
   int32_t unit_mul;     // The unit multiplier. The result given by range*cal*data is in units unit*10^unit_mul.
   char ch_name[16];     // Descriptive name for the channel.
-}; //size is 96 bytes
+}; //mSize is 96 bytes
 
 struct fiff_id_t{
   int32_t version;
   int32_t machid[2];
   int32_t time_sec;
   int32_t time_usec;
-};//total size is 20 bytes
+};//total mSize is 20 bytes
 
 #endif //NEUROMAG2MNE_FIFFDEFINES_HPP

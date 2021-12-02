@@ -4,12 +4,12 @@
 
 #include "ftheader.hpp"
 
-fieldtrip::Header fieldtrip::Header::simpleHeader(const BufferParameters &parameters)
+fieldtrip::FtHeader fieldtrip::FtHeader::simpleHeader(const BufferParameters &parameters)
 {
-  fieldtrip::Header header;
+  fieldtrip::FtHeader header;
 
-  header.mHeaderdata = new char[sizeof(headerdef_t)];
-  headerdef_t* headerdef = static_cast<headerdef_t*>header.mHeaderdata;
+  header.mHeaderByteArray = new char[sizeof(headerdef_t)];
+  headerdef_t* headerdef = static_cast<headerdef_t*>header.mHeaderByteArray;
   *headerdef = headerdefFromParam(parameters);
 
   header.mSize = sizeof(headerdef_t);
@@ -17,9 +17,9 @@ fieldtrip::Header fieldtrip::Header::simpleHeader(const BufferParameters &parame
   return header;
 }
 
-fieldtrip::Header::neuromagHeader(const BufferParameters &parameters,
-                                  std::string neuromagHeaderChunkFile,
-                                  std::string isotrakHeaderChunkFile)
+fieldtrip::FtHeader::neuromagHeader(const BufferParameters &parameters,
+                                    std::string neuromagHeaderChunkFile,
+                                    std::string isotrakHeaderChunkFile)
 {
   bool neuromagHeaderChunk = false, isotrakHeaderChunk = false;
 
@@ -30,9 +30,6 @@ fieldtrip::Header::neuromagHeader(const BufferParameters &parameters,
   if(neuromagByteArray.first == NULL || isotrakByteArray.first == NULL){
     std::cout << "Unable to attach files as headers. Returning simple header.\n";
     return simpleHeader(parameters);
-  }
-  if (neuromagByteArray.first){
-
   }
 
   size_t totalSizeOfChunks = static_cast<size_t>(neuromagByteArray.second + isotrakByteArray.second + 2 * sizeof (chunkdef_t));
@@ -51,7 +48,7 @@ fieldtrip::Header::neuromagHeader(const BufferParameters &parameters,
   appendHeaderChunk(headerByteArray, isotrakByteArray, 9, offset);
 }
 
-headerdef_t fieldtrip::Header::headerdefFromParam(const fieldtrip::BufferParameters &parameters)
+headerdef_t fieldtrip::FtHeader::headerdefFromParam(const fieldtrip::BufferParameters &parameters)
 {
   headerdef_t header;
 
@@ -62,18 +59,28 @@ headerdef_t fieldtrip::Header::headerdefFromParam(const fieldtrip::BufferParamet
   return header;
 }
 
-static void fieldtrip::Header::appendHeaderChunk(char *headerByteArray,
-                                                 std::pair<char *, size_t> &chunk,
-                                                 int chunkID,
-                                                 size_t &offset)
+static void fieldtrip::FtHeader::appendHeaderChunk(char *headerByteArray,
+                                                   std::pair<char *, size_t> &chunk,
+                                                   int chunkID,
+                                                   size_t &offset)
 {
   chunkdef_t chunkdef;
   chunkdef.type = chunkID;
-  chunkdef.size = static_cast<int>(chunk.second);
+  chunkdef.mSize = static_cast<int>(chunk.second);
 
   memcpy(headerByteArray + offset, &chunkdef, sizeof(chunkdef_t));
   offset += sizeof(chunkdef_t);
 
   memcpy(headerByteArray + offset, chunk.first, chunk.second);
   offset += chunk.second;
+}
+
+size_t fieldtrip::FtHeader::size() const
+{
+  return mSize;
+}
+
+void* fieldtrip::FtHeader::data() const
+{
+  return mHeaderByteArray;
 }
