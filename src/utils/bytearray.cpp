@@ -4,6 +4,7 @@
 
 #include "bytearray.hpp"
 #include <iostream>
+#include <cstring>
 
 ByteArray::ByteArray()
 : mData(NULL)
