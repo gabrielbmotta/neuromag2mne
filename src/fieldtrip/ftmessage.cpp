@@ -22,11 +22,12 @@ void *fieldtrip::FtMessage::data() const
 fieldtrip::FtMessage fieldtrip::FtMessage::headerMessage(const fieldtrip::FtHeader& header)
 {
   fieldtrip::FtMessage message;
-  message.mByteArray.resize(header.size() + sizeof (messagedef_t));
-
-  message.setMessageDef(messagedef_t::putHeader(header.size()));
-  message.setMessageContent(header.data(), header.size());
-
+  if(header.size() > 0)
+  {
+    message.mByteArray.resize(header.size() + sizeof(messagedef_t));
+    message.setMessageDef(messagedef_t::putHeader(header.size()));
+    message.setMessageContent(header.data(), header.size());
+  }
   return message;
 }
 

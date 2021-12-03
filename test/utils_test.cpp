@@ -160,7 +160,7 @@ int byteArrayTestVal = 5;
 
 TEST_CASE("Testing byte array", "[byte_array]")
 {
-  // Are we initiliazing to zero/null?
+  // Are we initializing to zero/null?
   ByteArray a;
   REQUIRE(a.size() ==0);
   REQUIRE(a.data() == NULL);
