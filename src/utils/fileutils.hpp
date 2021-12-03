@@ -9,7 +9,7 @@ class FileUtils {
 public:
   static size_t size(const std::string& filePath);
   static void fileToBuffer(const std::string& filePath,
-                           char* buffer,
+                           void* buffer,
                            size_t size);
 
   static ByteArray getByteArrayFromFile(const std::string& path);

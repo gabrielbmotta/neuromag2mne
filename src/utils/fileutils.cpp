@@ -18,12 +18,12 @@ size_t FileUtils::size(const std::string& filePath)
 }
 
 void FileUtils::fileToBuffer(const std::string &filePath,
-                             char *buffer,
+                             void *buffer,
                              size_t size)
 {
 
   std::ifstream in(filePath.c_str());
-  in.read(buffer, static_cast<std::streamsize>(size));
+  in.read(static_cast<char*>(buffer), static_cast<std::streamsize>(size));
 }
 
 ByteArray FileUtils::getByteArrayFromFile(const std::string &path)
@@ -35,7 +35,7 @@ ByteArray FileUtils::getByteArrayFromFile(const std::string &path)
     return ByteArray();
   }
   ByteArray byteArray(fileSize);
-  FileUtils::fileToBuffer(path, static_cast<char*>(byteArray.data()), fileSize);
+  FileUtils::fileToBuffer(path, byteArray.data(), fileSize);
 
   return byteArray;
 }
