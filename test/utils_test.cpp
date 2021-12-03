@@ -169,15 +169,15 @@ TEST_CASE("Testing byte array", "[byte_array]")
   a.resize(sizeof (int));
   REQUIRE(a.size() == sizeof(int));
   REQUIRE(a.data() != NULL);
-  int* value = static_cast<int*>(a.data());
+  int* value = reinterpret_cast<int*>(a.data());
   *value = byteArrayTestVal;
-  REQUIRE(*(static_cast<int*>(a.data())) == byteArrayTestVal);
+  REQUIRE(*(reinterpret_cast<int*>(a.data())) == byteArrayTestVal);
 
   // Are we copying properly? (Part 1 - Both have same values)
   ByteArray b(a);
   REQUIRE(b.size() == sizeof(int));
   REQUIRE(b.data() != NULL);
-  REQUIRE(*(static_cast<int*>(b.data())) == byteArrayTestVal);
+  REQUIRE(*(reinterpret_cast<int*>(b.data())) == byteArrayTestVal);
 
   // Are we clearing properly?
   b.clear();
@@ -187,18 +187,18 @@ TEST_CASE("Testing byte array", "[byte_array]")
   // Are we copying properly? (Part 2 - We copy values, not sharing pointers)
   REQUIRE(a.size() == sizeof(int));
   REQUIRE(a.data() != NULL);
-  REQUIRE(*(static_cast<int*>(a.data())) == byteArrayTestVal);
+  REQUIRE(*(reinterpret_cast<int*>(a.data())) == byteArrayTestVal);
 
   // Are we assigning properly?
   ByteArray c;
   c = a;
   REQUIRE(c.size() == sizeof(int));
   REQUIRE(c.data() != NULL);
-  REQUIRE(*(static_cast<int*>(c.data())) == byteArrayTestVal);
+  REQUIRE(*(reinterpret_cast<int*>(c.data())) == byteArrayTestVal);
 
   // Are we copying properly? (Part 3 - We assign values, not sharing pointers)
   c.clear();
   REQUIRE(a.size() == sizeof(int));
   REQUIRE(a.data() != NULL);
-  REQUIRE(*(static_cast<int*>(a.data())) == byteArrayTestVal);
+  REQUIRE(*(reinterpret_cast<int*>(a.data())) == byteArrayTestVal);
 }

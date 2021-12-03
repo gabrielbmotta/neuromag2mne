@@ -40,7 +40,7 @@ void fieldtrip::FtMessage::setMessageDef(const fieldtrip::messagedef_t &messaged
 {
   if(size() >= sizeof (messagedef_t))
   {
-    *(static_cast<messagedef_t *>(data())) = messagedef;
+    *(reinterpret_cast<messagedef_t *>(data())) = messagedef;
   }
 }
 

@@ -42,7 +42,7 @@ void fieldtrip::FtHeader::setHeaderdef(const fieldtrip::headerdef_t &headerdef)
 {
   if(mByteArray.size() >= sizeof(headerdef_t))
   {
-    *(static_cast<headerdef_t *>(data())) = headerdef;
+    *(reinterpret_cast<headerdef_t *>(data())) = headerdef;
   }
 }
 
