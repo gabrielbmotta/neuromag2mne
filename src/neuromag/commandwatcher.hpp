@@ -6,9 +6,9 @@
 #include <vector>
 
 #include "collector_info.hpp"
-#include "../utils/thread.hpp"
-#include "../utils/tcpsocket.hpp"
-#include "../utils/stringcallbackpair.hpp"
+#include "utils/thread.hpp"
+#include "utils/tcpsocket.hpp"
+#include "utils/stringcallbackpair.hpp"
 #include "neuromagcontroller.hpp"
 
 namespace neuromag{

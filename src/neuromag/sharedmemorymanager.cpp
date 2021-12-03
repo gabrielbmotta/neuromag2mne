@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <sys/shm.h>
-#include "../fiff/fifftag.hpp"
+#include "fiff/fifftag.hpp"
 
 namespace sharedMemory{
 

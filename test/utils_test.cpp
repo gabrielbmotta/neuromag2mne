@@ -1,9 +1,9 @@
 #include "catch.hpp"
-#include "../src/utils/thread.hpp"
-#include "../src/utils/mutex.hpp"
-#include "../src/utils/scopedpointer.hpp"
-#include "../src/utils/sharedpointer.hpp"
-#include "../src/utils/bytearray.hpp"
+#include "utils/thread.hpp"
+#include "utils/mutex.hpp"
+#include "utils/scopedpointer.hpp"
+#include "utils/sharedpointer.hpp"
+#include "utils/bytearray.hpp"
 
 #include <unistd.h>
 
