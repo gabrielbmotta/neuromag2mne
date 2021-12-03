@@ -26,68 +26,64 @@
 #define PUT_DAT_NORESPONSE static_cast<int32_t>(0x0502) /* decimal 1282 */
 #define PUT_EVT_NORESPONSE static_cast<int32_t>(0x0503) /* decimal 1283 */
 
+namespace fieldtrip {
+
 //----------------------------------------------------
 // Fieldtrip protocol types
 //----------------------------------------------------
-struct datadef_t{
+struct datadef_t {
   int32_t nchans;
   int32_t nsamples;
   int32_t data_type;
   int32_t bufsize;     /* mSize of the buffer in bytes */
-  datadef_t():nchans(0)
-             ,nsamples(0)
-             ,data_type(0)
-             ,bufsize(0)
-             {};
+  datadef_t();
 };
 
-struct headerdef_t{
+struct headerdef_t {
   int32_t nchans;
   int32_t nsamples;
   int32_t nevents;
-  float   fsample;
+  float fsample;
   int32_t data_type;
   int32_t bufsize;     /* mSize of the buffer in bytes */
-  headerdef_t():nchans(0)
-               ,nsamples(0)
-               ,nevents(0)
-               ,fsample(0)
-               ,data_type(0)
-               ,bufsize(0)
-               {};
+  headerdef_t();
 };
 
-struct chunkdef_t{
+struct chunkdef_t {
   int32_t type;
   int32_t size;
 };
 
-struct header_t{
+struct header_t {
   headerdef_t *def;
-  void        *buf;
+  void *buf;
 };
 
-struct messagedef_t{
+struct messagedef_t {
   int16_t version;   /* see VERSION */
   int16_t command;   /* see PUT_xxx, GET_xxx and FLUSH_xxx */
   int32_t bufsize;   /* mSize of the buffer in bytes */
-  messagedef_t():version(VERSION)
-                ,command(0)
-                ,bufsize(0)
-                {};
+  messagedef_t();
+
+  static messagedef_t putHeader();
+  static messagedef_t putHeader(int32_t headerSize);
+  static messagedef_t putHeader(size_t headerSize);
+  static messagedef_t putData();
+  static messagedef_t putData(int32_t dataSize);
+  static messagedef_t putData(size_t dataSize);
 };
 
-struct message_t{
+struct message_t {
   messagedef_t *def;
-  void         *buf;
+  void *buf;
 };
 
-struct datasel_t{
+struct datasel_t {
   int32_t begsample; /* indexing starts with 0, should be >=0 */
   int32_t endsample; /* indexing starts with 0, should be <header.nsamples */
 };
 
-struct samples_events_t{
+struct samples_events_t {
   int32_t nsamples;
   int32_t nevents;
 };
@@ -96,18 +92,17 @@ struct samples_events_t{
 // Convenient types
 //----------------------------------------------------
 
-namespace fieldtrip {
 struct BufferParameters {
 
-  BufferParameters(int channels, float frequency, int type)
-  : nChannels(channels)
-  , sampleFrequency(frequency)
-  , dataType(type) {};
+  BufferParameters(int channels, float frequency, int type);
 
-  int nChannels;
-  float sampleFrequency;
-  int dataType;
+  headerdef_t generateHeaderdef() const;
+  datadef_t generateDatadef() const;
+
+  int mNumChannels;
+  float mSampleFrequency;
+  int mDataType;
 };
-}
 
+} // namespace fieldtrip
 #endif //NEUROMAG2MNE_FIELDTRIPTYPES_HPP

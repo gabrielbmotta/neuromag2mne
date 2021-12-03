@@ -32,7 +32,7 @@ bool fieldtrip::FtClient::isConnected() const
 /*
 Gets response from buffer.
  */
-messagedef_t fieldtrip::FtClient::getResponse()
+fieldtrip::messagedef_t fieldtrip::FtClient::getResponse()
 {
   std::string bufferResponseString = mSocket.receive_blocking();
 
@@ -48,14 +48,13 @@ void fieldtrip::FtClient::sendHeader(const fieldtrip::FtHeader &header)
     return;
   }
 
-  fieldtrip::FtMessage headerMessage = fieldtrip::FtMessageFormater::headerMessage(header);
-  sendMessage(headerMessage);
+  sendMessage(fieldtrip::FtMessage::headerMessage(header));
 
   messagedef_t response = getResponse();
   (void)response;
 }
 
-void fieldtrip::FtClient::sendData(const Data &data)
+void fieldtrip::FtClient::sendData(const FtData &data)
 {
   //todo: implement
   (void)data;

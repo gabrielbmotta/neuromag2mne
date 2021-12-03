@@ -19,64 +19,32 @@ void *fieldtrip::FtMessage::data() const
   return mByteArray.data();
 }
 
-fieldtrip::FtMessage fieldtrip::FtMessageFormater::headerMessage(const fieldtrip::FtHeader& header)
+fieldtrip::FtMessage fieldtrip::FtMessage::headerMessage(const fieldtrip::FtHeader& header)
 {
   fieldtrip::FtMessage message;
   message.mByteArray.resize(header.size() + sizeof (messagedef_t));
 
-  messagedef_t message_def = putHeaderMessagedef();
-
-  memcpy(message.data(), &message_def, sizeof (messagedef_t));
-  memcpy(static_cast<char*>(message.data()) + sizeof (messagedef_t), &header, header.size());
+  message.setMessageDef(messagedef_t::putHeader(header.size()));
+  message.setMessageContent(header.data(), header.size());
 
   return message;
 }
 
-fieldtrip::FtMessage fieldtrip::FtMessageFormater::dataMessage(const FtData& data)
+fieldtrip::FtMessage fieldtrip::FtMessage::dataMessage(const FtData& data)
 {
   (void)data;
   return fieldtrip::FtMessage();
 }
 
-/*
-Creates a messagedef for putting a header in a buffer.
-*/
-messagedef_t fieldtrip::FtMessageFormater::putHeaderMessagedef()
+void fieldtrip::FtMessage::setMessageDef(const fieldtrip::messagedef_t &messagedef)
 {
-  messagedef_t message;
-  message.command = PUT_HDR;
-
-  return message;
+  if(size() >= sizeof (messagedef_t))
+  {
+    *(static_cast<messagedef_t *>(data())) = messagedef;
+  }
 }
 
-/*
-Creates a messagedef for putting data in a buffer.
-*/
-messagedef_t fieldtrip::FtMessageFormater::putDataMessagedef()
+void fieldtrip::FtMessage::setMessageContent(const void *data, size_t size)
 {
-  messagedef_t message;
-  message.command = PUT_DAT;
-
-  return message;
-}
-
-datadef_t fieldtrip::FtMessageFormater::datadefFromParam(fieldtrip::BufferParameters parameters)
-{
-  datadef_t data;
-
-  data.nchans = parameters.nChannels;
-  data.data_type = parameters.dataType;
-
-  return data;
-}
-
-//==============================================================================
-// Not to be used
-//==============================================================================
-
-/*
-Set to private - not intended to be used and '= delete' is c++11.
-*/
-fieldtrip::FtMessageFormater::FtMessageFormater()
-{
+  memcpy(mByteArray.data() + sizeof(messagedef_t), data, size);
 }

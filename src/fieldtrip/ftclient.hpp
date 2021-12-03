@@ -10,6 +10,7 @@
 
 #include "fieldtriptypes.hpp"
 #include "ftheader.hpp"
+#include "ftdata.hpp"
 #include "ftmessage.hpp"
 
 namespace fieldtrip {
@@ -23,7 +24,7 @@ public:
   bool isConnected() const;
 
   void sendHeader(const FtHeader& header);
-  void sendData(const Data& data);
+  void sendData(const FtData& data);
 
 private:
   void sendMessage(const FtMessage& message);

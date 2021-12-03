@@ -26,21 +26,14 @@ public:
   size_t size() const;
   void* data() const;
 
-private:
-  ByteArray mByteArray;
-};
-
-class FtMessageFormater {
-public:
   static FtMessage headerMessage(const FtHeader& header);
   static FtMessage dataMessage(const FtData& data);
 
 private:
-  static messagedef_t putHeaderMessagedef();
-  static messagedef_t putDataMessagedef();
-  static datadef_t datadefFromParam(BufferParameters parameters);
+  void setMessageDef(const messagedef_t& messagedef);
+  void setMessageContent(const void* data, size_t size);
 
-  FtMessageFormater();
+  ByteArray mByteArray;
 };
 
 }//namespace
