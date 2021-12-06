@@ -25,8 +25,8 @@ fieldtrip::FtHeader fieldtrip::FtHeader::simpleHeader(const BufferParameters &pa
   return header;
 }
 
-fieldtrip::FtHeader fieldtrip::FtHeader::extededHeader(const fieldtrip::BufferParameters &parameters,
-                                                       const std::list<FtHeaderChunk *> &chunks)
+fieldtrip::FtHeader fieldtrip::FtHeader::extendedHeader(const fieldtrip::BufferParameters &parameters,
+                                                        const std::list<FtHeaderChunk *> &chunks)
 {
   fieldtrip::FtHeader header;
   size_t totalSize = sizeof(headerdef_t) + FtHeaderChunk::totalSize(chunks);
@@ -41,6 +41,21 @@ fieldtrip::FtHeader fieldtrip::FtHeader::extededHeader(const fieldtrip::BufferPa
   }
 
   return header;
+}
+
+fieldtrip::FtHeader fieldtrip::FtHeader::extendedHeader(const fieldtrip::BufferParameters &parameters,
+                                                        fieldtrip::FtHeaderChunk* chunks, ...)
+{
+  std::list<FtHeaderChunk *> chunkList;
+  va_list args;
+  va_start(args, chunks);
+  for(FtHeaderChunk *chunk = chunks; chunk != nullptr; chunk = va_arg(args, FtHeaderChunk *))
+  {
+    chunkList.push_back(chunk);
+  }
+  va_end(args);
+
+  return extendedHeader(parameters, chunkList);
 }
 
 void fieldtrip::FtHeader::appendHeaderChunk(const fieldtrip::FtHeaderChunk &chunk)
