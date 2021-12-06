@@ -24,9 +24,9 @@ fieldtrip::chunkdef_t::chunkdef_t()
 {
 }
 
-fieldtrip::chunkdef_t::chunkdef_t(int32_t type, int32_t size)
-: type(type)
-, size(size)
+fieldtrip::chunkdef_t::chunkdef_t(int32_t chunkType, int32_t chunkSize)
+: type(chunkType)
+, size(chunkSize)
 {
 }
 

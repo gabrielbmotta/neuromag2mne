@@ -210,5 +210,5 @@ TEST_CASE("Testing byte array", "[byte_array]")
 
 TEST_CASE("Testing file utils", "[fileutils]")
 {
-
+  REQUIRE(FileUtils::size("test/test_files/utils_testfile1.txt") == 5);
 }
