@@ -11,10 +11,6 @@
 
 namespace fieldtrip{
 
-//todo: do this with smart pointers
-//      so we don't have to manually
-//      tag these as 'done'.
-
 /*
 Container for a byte array to be sent to an instance of fieldtrip buffer.
 */

@@ -25,11 +25,16 @@ private:
 };
 
 class FtHeaderChunk {
+public:
   size_t size() const;
   void *data() const;
 
-  FtHeaderChunk fromFile(const std::string &filename);
+  static FtHeaderChunk fromFile(const std::string &filename, int chunkId);
+  static size_t totalSize(const std::list<FtHeaderChunk*>&);
 private:
+  void setChunkDef(const chunkdef_t &chunkdef);
+  void setChunkContents(const void* data, size_t size);
+
   ByteArray mByteArray;
 };
 

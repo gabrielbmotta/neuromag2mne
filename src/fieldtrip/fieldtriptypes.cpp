@@ -18,6 +18,18 @@ fieldtrip::headerdef_t::headerdef_t()
 {
 }
 
+fieldtrip::chunkdef_t::chunkdef_t()
+: type(0)
+, size(0)
+{
+}
+
+fieldtrip::chunkdef_t::chunkdef_t(int32_t type, int32_t size)
+: type(type)
+, size(size)
+{
+}
+
 fieldtrip::messagedef_t::messagedef_t()
 : version(VERSION)
 , command(0)
@@ -90,3 +102,5 @@ fieldtrip::datadef_t fieldtrip::BufferParameters::generateDatadef() const
 
   return data;
 }
+
+

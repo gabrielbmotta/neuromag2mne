@@ -52,6 +52,8 @@ struct headerdef_t {
 struct chunkdef_t {
   int32_t type;
   int32_t size;
+  chunkdef_t();
+  explicit chunkdef_t(int32_t type, int32_t size);
 };
 
 struct header_t {

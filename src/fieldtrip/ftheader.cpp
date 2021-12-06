@@ -3,6 +3,7 @@
 //
 
 #include "ftheader.hpp"
+#include "utils/fileutils.hpp"
 
 size_t fieldtrip::FtHeader::size() const
 {
@@ -27,15 +28,28 @@ fieldtrip::FtHeader fieldtrip::FtHeader::simpleHeader(const BufferParameters &pa
 fieldtrip::FtHeader fieldtrip::FtHeader::extededHeader(const fieldtrip::BufferParameters &parameters,
                                                        const std::list<FtHeaderChunk *> &chunks)
 {
-  (void)parameters;
-  (void)chunks;
-  return fieldtrip::FtHeader();
+  fieldtrip::FtHeader header;
+  size_t totalSize = sizeof(headerdef_t) + FtHeaderChunk::totalSize(chunks);
+
+  header.mByteArray.resize(totalSize);
+  header.setHeaderdef(parameters.generateHeaderdef());
+
+  std::list<FtHeaderChunk *>::const_iterator it;
+  for(it = chunks.begin(); it != chunks.end(); it++)
+  {
+    header.appendHeaderChunk(**it);
+  }
+
+  return header;
 }
 
 void fieldtrip::FtHeader::appendHeaderChunk(const fieldtrip::FtHeaderChunk &chunk)
 {
-  (void)chunk;
-  //todo: implement
+  headerdef_t* headerdef = reinterpret_cast<headerdef_t*>(mByteArray.data());
+  size_t offset = static_cast<size_t>(headerdef->bufsize);
+
+  memcpy(mByteArray.data() + offset, chunk.data(), chunk.size());
+  headerdef->bufsize += static_cast<int32_t>(chunk.size());
 }
 
 void fieldtrip::FtHeader::setHeaderdef(const fieldtrip::headerdef_t &headerdef)
@@ -56,60 +70,42 @@ void* fieldtrip::FtHeaderChunk::data() const
   return mByteArray.data();
 }
 
-fieldtrip::FtHeaderChunk fieldtrip::FtHeaderChunk::fromFile(const std::string &filename)
+fieldtrip::FtHeaderChunk fieldtrip::FtHeaderChunk::fromFile(const std::string &filename, int chunkId)
 {
-  //todo: implement
-  (void)filename;
-  return fieldtrip::FtHeaderChunk();
+  size_t size = FileUtils::size(filename);
+  if(size < 1)
+  {
+    return FtHeaderChunk();
+  }
+
+  FtHeaderChunk chunk;
+  chunk.mByteArray.resize(sizeof(chunkdef_t) + size);
+  chunk.setChunkDef(chunkdef_t(chunkId, static_cast<int32_t>(size)));
+  chunk.setChunkContents(FileUtils::getByteArrayFromFile(filename).data(), size);
+
+  return chunk;
 }
 
-// Just for later reference
-//static void fieldtrip::FtHeaderFormater::appendHeaderChunk(char *headerByteArray,
-//                                                   std::pair<char *, size_t> &chunk,
-//                                                   int chunkID,
-//                                                   size_t &offset)
-//{
-//  chunkdef_t chunkdef;
-//  chunkdef.type = chunkID;
-//  chunkdef.mSize = static_cast<int>(chunk.second);
-//
-//  memcpy(headerByteArray + offset, &chunkdef, sizeof(chunkdef_t));
-//  offset += sizeof(chunkdef_t);
-//
-//  memcpy(headerByteArray + offset, chunk.first, chunk.second);
-//  offset += chunk.second;
-//}
+size_t fieldtrip::FtHeaderChunk::totalSize(const std::list<FtHeaderChunk *>& chunks)
+{
+  size_t totalSize = 0;
+  std::list<FtHeaderChunk *>::const_iterator it;
+  for(it = chunks.begin(); it != chunks.end(); it++)
+  {
+    totalSize += (*it)->size();
+  }
+  return totalSize;
+}
 
-//fieldtrip::FtHeader fieldtrip::FtHeader::neuromagHeader(const BufferParameters &parameters,
-//                                                        FtHeaderChunk neuromagHeaderChunk,
-//                                                        FtHeaderChunk isotrakHeaderChunk)
-//{
-//  (void)parameters;
-//  (void)neuromagHeaderChunk;
-//  (void)isotrakHeaderChunk;
-//
-//  return fieldtrip::FtHeader();
-//
-//  std::pair<char*, size_t> neuromagByteArray = getByteArrayFromFile(neuromagHeaderPath);
-//  std::pair<char*, size_t> isotrakByteArray = getByteArrayFromFile(isotrakHeaderPath);
-//
-//  if(neuromagByteArray.first == NULL || isotrakByteArray.first == NULL){
-//    std::cout << "Unable to attach files as headers. Returning simple header.\n";
-//    return simpleHeader(parameters);
-//  }
-//
-//  size_t totalSizeOfChunks = static_cast<size_t>(neuromagByteArray.second + isotrakByteArray.second + 2 * sizeof (chunkdef_t));
-//
-//  headerdef_t header = headerdefFromParam(parameters);
-//  header.bufsize = static_cast<int>(totalSizeOfChunks);
-//
-//  fieldtrip::FtHeader header;
-//  header.rezise(sizeof (headerdef_t) + totalSizeOfChunks);
-//
-//  size_t offset = 0;
-//  memcpy(headerByteArray + offset, &header, sizeof (headerdef_t));
-//  offset += sizeof (headerdef_t);
-//
-//  appendHeaderChunk(headerByteArray, neuromagByteArray, 8, offset);
-//  appendHeaderChunk(headerByteArray, isotrakByteArray, 9, offset);
-//}
+void fieldtrip::FtHeaderChunk::setChunkDef(const fieldtrip::chunkdef_t &chunkdef)
+{
+  if(mByteArray.size() >= sizeof(chunkdef_t))
+  {
+    *(reinterpret_cast<chunkdef_t *>(data())) = chunkdef;
+  }
+}
+
+void fieldtrip::FtHeaderChunk::setChunkContents(const void *data, size_t size)
+{
+  memcpy(mByteArray.data() + sizeof(chunkdef_t), data, size);
+}
