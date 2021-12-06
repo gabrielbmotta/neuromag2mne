@@ -43,7 +43,22 @@ TEST_CASE("fieldtrip header formatting" "[ftmsg]")
   REQUIRE(headerChunk1.size() == 0);
   REQUIRE(headerChunk1.data() == NULL);
 
-  //fieldtrip::FtHeaderChunk headerChunk2 = fieldtrip::FtHeaderChunk::fromFile("../test/test_files/ftbuffer_testfile1.txt");
+  fieldtrip::FtHeaderChunk headerChunk2 = fieldtrip::FtHeaderChunk::fromFile("test/test_files/ftbuffer_testfile1.txt", 50);
+  fieldtrip::chunkdef_t* chunkdef = reinterpret_cast<fieldtrip::chunkdef_t*>(headerChunk2.data());
+  REQUIRE(headerChunk2.size() == 3 + sizeof (fieldtrip::chunkdef_t));
+  REQUIRE(headerChunk2.data() != NULL);
+  REQUIRE(chunkdef->type == 50);
+  REQUIRE(chunkdef->size == 3);
+
+  // Are we formatting the extended header correctly?
+  std::list<fieldtrip::FtHeaderChunk*> chunkList;
+  chunkList.push_back(&headerChunk2);
+  fieldtrip::FtHeader header3 = fieldtrip::FtHeader::extendedHeader(fieldtrip::BufferParameters(test_numChannels,test_sampleFreq,test_dataType),
+                                                                    chunkList);
+
+  REQUIRE(header3.size() == headerChunk2.size() + sizeof(fieldtrip::headerdef_t));
+  fieldtrip::headerdef_t* headerdef = reinterpret_cast<fieldtrip::headerdef_t*>(header3.data());
+  REQUIRE(headerdef->bufsize == headerChunk2.size());
 }
 
 //===================================================================

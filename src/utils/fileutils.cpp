@@ -7,23 +7,26 @@
 // Public API
 //==============================================================================
 
+bool FileUtils::fileExists(const std::string &filename)
+{
+  std::ifstream file(filename.c_str(), std::ios::binary);
+  if(!file){
+    std::cout << "FileUtils::size: Could not open file: " << filename << std::endl;
+    return false;
+  }
+  return true;
+}
+
 size_t FileUtils::size(const std::string& filePath)
 {
-  std::ifstream file(filePath.c_str(), std::ios::binary);
-  if(!file){
-    std::cout << "FileUtils::size: Could not open file: " << filePath << std::endl;
-    return 0;
+  if(fileExists(filePath)){
+    std::ifstream file(filePath.c_str(), std::ios::binary);
+    file.seekg(0, std::ios::end);
+    if(file.tellg() >= 0)
+      return static_cast<size_t>(file.tellg());
   }
-  file.seekg(0, std::ios::end);
-  if(file.tellg() < 0)
-  {
-    std::cout << "Error: FileUtils::size() failed to get file size" << std::endl;
-    return 0;
-  } else
-  {
-    std::cout<< "FileUtils::size() file size: " << file.tellg() << std::endl;
-    return static_cast<size_t>(file.tellg());
-  }
+  std::cout << "Error: FileUtils::size() failed to get file size" << std::endl;
+  return 0;
 }
 
 void FileUtils::fileToBuffer(const std::string &filePath,

@@ -7,6 +7,7 @@
 
 class FileUtils {
 public:
+  static bool fileExists(const std::string& filename);
   static size_t size(const std::string& filePath);
   static void fileToBuffer(const std::string& filePath,
                            void* buffer,

@@ -1,9 +1,7 @@
-//
-// Created by Gabriel Motta on 12/1/21.
-//
-
 #include "ftheader.hpp"
 #include "utils/fileutils.hpp"
+
+#include <iostream>
 
 size_t fieldtrip::FtHeader::size() const
 {
@@ -41,21 +39,6 @@ fieldtrip::FtHeader fieldtrip::FtHeader::extendedHeader(const fieldtrip::BufferP
   }
 
   return header;
-}
-
-fieldtrip::FtHeader fieldtrip::FtHeader::extendedHeader(const fieldtrip::BufferParameters &parameters,
-                                                        fieldtrip::FtHeaderChunk* chunks, ...)
-{
-  std::list<FtHeaderChunk *> chunkList;
-  va_list args;
-  va_start(args, chunks);
-  for(FtHeaderChunk *chunk = chunks; chunk != nullptr; chunk = va_arg(args, FtHeaderChunk *))
-  {
-    chunkList.push_back(chunk);
-  }
-  va_end(args);
-
-  return extendedHeader(parameters, chunkList);
 }
 
 void fieldtrip::FtHeader::appendHeaderChunk(const fieldtrip::FtHeaderChunk &chunk)

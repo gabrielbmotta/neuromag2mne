@@ -18,7 +18,6 @@ public:
   static FtHeader simpleHeader(const BufferParameters &parameters);
   static FtHeader extendedHeader(const BufferParameters &parameters,
                                  const std::list<FtHeaderChunk*>& chunks);
-  static FtHeader extendedHeader(const BufferParameters &parameters, FtHeaderChunk* chunks...);
 private:
   void appendHeaderChunk(const FtHeaderChunk &chunk);
   void setHeaderdef(const headerdef_t &headerdef);
