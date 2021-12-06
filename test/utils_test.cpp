@@ -4,6 +4,7 @@
 #include "utils/scopedpointer.hpp"
 #include "utils/sharedpointer.hpp"
 #include "utils/bytearray.hpp"
+#include "utils/fileutils.hpp"
 
 #include <unistd.h>
 
@@ -201,4 +202,13 @@ TEST_CASE("Testing byte array", "[byte_array]")
   REQUIRE(a.size() == sizeof(int));
   REQUIRE(a.data() != NULL);
   REQUIRE(*(reinterpret_cast<int*>(a.data())) == byteArrayTestVal);
+}
+
+//===================================================================
+// Testing file utils
+//===================================================================
+
+TEST_CASE("Testing file utils", "[fileutils]")
+{
+
 }

@@ -38,6 +38,12 @@ TEST_CASE("fieldtrip header formatting" "[ftmsg]")
   REQUIRE(*(reinterpret_cast<float*>(header2.data()) + 3) == test_sampleFreq);
   REQUIRE(*(reinterpret_cast<int32_t*>(header2.data()) + 4) == test_dataType);
 
+  // Are we formatting the header chunks correctly in memory?
+  fieldtrip::FtHeaderChunk headerChunk1;
+  REQUIRE(headerChunk1.size() == 0);
+  REQUIRE(headerChunk1.data() == NULL);
+
+  //fieldtrip::FtHeaderChunk headerChunk2 = fieldtrip::FtHeaderChunk::fromFile("../test/test_files/ftbuffer_testfile1.txt");
 }
 
 //===================================================================
