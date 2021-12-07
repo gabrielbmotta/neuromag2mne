@@ -55,7 +55,6 @@ TEST_CASE("fieldtrip header formatting" "[ftmsg]")
   chunkList.push_back(&headerChunk2);
   fieldtrip::FtHeader header3 = fieldtrip::FtHeader::extendedHeader(fieldtrip::BufferParameters(test_numChannels,test_sampleFreq,test_dataType),
                                                                     chunkList);
-
   REQUIRE(header3.size() == headerChunk2.size() + sizeof(fieldtrip::headerdef_t));
   fieldtrip::headerdef_t* headerdef = reinterpret_cast<fieldtrip::headerdef_t*>(header3.data());
   REQUIRE(headerdef->bufsize == headerChunk2.size());
@@ -81,8 +80,18 @@ TEST_CASE("fieldtrip message formatting" "[ftmsg]")
   REQUIRE(msg1.size() == 0);
   REQUIRE(msg1.data() == NULL);
 
+  // Are we formatting the message correctly in memory?
   fieldtrip::FtHeader header1 = fieldtrip::FtHeader::simpleHeader(fieldtrip::BufferParameters(test_numChannels,test_sampleFreq,test_dataType));
   fieldtrip::FtMessage msg2 = fieldtrip::FtMessage::headerMessage(header1);
-
+  REQUIRE(msg2.size() == header1.size() + sizeof(fieldtrip::messagedef_t));
+  REQUIRE(msg2.data() != NULL);
+  fieldtrip::messagedef_t* msgdef = reinterpret_cast<fieldtrip::messagedef_t*>(msg2.data());
+  REQUIRE(msgdef->bufsize == header1.size());
+  REQUIRE(msgdef->version == 1);
+  REQUIRE(msgdef->command == PUT_HDR);
+  fieldtrip::headerdef_t* headerdef = reinterpret_cast<fieldtrip::headerdef_t*>(reinterpret_cast<char*>(msg2.data()) + sizeof(fieldtrip::messagedef_t));
+  REQUIRE(headerdef->bufsize == 0);
+  REQUIRE(headerdef->nchans == test_numChannels);
+  REQUIRE(headerdef->fsample == test_sampleFreq);
 }
 
