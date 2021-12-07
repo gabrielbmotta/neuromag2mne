@@ -12,8 +12,8 @@
 // Testing threads
 //===================================================================
 
-int threadTestVal = 5;
-int threadTestSleepTime = 10000;
+const int threadTestVal = 5;
+const int threadTestSleepTime = 10000;
 
 struct ThreadTestStruct{
   int value;
@@ -48,9 +48,9 @@ TEST_CASE("Testing threads." , "[threads]")
 // Testing mutexes
 //===================================================================
 
-int mutexTestVal1 = 5;
-int mutexTestVal2 = 0;
-int mutexTestSleepTime = 10000;
+const int mutexTestVal1 = 5;
+const int mutexTestVal2 = 0;
+const int mutexTestSleepTime = 10000;
 
 struct MutexTestStruct{
   int value;
@@ -96,7 +96,7 @@ TEST_CASE("Testing mutex.", "[mutex]")
 // Testing scoped pointers
 //===================================================================
 
-int scopedPtrTestVal = 5;
+const int scopedPtrTestVal = 5;
 
 struct ScopedPointerTestObj
 {
@@ -123,7 +123,7 @@ TEST_CASE("Testing scoped pointer", "[scoped_pointer]")
 // Testing shared pointers
 //===================================================================
 
-int sharedPtrTestVal = 5;
+const int sharedPtrTestVal = 5;
 
 struct SharedPointerTestObj
 {
@@ -157,7 +157,7 @@ TEST_CASE("Testing shared pointer", "[shared_pointer]")
 // Testing byte array
 //===================================================================
 
-int byteArrayTestVal = 5;
+const int byteArrayTestVal = 5;
 
 TEST_CASE("Testing byte array", "[byte_array]")
 {

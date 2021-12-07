@@ -7,23 +7,25 @@
 //===================================================================
 // Testing struct sizes
 //===================================================================
-size_t expectedSizeofMessageDef = 8;
-size_t expectedSizeofHeaderDef = 24;
-size_t expectedSizeofDataDef = 16;
+const size_t expectedSizeofMessageDef = 8;
+const size_t expectedSizeofHeaderDef = 24;
+const size_t expectedSizeofDataDef = 16;
+const size_t expectedSizeofChunkDef = 8;
 
 TEST_CASE("fieldtrip struct sizes", "[ftstructs]")
 {
     REQUIRE(sizeof(fieldtrip::messagedef_t) == expectedSizeofMessageDef);
     REQUIRE(sizeof(fieldtrip::headerdef_t) == expectedSizeofHeaderDef);
     REQUIRE(sizeof(fieldtrip::datadef_t) == expectedSizeofDataDef);
+    REQUIRE(sizeof(fieldtrip::chunkdef_t) == expectedSizeofChunkDef);
 }
 
 //===================================================================
 // Testing header formatting
 //===================================================================
 
-int test_numChannels = 10, test_dataType = 1;
-float test_sampleFreq = 1000.0f;
+const int test_numChannels = 10, test_dataType = 1;
+const float test_sampleFreq = 1000.0f;
 
 TEST_CASE("fieldtrip header formatting" "[ftmsg]")
 {

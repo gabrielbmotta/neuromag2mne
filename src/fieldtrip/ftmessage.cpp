@@ -33,8 +33,14 @@ fieldtrip::FtMessage fieldtrip::FtMessage::headerMessage(const fieldtrip::FtHead
 
 fieldtrip::FtMessage fieldtrip::FtMessage::dataMessage(const FtData& data)
 {
-  (void)data;
-  return fieldtrip::FtMessage();
+  fieldtrip::FtMessage message;
+  if(data.size() > 0)
+  {
+    message.mByteArray.resize(data.size() + sizeof(messagedef_t));
+    message.setMessageDef(messagedef_t::putData(data.size()));
+    message.setMessageContent(data.data(), data.size());
+  }
+  return message;
 }
 
 void fieldtrip::FtMessage::setMessageDef(const fieldtrip::messagedef_t &messagedef)
