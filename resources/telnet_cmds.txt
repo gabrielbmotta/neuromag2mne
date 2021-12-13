@@ -1,0 +1,19 @@
+214-The available commands:
+214-	ABOU        ALL         ASSI        ASST        BSEN        
+214-	FCRE        FUPD        CLIS        CONN        DAUS        
+214-	DHPF        DOWN        DPTE        DSPP        ERAS        
+214-	EXIT        FLOG        FREE        FUNC        HELO        
+214-	HELP        LINK        LIST        MAXS        MEAS        
+214-	MODE        MONI        NAME        PARA        PASS        
+214-	PBDA        PBHE        PHAQ        PHAN        PLAY        
+214-	POWR        PPAC        PPAZ        PPDC        PPNC        
+214-	PPZC        QUIT        RAWD        RERR        RESD        
+214-	RESU        RLAY        RLAQ        RSTE        RSTM        
+214-	SAGN        SEND        SET         SETF        SETU        
+214-	SMSH        SRCS        STAT        STATE       STIM        
+214-	STOF        STON        STOP        STPB        SUSD        
+214-	SUSP        TELL        TEST        TNOF        TNON        
+214-	USE         VARA        VARF        VARS        VIEW        
+214-	WKUP        WHVM        
+214 You can try HELP <command>
+
