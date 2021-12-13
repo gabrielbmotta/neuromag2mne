@@ -10,6 +10,7 @@
 
 void addDataToQueue(SharedPointer<Data> data, void* ptr)
 {
+  std::cout << "Adding data to queue.\n";
   Controller* controller = static_cast<Controller*>(ptr);
   controller->mDataQueue->push(data);
 }

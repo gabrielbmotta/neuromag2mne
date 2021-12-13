@@ -96,4 +96,3 @@ TEST_CASE("fieldtrip message formatting" "[ftmsg]")
   REQUIRE(headerdef->nchans == test_numChannels);
   REQUIRE(headerdef->fsample == test_sampleFreq);
 }
-
