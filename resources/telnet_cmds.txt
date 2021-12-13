@@ -17,3 +17,10 @@
 214-	WKUP        WHVM        
 214 You can try HELP <command>
 
+CLIS - list connected clients.
+VARS [var name] - lists value of variable of that name. Lists all variables if run without input.
+MONI - monitors all traffic thorugh the server. Causes a crash when monioring and someone runs VARS with no input.
+
+-------------------
+Worth investigating further:
+PBHE - sends data header.
