@@ -63,6 +63,9 @@ void Controller::configureSources(const OptionsPack &parsingResult)
   {
     mSourceMode = FILE_READ;
     mFileNameToRead = parsingResult.fileNameToRead;
+  } else if ( parsingResult.neuromagMode )
+  {
+    mSourceMode = NEUROMAG;
   }
 }
 

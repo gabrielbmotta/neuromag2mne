@@ -28,6 +28,7 @@ OptionsPack InputArgumentsParser::parse(int argc, char **argv)
     {
       optionsOut.fileNameToRead = mParser.value("optionReadFromFile");
     }
+    optionsOut.neuromagMode = mParser.isSet("optionNeuromag");
     optionsOut.saveToFileMode = mParser.isSet("optionSaveToFile");
     if (mParser.isSet("optionSaveToFile") )
     {
@@ -92,6 +93,18 @@ void InputArgumentsParser::configureOptions()
                                     readFromFileHelp,
                                     CommandlineOption::WITH_VALUE);
   mParser.addOption(optionReadFromFile);
+
+  std::vector<std::string> neuromagModeFlags;
+  neuromagModeFlags.push_back("--neuromag");
+  neuromagModeFlags.push_back("-n");
+  std::vector<std::string> neuromagModeHelp;
+  neuromagModeHelp.push_back("Neuromag mode.");
+  neuromagModeHelp.push_back("Capturing raw data from a Neuromag system.");
+  CommandlineOption optionNeuromag("optionNeuromag",
+                                   neuromagModeFlags,
+                                   neuromagModeHelp,
+                                   CommandlineOption::WITHOUT_VALUE);
+  mParser.addOption(optionNeuromag);
 
   std::vector<std::string> saveToFileFlags;
   saveToFileFlags.push_back("-o");
