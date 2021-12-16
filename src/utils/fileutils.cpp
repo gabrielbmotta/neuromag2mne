@@ -7,6 +7,9 @@
 // Public API
 //==============================================================================
 
+/*
+Returns whether file at path exists.
+*/
 bool FileUtils::fileExists(const std::string &filename)
 {
   std::ifstream file(filename.c_str(), std::ios::binary);
@@ -17,6 +20,9 @@ bool FileUtils::fileExists(const std::string &filename)
   return true;
 }
 
+/*
+Returns the size of the file at path. If file does not exist this will return zero.
+*/
 size_t FileUtils::size(const std::string& filePath)
 {
   if(fileExists(filePath)){
@@ -29,6 +35,13 @@ size_t FileUtils::size(const std::string& filePath)
   return 0;
 }
 
+/*
+Reads the contents of the file at path to buffer variable.
+This function expects a buffer that has been allocated the
+correct size and a file that exists.
+
+Prefer using readFromFile instead of this function.
+*/
 void FileUtils::fileToBuffer(const std::string &filePath,
                              void *buffer,
                              size_t size)
@@ -38,7 +51,11 @@ void FileUtils::fileToBuffer(const std::string &filePath,
   in.read(static_cast<char*>(buffer), static_cast<std::streamsize>(size));
 }
 
-ByteArray FileUtils::getByteArrayFromFile(const std::string &path)
+/*
+Returns a byte array of the contents of the file at path. Returns
+empty byte array is file does not exist or is empty.
+*/
+ByteArray FileUtils::readFromFile(const std::string &path)
 {
   size_t fileSize = FileUtils::size(path);
 

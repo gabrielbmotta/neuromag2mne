@@ -79,7 +79,7 @@ fieldtrip::FtHeaderChunk fieldtrip::FtHeaderChunk::fromFile(const std::string &f
   FtHeaderChunk chunk;
   chunk.mByteArray.resize(sizeof(chunkdef_t) + size);
   chunk.setChunkDef(chunkdef_t(chunkId, static_cast<int32_t>(size)));
-  chunk.setChunkContents(FileUtils::getByteArrayFromFile(filename).data(), size);
+  chunk.setChunkContents(FileUtils::readFromFile(filename).data(), size);
 
   return chunk;
 }

@@ -210,5 +210,32 @@ TEST_CASE("Testing byte array", "[byte_array]")
 
 TEST_CASE("Testing file utils", "[fileutils]")
 {
-  REQUIRE(FileUtils::size("test/test_files/utils_testfile1.txt") == 5);
+  std::string testFilePath = "test/test_files/utils_testfile1.txt";
+  size_t expectedSize = 5;
+  char expectedContents[] = "abcde";
+
+  // Test file exists
+  REQUIRE(FileUtils::fileExists(testFilePath));
+
+  // Test getting file size
+  REQUIRE(FileUtils::size(testFilePath) == expectedSize);
+
+  //Test reading from file
+  ByteArray a = FileUtils::readFromFile(testFilePath);
+  REQUIRE(a.size() == expectedSize);
+  REQUIRE(a.data() != NULL);
+  char* data = reinterpret_cast<char*>(a.data());
+  REQUIRE(data[0] == expectedContents[0]);
+  REQUIRE(data[1] == expectedContents[1]);
+  REQUIRE(data[2] == expectedContents[2]);
+  REQUIRE(data[3] == expectedContents[3]);
+  REQUIRE(data[4] == expectedContents[4]);
+
+  char data2[expectedSize];
+  FileUtils::fileToBuffer(testFilePath, &data2, expectedSize);
+  REQUIRE(data2[0] == expectedContents[0]);
+  REQUIRE(data2[1] == expectedContents[1]);
+  REQUIRE(data2[2] == expectedContents[2]);
+  REQUIRE(data2[3] == expectedContents[3]);
+  REQUIRE(data2[4] == expectedContents[4]);
 }
