@@ -19,6 +19,7 @@ struct Tag {
   //      shared pointer?
 
   Tag();
+  Tag(const Tag&);
   ~Tag();
 
   Tag& operator = (const Tag& rhs);

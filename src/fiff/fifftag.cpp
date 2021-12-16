@@ -10,10 +10,28 @@ fiff::Tag::Tag()
   data = NULL;
 }
 
+fiff::Tag::Tag(const fiff::Tag& other)
+{
+  kind = other.kind;
+  type = other.type;
+  size = other.size;
+  next = other.next;
+
+  if(other.data && other.size > 0)
+  {
+    data = new char[size];
+    memcpy(data, other.data, static_cast<size_t>(other.size));
+  } else {
+    data = NULL;
+  }
+}
+
 fiff::Tag::~Tag()
 {
   if (data)
-    delete [] static_cast<char *>(data);
+  {
+    delete[] static_cast<char *>(data);
+  }
 }
 
 fiff::Tag &fiff::Tag::operator=(const fiff::Tag &rhs)
@@ -26,19 +44,15 @@ fiff::Tag &fiff::Tag::operator=(const fiff::Tag &rhs)
   size = rhs.size;
   next = rhs.next;
 
-  char* temp_data = NULL;
-
   if(rhs.data && rhs.size > 0)
   {
-    temp_data = new char[size];
-    memcpy(temp_data, rhs.data, static_cast<size_t>(rhs.size));
+    if(data)
+    {
+      delete [] (static_cast<char *>(data));
+    }
+    data = new char[size];
+    memcpy(data, rhs.data, static_cast<size_t>(rhs.size));
   }
-
-  if(data)
-  {
-    delete [] (static_cast<char *>(data));
-  }
-  data = temp_data;
 
   return *this;
 }
