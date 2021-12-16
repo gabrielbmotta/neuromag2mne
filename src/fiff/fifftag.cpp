@@ -36,24 +36,23 @@ fiff::Tag::~Tag()
 
 fiff::Tag &fiff::Tag::operator=(const fiff::Tag &rhs)
 {
-  if(this == &rhs)
-    return *this;
-
-  kind = rhs.kind;
-  type = rhs.type;
-  size = rhs.size;
-  next = rhs.next;
-
-  if(rhs.data && rhs.size > 0)
+  if(this != &rhs)
   {
-    if(data)
-    {
-      delete [] (static_cast<char *>(data));
-    }
-    data = new char[size];
-    memcpy(data, rhs.data, static_cast<size_t>(rhs.size));
-  }
+    kind = rhs.kind;
+    type = rhs.type;
+    size = rhs.size;
+    next = rhs.next;
 
+    if(rhs.data && rhs.size > 0)
+    {
+      if(data)
+      {
+        delete[] (static_cast<char *>(data));
+      }
+      data = new char[size];
+      memcpy(data, rhs.data, static_cast<size_t>(rhs.size));
+    }
+  }
   return *this;
 }
 

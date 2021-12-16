@@ -138,7 +138,6 @@ int SharedPointerTestObj::destroyed = 0;
 
 TEST_CASE("Testing shared pointer", "[shared_pointer]")
 {
-
   {
     SharedPointer<SharedPointerTestObj> test1;
     {
@@ -230,10 +229,10 @@ TEST_CASE("Testing file utils", "[fileutils]")
   size_t expectedSize = 5;
   char expectedContents[] = "abcde";
 
-  // Test file exists
+  //Test file exists
   REQUIRE(FileUtils::fileExists(testFilePath));
 
-  // Test getting file size
+  //Test getting file size
   REQUIRE(FileUtils::size(testFilePath) == expectedSize);
 
   //Test reading from file
