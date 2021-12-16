@@ -202,6 +202,22 @@ TEST_CASE("Testing byte array", "[byte_array]")
   REQUIRE(a.size() == sizeof(int));
   REQUIRE(a.data() != NULL);
   REQUIRE(*(reinterpret_cast<int*>(a.data())) == byteArrayTestVal);
+
+  //Are we overloading [] correctly?
+  ByteArray d;
+  d.resize(4);
+  d[0] = 'a';
+  d[1] = 'b';
+  d[2] = 'c';
+  d[3] = 'd';
+  REQUIRE(d.data()[0] == d[0]);
+  REQUIRE(d.data()[1] == d[1]);
+  REQUIRE(d.data()[2] == d[2]);
+  REQUIRE(d.data()[3] == d[3]);
+  REQUIRE(d[0] == 'a');
+  REQUIRE(d[1] == 'b');
+  REQUIRE(d[2] == 'c');
+  REQUIRE(d[3] == 'd');
 }
 
 //===================================================================

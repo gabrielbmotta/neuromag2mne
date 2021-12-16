@@ -69,3 +69,13 @@ void ByteArray::resize(size_t size)
   mSize = size;
 }
 
+uint8_t &ByteArray::operator[](size_t index)
+{
+  return mData[index];
+}
+
+const uint8_t &ByteArray::operator[](size_t index) const
+{
+  return mData[index];
+}
+

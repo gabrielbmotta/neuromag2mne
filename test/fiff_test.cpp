@@ -1,6 +1,7 @@
 #include "catch.hpp"
 #include "fiff/fifftag.hpp"
 #include "fiff/fifffilewriter.hpp"
+#include "utils/fileutils.hpp"
 
 #include <cstdio>
 
@@ -53,20 +54,34 @@ TEST_CASE("tags to file", "[tagtofile]")
 {
   std::string testFilename = "test.fif";
 
-
-  fiff::FileWriter writer;
-  writer.open(testFilename);
+  if(FileUtils::fileExists(testFilename))
+  {
+    std::remove(testFilename.c_str());
+  }
 
   fiff::Tag tag;
-  tag.kind = 1;
+  tag.kind = 3;
   tag.type = 2;
   tag.size = 1;
   tag.next = -1;
   tag.data = new char[1];
   char* data = reinterpret_cast<char*>(tag.data);
   data[0] = 'A';
+  {
+    fiff::FileWriter writer;
+    writer.open(testFilename);
+    writer.writeTag(tag);
+  }
 
-  writer.writeTag(tag);
+  size_t totalTagSize = sizeof (tag.kind) + sizeof (tag.type) + sizeof (tag.size) + sizeof (tag.next) + tag.size;
+  ByteArray fileData = FileUtils::readFromFile(testFilename);
+  REQUIRE(fileData.size() == totalTagSize);
+  int32_t* dataIntPtr = reinterpret_cast<int32_t*>(fileData.data());
+  REQUIRE(dataIntPtr[0] == tag.kind);
+  REQUIRE(dataIntPtr[1] == tag.type);
+  REQUIRE(dataIntPtr[2] == tag.size);
+  REQUIRE(dataIntPtr[3] == tag.next);
+  REQUIRE(fileData.data()[totalTagSize - 1] == 'A');
 
   std::remove(testFilename.c_str());
 }

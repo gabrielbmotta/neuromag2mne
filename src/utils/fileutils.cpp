@@ -8,7 +8,8 @@
 //==============================================================================
 
 /*
-Returns whether file at path exists.
+Returns whether file at path exists. If using a relative path,
+the call will be relative to the current working directory.
 */
 bool FileUtils::fileExists(const std::string &filename)
 {
@@ -21,7 +22,9 @@ bool FileUtils::fileExists(const std::string &filename)
 }
 
 /*
-Returns the size of the file at path. If file does not exist this will return zero.
+Returns the size of the file at path. If file does not exist this
+will return zero. If using a relative path, the call will be relative
+to the current working directory.
 */
 size_t FileUtils::size(const std::string& filePath)
 {
@@ -38,7 +41,8 @@ size_t FileUtils::size(const std::string& filePath)
 /*
 Reads the contents of the file at path to buffer variable.
 This function expects a buffer that has been allocated the
-correct size and a file that exists.
+correct size and a file that exists. If using a relative path,
+the call will be relative to the current working directory.
 
 Prefer using readFromFile instead of this function.
 */
@@ -53,7 +57,9 @@ void FileUtils::fileToBuffer(const std::string &filePath,
 
 /*
 Returns a byte array of the contents of the file at path. Returns
-empty byte array is file does not exist or is empty.
+empty byte array is file does not exist or is empty. If using a
+relative path, the call will be relative to the current working
+directory.
 */
 ByteArray FileUtils::readFromFile(const std::string &path)
 {
