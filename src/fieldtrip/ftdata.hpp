@@ -9,7 +9,6 @@ namespace fieldtrip {
 class FtData {
 public:
   size_t size() const;
-
   void *data() const;
 
 private:
