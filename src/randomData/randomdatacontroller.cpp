@@ -5,6 +5,23 @@
 void* randomData::generateData(void *input)
 {
   randomData::RandomDataController* pController = reinterpret_cast<RandomDataController*>(input);
+
+  SharedPointer<Data> sampleFreq(new Data);
+  {
+    SharedPointer<fiff::Tag> tag(new fiff::Tag);
+    *tag = fiff::samplingFrequencyTag(1000);
+    sampleFreq->tag = tag;
+  }
+  pController->mCallback(sampleFreq);
+
+  SharedPointer<Data> numChannels(new Data);
+  {
+    SharedPointer<fiff::Tag> tag(new fiff::Tag);
+    *tag = fiff::numberOfChannelsTag(10);
+    numChannels->tag = tag;
+  }
+  pController->mCallback(numChannels);
+
   while(pController->mContinueGenerating)
   {
     SharedPointer<Data> data = pController->createData();

@@ -136,6 +136,11 @@ struct SharedPointerTestObj
 };
 int SharedPointerTestObj::destroyed = 0;
 
+struct SharedPointerTestObj2
+{
+  SharedPointer<int> i;
+};
+
 TEST_CASE("Testing shared pointer", "[shared_pointer]")
 {
   {
@@ -150,6 +155,16 @@ TEST_CASE("Testing shared pointer", "[shared_pointer]")
   }
   SharedPointerTestObj test3;
   REQUIRE(test3.destroyed != 0);
+
+  SharedPointer<int> test4;
+  REQUIRE(test4.data() == NULL);
+
+  SharedPointer<int> test5(new int);
+  REQUIRE(test5.data() != NULL);
+
+  *test5 = sharedPtrTestVal;
+  REQUIRE(*test5 == sharedPtrTestVal);
+
 }
 
 //===================================================================
