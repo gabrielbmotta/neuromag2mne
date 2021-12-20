@@ -6,7 +6,7 @@
 
 struct Data{
   //very temporary todo: change asap
-  //SharedPointer<fiff::Tag> tag;
+  SharedPointer<fiff::Tag> tag;
   float value;
 };
 

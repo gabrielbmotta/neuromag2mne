@@ -13,6 +13,7 @@ class Thread
 {
 public:
     Thread();
+    ~Thread();
     bool startThread(void*(fcn)(void*), void* param);
     bool stopThread();
 

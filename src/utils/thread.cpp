@@ -8,6 +8,14 @@ Thread::Thread()
 
 }
 
+Thread::~Thread()
+{
+  if (mIsRunning)
+  {
+    stopThread();
+  }
+}
+
 bool Thread::startThread(void*(fcn)(void*), void* param)
 {
 #if defined __linux__ || defined __APPLE__

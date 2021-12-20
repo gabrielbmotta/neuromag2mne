@@ -49,8 +49,6 @@ private:
   inline bool dataAvailable() const;
   void checkForNewData();
 
-  void configureNeuromagController();
-  void configureRandomDataController();
   void configureFileReaderController();
 
   void configureFileWriterController();

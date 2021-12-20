@@ -29,6 +29,11 @@ TCPSocket::TCPSocket()
 {
 }
 
+TCPSocket::~TCPSocket()
+{
+  disconnect();
+}
+
 /*
 Connects to an address and port given by the input parameters.
 

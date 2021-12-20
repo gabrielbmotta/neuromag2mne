@@ -56,3 +56,25 @@ fiff::Tag &fiff::Tag::operator=(const fiff::Tag &rhs)
   return *this;
 }
 
+fiff::Tag fiff::samplingFrequencyTag(float samplingFrequency)
+{
+  fiff::Tag tag;
+  tag.kind = FIFF_SFREQ;
+  tag.type = FIFFT_FLOAT;
+  tag.size = 4;
+  tag.data = new char[tag.size];
+  memcpy(tag.data, &samplingFrequency, static_cast<size_t>(tag.size));
+  return tag;
+}
+
+fiff::Tag fiff::numberOfChannelsTag(int32_t numberOfChannels)
+{
+  fiff::Tag tag;
+  tag.kind = FIFF_NCHAN;
+  tag.type = FIFFT_INT;
+  tag.size = 4;
+  tag.data = new char[tag.size];
+  memcpy(tag.data, &numberOfChannels, static_cast<size_t>(tag.size));
+  return tag;
+}
+

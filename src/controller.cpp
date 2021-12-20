@@ -41,11 +41,11 @@ void Controller::parseInputArguments(const int argc, char* argv[])
 
 void Controller::configureSinks(const OptionsPack &parsingResult)
 {
-  if ( parsingResult.dontSendDataMode )
+  if(parsingResult.dontSendDataMode)
   {
     mDataSenderController->setSendDataMode(false);
   }
-  if ( parsingResult.saveToFileMode )
+  if(parsingResult.saveToFileMode)
   {
     mSaveToFileMode = true;
     mFileNameToSave = parsingResult.fileNameToSave;
@@ -58,22 +58,26 @@ void Controller::configureSinks(const OptionsPack &parsingResult)
 void Controller::configureSources(const OptionsPack &parsingResult)
 {
   mVerboseMode = parsingResult.verboseMode;
-  if ( parsingResult.randomDataMode )
+  if(parsingResult.randomDataMode)
   {
     mSourceMode = RANDOM_DATA;
-  } else if ( parsingResult.readFromFileMode )
+    mRandomDataController->setCallback(addDataToQueue, this);
+  }
+  else if(parsingResult.readFromFileMode)
   {
     mSourceMode = FILE_READ;
     mFileNameToRead = parsingResult.fileNameToRead;
-  } else if ( parsingResult.neuromagMode )
+  }
+  else if(parsingResult.neuromagMode)
   {
     mSourceMode = NEUROMAG;
+    mNeuromagController->registerDataCallback(addDataToQueue,this);
   }
 }
 
 void Controller::checkIfDisplayHelp(const OptionsPack &parsingResult)
 {
-  if ( parsingResult.displayHelp )
+  if(parsingResult.displayHelp)
   {
     displayHelp(mInputArgumentsController->getHelpStr());
     exit(0);
@@ -94,18 +98,16 @@ void Controller::start()
 {
   std::cout << "=== Controller Startup ===\n";
   if( mSourceMode == NEUROMAG ) {
-    configureNeuromagController();
+    mNeuromagController->start();
   } else if( mSourceMode == RANDOM_DATA ) {
-    configureRandomDataController();
+    mRandomDataController->start();
   } else if( mSourceMode == FILE_READ ) {
     configureFileReaderController();
   }
-
   if( mSaveToFileMode )
   {
     configureFileWriterController();
   }
-
   mDataSenderController->start();
 
   run();
@@ -175,20 +177,6 @@ void Controller::prepareToExitApplication()
   mFileWriterController->stop();
   mDataSenderController->stop();
 
-}
-
-void Controller::configureNeuromagController()
-{
-  //todo figure out how to report configuration options...
-  mNeuromagController->registerDataCallback(addDataToQueue,this);
-  mNeuromagController->start();
-}
-
-void Controller::configureRandomDataController()
-{
-  //todo figure out how to report configuration options...
-//  specify random generation algorithm.
-  mRandomDataController->start();
 }
 
 void Controller::configureFileReaderController()

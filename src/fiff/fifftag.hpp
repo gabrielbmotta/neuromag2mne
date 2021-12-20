@@ -36,5 +36,10 @@ struct Tag {
 //  }
 };
 
+
+Tag samplingFrequencyTag(float samplingFrequency);
+Tag numberOfChannelsTag(int32_t numberOfChannels);
+
+
 }//namespace
 #endif // NEUROMAG2MNE_FIFF_HPP
