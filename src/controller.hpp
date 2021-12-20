@@ -54,7 +54,6 @@ private:
   void configureFileReaderController();
 
   void configureFileWriterController();
-  void configureDataSenderController();
   void sendData();
   void prepareToExitApplication();
 

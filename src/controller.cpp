@@ -105,6 +105,9 @@ void Controller::start()
   {
     configureFileWriterController();
   }
+
+  mDataSenderController->start();
+
   run();
 }
 
@@ -201,11 +204,3 @@ void Controller::configureFileWriterController()
   //specify the filename ot write to.
   mFileWriterController->start();
 }
-
-void Controller::configureDataSenderController()
-{
-  //todo figure out how to report configuration options...
-  //specify the ip and port to connect to.
-  mDataSenderController->start();
-}
-

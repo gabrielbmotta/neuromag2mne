@@ -16,6 +16,7 @@ dataSender::DataSenderController::~DataSenderController()
 void dataSender::DataSenderController::start()
 {
 
+
 }
 
 void dataSender::DataSenderController::stop()
