@@ -29,6 +29,8 @@ struct OptionsPack
   bool saveToFileMode;
   std::string fileNameToSave;
   bool dontSendDataMode;
+  bool sendToFieldTripMode;
+  std::string fieldtripBufferAddr;
 
   void print() const
   {

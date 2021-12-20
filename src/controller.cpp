@@ -20,7 +20,6 @@ Controller::Controller()
       muSecondsSleepTime(100),
       mVerboseMode(false), // todo still we need to add a verbose thing a log system.
       mSourceMode(NEUROMAG),
-      mSendDataMode(true),
       mSaveToFileMode(false)
 {
 
@@ -44,12 +43,15 @@ void Controller::configureSinks(const OptionsPack &parsingResult)
 {
   if ( parsingResult.dontSendDataMode )
   {
-    mSendDataMode = false;
+    mDataSenderController->setSendDataMode(false);
   }
   if ( parsingResult.saveToFileMode )
   {
     mSaveToFileMode = true;
     mFileNameToSave = parsingResult.fileNameToSave;
+  }
+  if(parsingResult.sendToFieldTripMode){
+    mDataSenderController->setFieldtripMode(parsingResult.fieldtripBufferAddr);
   }
 }
 
@@ -103,10 +105,6 @@ void Controller::start()
   {
     configureFileWriterController();
   }
-  if ( mSendDataMode )
-  {
-    configureDataSenderController();
-  }
   run();
 }
 
@@ -133,11 +131,7 @@ void Controller::sendData()
 {
   while ( dataAvailable() )
   {
-    if ( mSendDataMode )
-    {
-//      mDataSenderController->send(mDataQueue.front());
-    }
-    if ( mSaveToFileMode )
+    if (mDataSenderController->sendDataModeActive())
     {
 //      mFileWriterController->write(mDataQueue.front());
     }
@@ -175,14 +169,9 @@ void Controller::prepareToExitApplication()
     mFileReaderController->stop();
   }
 
-  if( mSaveToFileMode )
-  {
-    mFileWriterController->stop();
-  }
-  if ( mSendDataMode )
-  {
-    mDataSenderController->stop();
-  }
+  mFileWriterController->stop();
+  mDataSenderController->stop();
+
 }
 
 void Controller::configureNeuromagController()

@@ -35,6 +35,11 @@ OptionsPack InputArgumentsParser::parse(int argc, char **argv)
       optionsOut.fileNameToSave = mParser.value("optionsSaveToFile");
     }
     optionsOut.dontSendDataMode = mParser.isSet("optionDontSendData");
+    optionsOut.sendToFieldTripMode = mParser.isSet("optionFieldtripBuffer");
+    if (mParser.isSet("optionFieldtripBuffer") )
+    {
+      optionsOut.fieldtripBufferAddr = mParser.value("optionFieldtripBuffer");
+    }
   }
   return optionsOut;
 }
@@ -126,6 +131,18 @@ void InputArgumentsParser::configureOptions()
                                     doNotSendDataFlags,
                                     doNotSendDataHelp);
   mParser.addOption(optionDontSendData);
+
+  std::vector<std::string> fieldTripBufferFlags;
+  fieldTripBufferFlags.push_back("-f");
+  fieldTripBufferFlags.push_back("--fieldtrip");
+  std::vector<std::string> fieldTripBufferHelp;
+  fieldTripBufferHelp.push_back("Send data to a FieldTrip buffer at given address.");
+  fieldTripBufferHelp.push_back("Specify the address to the buffer.");
+  CommandlineOption optionFieldtripBuffer("optionFieldtripBuffer",
+                                          fieldTripBufferFlags,
+                                          fieldTripBufferHelp,
+                                     CommandlineOption::WITH_VALUE);
+  mParser.addOption(optionFieldtripBuffer);
 }
 
 bool InputArgumentsParser::errorWhileParsingOptions() const

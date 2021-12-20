@@ -64,7 +64,6 @@ private:
   bool mVerboseMode;
   SourceModeType mSourceMode;
   std::string mFileNameToRead;
-  bool mSendDataMode;
   bool mSaveToFileMode;
   std::string mFileNameToSave;
 
