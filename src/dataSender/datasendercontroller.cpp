@@ -55,11 +55,18 @@ void dataSender::DataSenderController::setFieldtripMode(const std::string& host,
 
 void dataSender::DataSenderController::setFieldtripMode(const std::string& address)
 {
-  size_t pos = address.find(':');
-  if(pos != std::string::npos)
+  if(!address.empty())
   {
-    std::string host = address.substr(0, pos);
-    std::string port = address.substr(pos + 1);
-    setFieldtripMode(host, atoi(port.c_str()));
+    size_t pos = address.find(':');
+    if(pos != std::string::npos)
+    {
+      setFieldtripMode(address.substr(0, pos), atoi(address.substr(pos + 1).c_str()));
+    }
+    else
+    {
+      setFieldtripMode(address, 1972);
+    }
+  } else {
+    setFieldtripMode();
   }
 }

@@ -13,6 +13,7 @@ Attempts to connect to a fieldtrip buffer at the given address and port.
 */
 void fieldtrip::FtClient::connect(std::string address, unsigned short port)
 {
+  std::cout << "Trying to connec to " << address << ":" << port << std::endl;
   mSocket.connect(address, port);
 }
 
