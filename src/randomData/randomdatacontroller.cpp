@@ -23,7 +23,7 @@ void* randomData::generateData(void *input)
   }
   pController->mCallback(numChannels);
 
-  uint uSecSleepTime = static_cast<uint>((1.0 / pController->mParameters.updateFrequency) * 1000000.0);
+  uint uSecSleepTime = static_cast<uint>((static_cast<float>(pController->mParameters.chunkSize)/pController->mParameters.sampleFrequency) * 1000000);
 
   while(pController->mContinueGenerating)
   {
@@ -72,9 +72,27 @@ void randomData::RandomDataController::setCallback(void (*function)(SharedPointe
 
 SharedPointer<Data> randomData::RandomDataController::createData()
 {
-  SharedPointer<Data> data;
+  SharedPointer<Data> data(new Data);
 
   //create data
+  {
+    SharedPointer<fiff::Tag> tag(new fiff::Tag);
+    tag->kind = FIFF_DATA_BUFFER;
+    tag->type = FIFFT_INT;
+
+    tag->size = mParameters.numberOfChannels * mParameters.chunkSize * static_cast<int>(sizeof(int32_t));
+    size_t intBufferSize = static_cast<size_t>(tag->size) / sizeof(int32_t);
+
+    int* dataBuffer = new int32_t[intBufferSize];
+    for (size_t i = 0; i < intBufferSize; ++i)
+    {
+      dataBuffer[i] = rand();
+    }
+
+    tag->data = dataBuffer;
+
+    data->tag = tag;
+  }
 
   return data;
 }

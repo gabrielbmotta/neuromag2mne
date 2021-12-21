@@ -16,7 +16,7 @@ public:
 
   struct Parameters{
     float sampleFrequency;
-    float updateFrequency;
+    int chunkSize;
     int numberOfChannels;
   };
 
