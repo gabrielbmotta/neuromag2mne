@@ -16,6 +16,8 @@ public:
 
   struct Parameters{
     float sampleFrequency;
+    float updateFrequency;
+    int numberOfChannels;
   };
 
   struct Callback {

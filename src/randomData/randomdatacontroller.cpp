@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 
 #include "randomdatacontroller.hpp"
 
@@ -17,15 +18,18 @@ void* randomData::generateData(void *input)
   SharedPointer<Data> numChannels(new Data);
   {
     SharedPointer<fiff::Tag> tag(new fiff::Tag);
-    *tag = fiff::numberOfChannelsTag(10);
+    *tag = fiff::numberOfChannelsTag(pController->mParameters.numberOfChannels);
     numChannels->tag = tag;
   }
   pController->mCallback(numChannels);
+
+  uint uSecSleepTime = static_cast<uint>((1.0 / pController->mParameters.updateFrequency) * 1000000.0);
 
   while(pController->mContinueGenerating)
   {
     SharedPointer<Data> data = pController->createData();
     pController->mCallback(data);
+    usleep(uSecSleepTime);
   }
 
   return NULL;
@@ -48,7 +52,7 @@ void randomData::RandomDataController::start()
 
 void randomData::RandomDataController::stop()
 {
-
+  mContinueGenerating = false;
 }
 
 void randomData::RandomDataController::setParameters(const randomData::RandomDataController::Parameters& parameters)
