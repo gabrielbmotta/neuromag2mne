@@ -77,4 +77,3 @@ fiff::Tag fiff::numberOfChannelsTag(int32_t numberOfChannels)
   memcpy(tag.data, &numberOfChannels, static_cast<size_t>(tag.size));
   return tag;
 }
-
