@@ -61,6 +61,7 @@ void Controller::configureSources(const OptionsPack &parsingResult)
   if(parsingResult.randomDataMode)
   {
     mSourceMode = RANDOM_DATA;
+    mRandomDataController->setParameters(randomData::RandomDataController::Parameters());
     mRandomDataController->setCallback(addDataToQueue, this);
   }
   else if(parsingResult.readFromFileMode)

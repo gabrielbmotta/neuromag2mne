@@ -15,6 +15,7 @@ public:
   friend void* generateData(void*);
 
   struct Parameters{
+    Parameters() : sampleFrequency(1000), chunkSize(500), numberOfChannels(20){};
     float sampleFrequency;
     int chunkSize;
     int numberOfChannels;
