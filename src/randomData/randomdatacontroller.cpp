@@ -86,7 +86,7 @@ SharedPointer<Data> randomData::RandomDataController::createData()
     int* dataBuffer = new int32_t[intBufferSize];
     for (size_t i = 0; i < intBufferSize; ++i)
     {
-      dataBuffer[i] = rand();
+      dataBuffer[i] = 1;
     }
 
     tag->data = dataBuffer;

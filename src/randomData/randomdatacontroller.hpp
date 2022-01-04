@@ -2,6 +2,7 @@
 #define NEUROMAG2MNE_RANDOMDATACONTROLLER_HPP
 
 #include "data.hpp"
+#include <stdint.h>
 #include <vector>
 #include "utils/thread.hpp"
 
