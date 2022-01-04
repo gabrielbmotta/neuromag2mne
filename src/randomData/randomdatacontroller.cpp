@@ -23,7 +23,7 @@ void* randomData::generateData(void *input)
   }
   pController->mCallback(numChannels);
 
-  uint uSecSleepTime = static_cast<uint>((static_cast<float>(pController->mParameters.chunkSize)/pController->mParameters.sampleFrequency) * 1000000);
+  unsigned int uSecSleepTime = static_cast<unsigned int>((static_cast<float>(pController->mParameters.chunkSize)/pController->mParameters.sampleFrequency) * 1000000.f);
 
   while(pController->mContinueGenerating)
   {
