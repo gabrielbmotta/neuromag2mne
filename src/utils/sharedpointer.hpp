@@ -67,6 +67,11 @@ public:
     return mPtr;
   }
 
+  T& operator*() const
+  {
+    return *mPtr;
+  }
+
   T* data() const
   {
     return mPtr;

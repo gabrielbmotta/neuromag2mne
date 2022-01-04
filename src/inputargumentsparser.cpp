@@ -28,12 +28,18 @@ OptionsPack InputArgumentsParser::parse(int argc, char **argv)
     {
       optionsOut.fileNameToRead = mParser.value("optionReadFromFile");
     }
+    optionsOut.neuromagMode = mParser.isSet("optionNeuromag");
     optionsOut.saveToFileMode = mParser.isSet("optionSaveToFile");
     if (mParser.isSet("optionSaveToFile") )
     {
       optionsOut.fileNameToSave = mParser.value("optionsSaveToFile");
     }
     optionsOut.dontSendDataMode = mParser.isSet("optionDontSendData");
+    optionsOut.sendToFieldTripMode = mParser.isSet("optionFieldtripBuffer");
+    if (mParser.isSet("optionFieldtripBuffer") )
+    {
+      optionsOut.fieldtripBufferAddr = mParser.value("optionFieldtripBuffer");
+    }
   }
   return optionsOut;
 }
@@ -93,6 +99,18 @@ void InputArgumentsParser::configureOptions()
                                     CommandlineOption::WITH_VALUE);
   mParser.addOption(optionReadFromFile);
 
+  std::vector<std::string> neuromagModeFlags;
+  neuromagModeFlags.push_back("--neuromag");
+  neuromagModeFlags.push_back("-n");
+  std::vector<std::string> neuromagModeHelp;
+  neuromagModeHelp.push_back("Neuromag mode.");
+  neuromagModeHelp.push_back("Capturing raw data from a Neuromag system.");
+  CommandlineOption optionNeuromag("optionNeuromag",
+                                   neuromagModeFlags,
+                                   neuromagModeHelp,
+                                   CommandlineOption::WITHOUT_VALUE);
+  mParser.addOption(optionNeuromag);
+
   std::vector<std::string> saveToFileFlags;
   saveToFileFlags.push_back("-o");
   saveToFileFlags.push_back("--out");
@@ -113,6 +131,18 @@ void InputArgumentsParser::configureOptions()
                                     doNotSendDataFlags,
                                     doNotSendDataHelp);
   mParser.addOption(optionDontSendData);
+
+  std::vector<std::string> fieldTripBufferFlags;
+  fieldTripBufferFlags.push_back("-f");
+  fieldTripBufferFlags.push_back("--fieldtrip");
+  std::vector<std::string> fieldTripBufferHelp;
+  fieldTripBufferHelp.push_back("Send data to a FieldTrip buffer at given address.");
+  fieldTripBufferHelp.push_back("Specify the address to the buffer.");
+  CommandlineOption optionFieldtripBuffer("optionFieldtripBuffer",
+                                          fieldTripBufferFlags,
+                                          fieldTripBufferHelp,
+                                     CommandlineOption::WITH_VALUE);
+  mParser.addOption(optionFieldtripBuffer);
 }
 
 bool InputArgumentsParser::errorWhileParsingOptions() const

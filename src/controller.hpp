@@ -49,12 +49,9 @@ private:
   inline bool dataAvailable() const;
   void checkForNewData();
 
-  void configureNeuromagController();
-  void configureRandomDataController();
   void configureFileReaderController();
 
   void configureFileWriterController();
-  void configureDataSenderController();
   void sendData();
   void prepareToExitApplication();
 
@@ -64,7 +61,6 @@ private:
   bool mVerboseMode;
   SourceModeType mSourceMode;
   std::string mFileNameToRead;
-  bool mSendDataMode;
   bool mSaveToFileMode;
   std::string mFileNameToSave;
 

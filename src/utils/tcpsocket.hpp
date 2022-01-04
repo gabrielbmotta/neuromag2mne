@@ -14,6 +14,7 @@ class TCPSocket
 {
 public:
   TCPSocket();
+  ~TCPSocket();
 
   void connect(const char* addr, unsigned short int port);
   void connect(std::string addr, unsigned short int port);

@@ -10,7 +10,10 @@ public:
   explicit ByteArray(size_t size);
   ByteArray(const ByteArray&);
   ~ByteArray();
+
   ByteArray& operator=(const ByteArray&);
+  uint8_t& operator[](size_t index);
+  const uint8_t& operator[](size_t index) const;
 
   void clear();
   void resize(size_t size);

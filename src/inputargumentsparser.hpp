@@ -13,6 +13,7 @@ struct OptionsPack
    verboseMode(false),
    randomDataMode(false),
    readFromFileMode(false),
+   neuromagMode(false),
    fileNameToRead(""),
    saveToFileMode(false),
    fileNameToSave(""),
@@ -23,10 +24,13 @@ struct OptionsPack
   bool verboseMode;
   bool randomDataMode;
   bool readFromFileMode;
+  bool neuromagMode;
   std::string fileNameToRead;
   bool saveToFileMode;
   std::string fileNameToSave;
   bool dontSendDataMode;
+  bool sendToFieldTripMode;
+  std::string fieldtripBufferAddr;
 
   void print() const
   {
@@ -36,6 +40,7 @@ struct OptionsPack
     std::cout << "randomDataMode: " << randomDataMode << "\n";
     std::cout << "readFromFileMode: " << readFromFileMode << "\n";
     std::cout << "fileNameToRead: " << fileNameToRead << "\n";
+    std::cout << "neuromagMode: " << neuromagMode << "\n";
     std::cout << "saveToFileMode: " << saveToFileMode << "\n";
     std::cout << "fileNameToSave: " << fileNameToSave << "\n";
     std::cout << "dontSendDataMode; " << dontSendDataMode << "\n";

@@ -13,3 +13,11 @@ void* fieldtrip::FtData::data() const
 {
   return mByteArray.data();
 }
+
+void fieldtrip::FtData::setDataDef(const fieldtrip::datadef_t& def)
+{
+  if(mByteArray.size() >= sizeof(datadef_t))
+  {
+    *(reinterpret_cast<datadef_t*>(data())) = def;
+  }
+}

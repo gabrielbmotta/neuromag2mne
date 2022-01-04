@@ -73,6 +73,8 @@
 #define FIFF_HPI_COIL_FREQ              236
 #define FIFF_SIGNAL_CHANNEL             237
 
+#define FIFF_DATA_BUFFER                300
+
 #define FIFFC_HPI_MAX_NCOIL             1000
 
 #define FIFF_MNE_PROJ_ITEM_ACTIVE       3560       /**< Is this projection item active?*/
