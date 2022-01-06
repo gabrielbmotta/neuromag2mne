@@ -33,7 +33,7 @@ jobs:
           cloc src/
       - name: Run tests
         run: |
-          ./out-test-release/run_tests
+          ./out/release/run_tests
 
       # - name: Save results
       #   uses: actions/upload-artifact@v2
