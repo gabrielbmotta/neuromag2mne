@@ -3,16 +3,16 @@
 SOURCEDIR = src
 EXECUTABLE = neuromag2mne
 
-OUTDIR-RELEASE = out-release
-BUILDDIR-RELEASE = build-release
-OUTDIR-DEBUG = out-debug
-BUILDDIR-DEBUG = build-debug
+OUTDIR-RELEASE = out/release
+BUILDDIR-RELEASE = build/release
+OUTDIR-DEBUG = out/debug
+BUILDDIR-DEBUG = build/debug
 
-BUILDDIR-TEST-RELEASE = build-test-release
-OUTDIR-TEST-RELEASE = out-test-release
+BUILDDIR-TEST-RELEASE = build/release/tests
+OUTDIR-TEST-RELEASE = out/release/
 
-BUILDDIR-TEST-DEBUG = build-test-debug
-OUTDIR-TEST-DEBUG = out-test-debug
+BUILDDIR-TEST-DEBUG = build/debug/tests
+OUTDIR-TEST-DEBUG = out/debug/
 
 TEST-DIR = test
 TEST-EXECUTABLE = run_tests
@@ -96,7 +96,7 @@ release: $(OUTDIR-RELEASE)/$(EXECUTABLE)
 
 debug: $(OUTDIR-DEBUG)/$(EXECUTABLE)
 
-test: test-release
+test: test-release test-debug
 
 test-release: $(OUTDIR-TEST-RELEASE)/$(TEST-EXECUTABLE)
 
