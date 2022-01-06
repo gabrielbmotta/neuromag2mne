@@ -2,7 +2,7 @@
 #define NEUROMAG2MNE_FTDATA_HPP
 
 #include "fieldtriptypes.hpp"
-#include "utils/bytearray.hpp"
+#include "application/utils/bytearray.hpp"
 
 namespace fieldtrip {
 

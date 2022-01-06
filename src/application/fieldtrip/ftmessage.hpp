@@ -4,7 +4,7 @@
 #include "fieldtriptypes.hpp"
 #include "ftheader.hpp"
 #include "ftdata.hpp"
-#include "utils/bytearray.hpp"
+#include "application/utils/bytearray.hpp"
 #include <string>
 #include <cstring>
 #include <utility>

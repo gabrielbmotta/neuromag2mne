@@ -3,7 +3,7 @@
 #define NEUROMAG2MNE_NEUROMAG2MNE_HPP
 
 #include "controller.hpp"
-#include "utils/scopedpointer.hpp"
+#include "application/utils/scopedpointer.hpp"
 
 
 //version

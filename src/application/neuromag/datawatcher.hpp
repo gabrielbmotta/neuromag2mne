@@ -2,10 +2,10 @@
 #ifndef NEUROMAG2MNE_DATAWATCHER_HPP
 #define NEUROMAG2MNE_DATAWATCHER_HPP
 
-#include "utils/thread.hpp"
+#include "application/utils/thread.hpp"
 #include "sharedmemorymanager.hpp"
-#include "utils/stringcallbackpair.hpp"
-#include "utils/sharedpointer.hpp"
+#include "application/utils/stringcallbackpair.hpp"
+#include "application/utils/sharedpointer.hpp"
 
 #include <string>
 #include <vector>

@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 
-#include "utils/tcpsocket.hpp"
-#include "data.hpp"
-#include "utils/sharedpointer.hpp"
+#include "application/utils/tcpsocket.hpp"
+#include "application/data.hpp"
+#include "application/utils/sharedpointer.hpp"
 
 #include "fieldtriptypes.hpp"
 #include "ftheader.hpp"
