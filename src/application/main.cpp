@@ -1,8 +1,8 @@
 // neuromag2mne application
 
 #include "neuromag2mne.hpp"
-#include "fieldtrip/ftclient.hpp"
-#include "fiff/fifffilewriter.hpp"
+//#include "modules/fieldtrip/ftclient.hpp"
+//#include "modules/fiff/fifffilewriter.hpp"
 
 int main (int argc, char* argv[])
 {

@@ -1,8 +1,8 @@
 #include "catch.hpp"
-#include "fieldtrip/ftclient.hpp"
-#include "fieldtrip/ftheader.hpp"
-#include "fieldtrip/ftdata.hpp"
-#include "fieldtrip/ftmessage.hpp"
+#include "application/modules/fieldtrip/ftclient.hpp"
+#include "application/modules/fieldtrip/ftheader.hpp"
+#include "application/modules/fieldtrip/ftdata.hpp"
+#include "application/modules/fieldtrip/ftmessage.hpp"
 
 //===================================================================
 // Testing struct sizes

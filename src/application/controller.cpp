@@ -3,9 +3,9 @@
 #include <cstdlib>
 #include "controller.hpp"
 #include "inputargumentsparser.hpp"
-#include "neuromag/neuromagcontroller.hpp"
-#include "randomData/randomdatacontroller.hpp"
-#include "fiff/filecontroller.hpp"
+#include "modules/neuromag/neuromagcontroller.hpp"
+#include "modules/randomData/randomdatacontroller.hpp"
+#include "modules/fromFile/filecontroller.hpp"
 #include "dataSender/datasendercontroller.hpp"
 
 void addDataToQueue(SharedPointer<Data> data, void* ptr)

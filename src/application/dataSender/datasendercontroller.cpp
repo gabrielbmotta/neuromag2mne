@@ -34,7 +34,7 @@ void dataSender::DataSenderController::setSendDataMode(bool sendDataMode)
   mSendDataMode = sendDataMode;
 }
 
-bool dataSender::DataSenderController::sendDataModeActive()
+bool dataSender::DataSenderController::sendDataModeActive() const
 {
   return mSendDataMode;
 }

@@ -3,7 +3,7 @@
 
 #include "utils/scopedpointer.hpp"
 #include "utils/multithreadqueue.hpp"
-#include "data.hpp"
+#include "application/data.hpp"
 #include "utils/sharedpointer.hpp"
 
 namespace neuromag{
