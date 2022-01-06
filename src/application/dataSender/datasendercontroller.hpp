@@ -2,7 +2,7 @@
 #define NEUROMAG2MNE_DATASENDERCONTROLLER_HPP
 
 #include <string>
-#include <application/fieldtrip/ftclient.hpp>
+#include <modules/fieldtrip/ftclient.hpp>
 
 namespace dataSender {
 

@@ -1,7 +1,7 @@
 #ifndef NEUROMAG2MNE_TAGPARSER_HPP
 #define NEUROMAG2MNE_TAGPARSER_HPP
 
-#include "application/fiff/fifftag.hpp"
+#include "fiff/fifftag.hpp"
 
 class TagParser
 {

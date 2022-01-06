@@ -2,7 +2,7 @@
 #define NEUROMAG2MNE_FTHEADER_HPP
 
 #include "fieldtriptypes.hpp"
-#include "application/utils/bytearray.hpp"
+#include "utils/bytearray.hpp"
 #include <list>
 #include <cstring>
 

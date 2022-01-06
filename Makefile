@@ -46,7 +46,7 @@ CXXFLAGS-WARNINGS := -Wall  -Wpedantic \
 	-Wvariadic-macros \
 	-Wwrite-strings \
 
-CXXFLAGS-COMMON=$(CXXFLAGS-WARNINGS) -Werror -std=c++98 -Isrc/ #-std=c++11 -std=c++14 -std=c++17
+CXXFLAGS-COMMON=$(CXXFLAGS-WARNINGS) -Werror -std=c++98 -Isrc/ -Isrc/application -Isrc/libraries #-std=c++11 -std=c++14 -std=c++17
 
 CXXFLAGS-RELEASE=-DNDEBUG -O3 $(CXXFLAGS-COMMON)
 CXXFLAGS-DEBUG=-DDEBUG -g $(CXXFLAGS-COMMON)

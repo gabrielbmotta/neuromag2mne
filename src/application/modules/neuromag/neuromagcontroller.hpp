@@ -1,10 +1,10 @@
 #ifndef NEUROMAG2MNE_NEUROMAGCONTROLLER_HPP
 #define NEUROMAG2MNE_NEUROMAGCONTROLLER_HPP
 
-#include "application/utils/scopedpointer.hpp"
-#include "application/utils/multithreadqueue.hpp"
+#include "utils/scopedpointer.hpp"
+#include "utils/multithreadqueue.hpp"
 #include "application/data.hpp"
-#include "application/utils/sharedpointer.hpp"
+#include "utils/sharedpointer.hpp"
 
 namespace neuromag{
 
