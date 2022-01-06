@@ -20,6 +20,9 @@ TEST-EXECUTABLE = run_tests
 DIRECTORIES = $(wildcard $(SOURCEDIR)/*)
 SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
 SOURCES += $(wildcard $(SOURCEDIR)/*/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/*/*/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/*/*/*/*.cpp)
+SOURCES += $(wildcard $(SOURCEDIR)/*/*/*/*/*.cpp)
 
 TEST-SOURCES = $(wildcard $(TEST-DIR)/*.cpp)
 
@@ -46,13 +49,13 @@ CXXFLAGS-WARNINGS := -Wall  -Wpedantic \
 	-Wvariadic-macros \
 	-Wwrite-strings \
 
-CXXFLAGS-COMMON=$(CXXFLAGS-WARNINGS) -Werror -std=c++98 -Isrc/ -Isrc/application -Isrc/libraries #-std=c++11 -std=c++14 -std=c++17
+CXXFLAGS-COMMON=$(CXXFLAGS-WARNINGS) -Werror -std=c++98 -Isrc/ -Isrc/application/ -Isrc/libraries/ #-std=c++11 -std=c++14 -std=c++17
 
 CXXFLAGS-RELEASE=-DNDEBUG -O3 $(CXXFLAGS-COMMON)
 CXXFLAGS-DEBUG=-DDEBUG -g $(CXXFLAGS-COMMON)
 
-CXXFLAGS-TEST-RELEASE=-DNDEBUG -O3 -std=c++98 -Isrc/
-CXXFLAGS-TEST-DEBUG=-DDEBUG -g -std=c++98 -Isrc/
+CXXFLAGS-TEST-RELEASE=-DNDEBUG -O3 -std=c++98 -Isrc/ -Isrc/application/ -Isrc/libraries/
+CXXFLAGS-TEST-DEBUG=-DDEBUG -g -std=c++98 -Isrc/ -Isrc/application/ -Isrc/libraries/
 
 ##############################################################################
 ##############################################################################

@@ -6,10 +6,10 @@
 #include <queue>
 
 #include "neuromag2mne.hpp"
-#include "libraries/utils/scopedpointer.hpp"
-#include "libraries/utils/sharedpointer.hpp"
+#include "utils/scopedpointer.hpp"
+#include "utils/sharedpointer.hpp"
 #include "inputargumentsparser.hpp"
-#include "libraries/utils/multithreadqueue.hpp"
+#include "utils/multithreadqueue.hpp"
 #include "data.hpp"
 
 class InputArgumentsParser;

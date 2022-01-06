@@ -20,7 +20,7 @@ public:
   void send();
 
   void setSendDataMode(bool sendDataMode);
-  bool sendDataModeActive();
+  bool sendDataModeActive() const;
 
   void setFieldtripMode();
   void setFieldtripMode(const std::string& host, int port);

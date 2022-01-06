@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 #include "commandwatcher.hpp"
-#include "application/utils/tcpsocket.hpp"
+#include "utils/tcpsocket.hpp"
 
 /*
 Enters loop to watch telnet commands and call callbacks as they get triggered.

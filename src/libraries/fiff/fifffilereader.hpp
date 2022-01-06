@@ -3,7 +3,7 @@
 
 #include <fstream>
 #include <string>
-#include "libraries/fiff/fifftag.hpp"
+#include "fiff/fifftag.hpp"
 
 namespace fiff {
 class FileReader {

@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include "libraries/utils/commandlineoptionsparser.hpp"
+#include "utils/commandlineoptionsparser.hpp"
 
 struct OptionsPack
 {
@@ -17,7 +17,9 @@ struct OptionsPack
    fileNameToRead(""),
    saveToFileMode(false),
    fileNameToSave(""),
-   dontSendDataMode(false)
+   dontSendDataMode(false),
+   sendToFieldTripMode(false),
+   fieldtripBufferAddr("")
    { }
 
   bool displayHelp;
@@ -51,7 +53,6 @@ class InputArgumentsParser
 {
 public:
   InputArgumentsParser();
-  ~InputArgumentsParser();
   OptionsPack parse(int argc, char* argv[]);
   std::string getHelpStr();
   bool errorWhileParsingOptions() const;

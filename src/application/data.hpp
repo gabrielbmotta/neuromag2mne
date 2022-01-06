@@ -1,8 +1,8 @@
 #ifndef NEUROMAG2MNE_DATA_HPP
 #define NEUROMAG2MNE_DATA_HPP
 
-#include "libraries/fiff/fifftag.hpp"
-#include "libraries/utils/sharedpointer.hpp"
+#include "fiff/fifftag.hpp"
+#include "utils/sharedpointer.hpp"
 
 struct Data{
   //very temporary todo: change asap
