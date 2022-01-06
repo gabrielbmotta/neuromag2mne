@@ -13,12 +13,7 @@ the call will be relative to the current working directory.
 */
 bool FileUtils::fileExists(const std::string &filename)
 {
-  std::ifstream file(filename.c_str(), std::ios::binary);
-  if(!file){
-    std::cout << "FileUtils::size: Could not open file: " << filename << std::endl;
-    return false;
-  }
-  return true;
+  return std::ifstream(filename.c_str(), std::ios::binary);
 }
 
 /*
